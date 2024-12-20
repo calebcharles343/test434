@@ -22,13 +22,9 @@ export function useDeleteReview(productId: number) {
   } = useMutation<void, FetchError, number>({
     mutationFn: (reviewId: number) => deleteReviewApi(productId, reviewId),
     onSuccess: () => {
-      toast.success("Review deleted");
-
       queryClient.invalidateQueries([`Reviews-${productId}`] as any);
     },
     onError: (error) => {
-      toast.error("Error deleting review");
-
       const errorMessage =
         error.response?.data.message ||
         "An error occurred while deleting the product.";

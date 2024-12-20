@@ -27,9 +27,9 @@ const ProductDetails: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <div className="flex flex-col md:flex-row lg:w-[700px] gap-8 p-4 overflow-y-auto">
+      <div className="flex flex-col md:flex-row lg:w-[800px] gap-8 p-4 overflow-y-auto">
         {/* Product Section */}
-        <div className="md:w-1/2">
+        <div className="md:w-1/2 mr-4">
           <SingleProduct product={mainProduct} ID={ID} />
           <ReviewForm productId={ID} refetchReviews={refetchReviews} />
         </div>
