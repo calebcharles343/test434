@@ -2,12 +2,14 @@ import { useState } from "react";
 import { ReviewType } from "../../interfaces.ts";
 import { localStorageUser } from "../../utils/localStorageUser.ts";
 import { useDeleteReview } from "./useDeleteReview.ts";
+import UpdateReviewForm from "./updateReviewForm .tsx";
 
 interface ReviewProps {
   review: ReviewType;
+  refetchReviews: () => void;
 }
 
-const Review: React.FC<ReviewProps> = ({ review }) => {
+const Review: React.FC<ReviewProps> = ({ review, refetchReviews }) => {
   const [isEdit, isSetEdit] = useState<boolean>(false);
 
   const { deleteReview } = useDeleteReview(review?.productId!);
@@ -47,7 +49,15 @@ const Review: React.FC<ReviewProps> = ({ review }) => {
           </p>
         </div>
       </div>
-      {isEdit && <div className="border px-4"></div>}
+      {isEdit && (
+        <div className="border px-4 pb-4">
+          <UpdateReviewForm
+            reviewId={review.id!}
+            productId={review.productId!}
+            refetchReviews={refetchReviews}
+          />
+        </div>
+      )}
     </div>
   );
 };

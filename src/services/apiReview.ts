@@ -64,6 +64,8 @@ export const updateReview = async (
   reviewId: number,
   reviewData: ReviewType
 ) => {
+  console.log(productId, reviewId, "3,7", reviewData, "❌❌❌");
+
   const response = await axiosInstance.patch(
     `/reviews/update/${productId}/${reviewId}`,
     reviewData

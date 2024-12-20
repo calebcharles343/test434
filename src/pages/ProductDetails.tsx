@@ -47,7 +47,11 @@ const ProductDetails: React.FC = () => {
             <h2 className="text-lg font-semibold mb-2">Reviews</h2>
             {reviews?.data.length ? (
               reviews.data.map((review: ReviewType) => (
-                <Review key={review.id} review={review} />
+                <Review
+                  key={review.id}
+                  review={review}
+                  refetchReviews={refetchReviews}
+                />
               ))
             ) : (
               <p>No reviews available</p>

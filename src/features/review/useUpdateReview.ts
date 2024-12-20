@@ -29,7 +29,7 @@ export function useUpdateReview(productId: number) {
     mutationFn: ({ reviewId, data }: UpdateReviewParams) =>
       updateReviewApi(productId, reviewId, data),
     onSuccess: () => {
-      toast.success("Review created");
+      toast.success("Review updated");
       queryClient.invalidateQueries([`Reviews-${productId}`] as any);
     },
     onError: (error) => {

@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
-import { useState } from "react";
 import { createReview as createReviewApi } from "../../services/apiReview.ts";
 import { ReviewType } from "../../interfaces.ts";
 import toast from "react-hot-toast";
