@@ -11,7 +11,7 @@ function CheckBox({ checked, onChange, label }: CheckboxProps) {
       />
       <div
         className={`w-4 h-4 rounded-md flex items-center justify-center transition-all duration-300 ${
-          checked ? "bg-[#5964E0]" : "bg-[#e0e0e0]"
+          checked ? "bg-[#FFA82B]" : "bg-[#e0e0e0] border border-[#FFA82B]"
         } relative`}
       >
         {/* <div

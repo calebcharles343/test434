@@ -1,17 +1,19 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFetchProducts } from "./useFetchProducts.ts";
 import { setProducts } from "../../store/productsSlice.ts";
 import { ProductType } from "../../interfaces.ts";
 import Modal from "../../ui/Modal.tsx";
 import CreateProductForm from "./CreateProductForm.tsx";
 import SingleProduct from "./SingleProduct.tsx";
-import { useSelector } from "react-redux";
 import { RootState } from "../../store/store.ts";
 
 const Products: React.FC = () => {
   const dispatch = useDispatch();
-  const query = useSelector((state: RootState) => state.SearchBarQuery);
+  const query = useSelector((state: RootState) => state.SearchBarQuery.query);
+  const filterByRating = useSelector(
+    (state: RootState) => state.SearchBarQuery.filterByRating
+  );
 
   // Fetch products using React Query
   const { products, isLoadingProducts, refetchProducts } = useFetchProducts();
@@ -48,13 +50,17 @@ const Products: React.FC = () => {
     return <div>Loading products...</div>;
   }
 
-  const filteredProducts = products?.data.filter((p) =>
-    p.name.includes(query.query)
-  );
+  // Filter products based on name, description, and category
+  const filteredProducts = products?.data.filter((p) => {
+    const queryMatch =
+      p.name.toLowerCase().includes(query.toLowerCase()) ||
+      p.description.toLowerCase().includes(query.toLowerCase()) ||
+      p.category.toLowerCase().includes(query.toLowerCase());
 
-  console.log(filteredProducts);
+    const ratingMatch = !filterByRating || p.ratingAverage >= 4;
 
-  console.log("Current Query:❌❌❌❌", query);
+    return queryMatch && ratingMatch;
+  });
   return (
     <div className="flex flex-col items-center min-w-full md:min-w-[400px] gap-4">
       {storedUser?.role === "Admin" && (
@@ -76,7 +82,7 @@ const Products: React.FC = () => {
         </div>
       )}
       <ul className="grid grid-cols-1 mid:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
-        {products?.data.map((product: ProductType) => (
+        {filteredProducts?.map((product: ProductType) => (
           <SingleProduct key={product.id} product={product} />
         ))}
       </ul>

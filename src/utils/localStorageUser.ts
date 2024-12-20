@@ -6,7 +6,6 @@ export function localStorageUser() {
   if (storedUserJSON) {
     try {
       storedUser = JSON.parse(storedUserJSON);
-      console.log(storedUser);
     } catch (error) {
       console.error("Error parsing stored user data:", error);
     }
