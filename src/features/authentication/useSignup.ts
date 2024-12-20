@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import { signup as signupApi } from "../../services/apiAuth.ts";
 import { AxiosError, AxiosResponse } from "axios";
-import { useState } from "react";
+import { toast } from "react-hot-toast";
+import Cookies from "js-cookie";
 
 interface SignupT {
   name: string;
@@ -22,7 +22,6 @@ interface LoginError extends AxiosError {
 }
 
 export function useSignup() {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -49,13 +48,11 @@ export function useSignup() {
           sameSite: "strict",
         });
 
+        toast.success("Sign up successfull");
         // Navigate to home page after successful login
         navigate("/home", { replace: true });
-      } else if (data.status !== 200) {
-        console.log(data.message);
-
-        setErrorMessage(data.message);
-        console.error("Login Error:", data.message); // Log error directly here
+      } else {
+        console.error("Login Error:", data.message);
       }
     },
 
@@ -63,9 +60,8 @@ export function useSignup() {
       // Check if the error has a response, if so, display it
       const error = err.response?.data.message || "An error occurred";
       console.error("Login Error:", error);
-      setErrorMessage(error); // Set the error message to display
     },
   });
 
-  return { signup, isPending, isError, errorMessage };
+  return { signup, isPending, isError };
 }

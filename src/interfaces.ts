@@ -127,3 +127,10 @@ export interface ReviewType {
   rating: number;
   user: Partial<UserType>;
 }
+
+export interface CheckboxProps {
+  name?: string;
+  checked: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label: string;
+}

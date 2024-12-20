@@ -14,16 +14,16 @@ import CartPage from "./pages/CartPage.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ProductDetails from "./pages/ProductDetails.tsx";
+import { Toaster } from "react-hot-toast";
 
-// Initialize QueryClient instance
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 0,
+      staleTime: 0, // Always refetch data
+      refetchOnWindowFocus: true,
     },
   },
 });
-
 const router = createBrowserRouter([
   {
     element: (
@@ -52,6 +52,26 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 5000,
+          },
+          style: {
+            fontSize: "16px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+            backgroundColor: "white",
+            color: "var(--color-grey-700)",
+          },
+        }}
+      />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

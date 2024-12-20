@@ -1,61 +1,45 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { login as loginApi } from "../../services/apiAuth";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import Cookies from "js-cookie";
-import { login as loginApi } from "../../services/apiAuth.ts";
-import { AxiosError, AxiosResponse } from "axios";
-import { useState } from "react";
-
-interface LoginT {
-  email: string;
-  password: string;
-}
-
-interface ErrorResponse {
-  message: string;
-}
-
-interface LoginError extends AxiosError {
-  response?: AxiosResponse<ErrorResponse>;
-}
 
 export function useLogin() {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const {
-    mutate: login,
-    isPending,
-    isError,
-  } = useMutation({
-    mutationFn: ({ email, password }: LoginT) => loginApi(email, password),
+  const { mutate: login, isPending } = useMutation({
+    mutationFn: ({ email, password }: { email: string; password: string }) =>
+      loginApi(email, password),
     onSuccess: (data) => {
       if (data.status === 200) {
         const userData = data.data.user;
 
-        // Update React Query cache with user data
-        queryClient.setQueryData(["user"], userData);
-        localStorage.setItem("localUser", JSON.stringify(userData));
+        // Clear React Query cache
+        queryClient.clear();
 
+        // Set JWT token in cookies
         Cookies.set("jwt", data.data.token, {
           expires: 7,
           secure: true,
           sameSite: "strict",
         });
 
+        // Set user data in React Query cache
+        queryClient.setQueryData(["user", userData.id], userData);
+        localStorage.setItem("localUser", JSON.stringify(userData));
+        // Redirect to the home page
         navigate("/home", { replace: true });
       } else {
-        setErrorMessage(data.message);
+        toast.error("Provided email or password are incorrect");
         console.error("Login Error:", data.message);
       }
     },
-    onError: (err: LoginError) => {
-      const error = err.response?.data.message || "An error occurred";
-      setErrorMessage(error);
-      console.error("Login Error:", error);
+    onError: (err) => {
+      toast.error("Network or server error");
+      console.log("ERROR", err);
     },
   });
 
-  return { login, isPending, isError, errorMessage };
+  return { login, isPending };
 }

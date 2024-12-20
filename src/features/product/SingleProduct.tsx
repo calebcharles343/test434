@@ -13,6 +13,7 @@ import { useUploadImage } from "../../hooks/images/useUploadImage.ts";
 import { useGetProduct } from "./useGetProduct.ts";
 import { useDeleteProduct } from "./useDeleteProduct.ts";
 import { imageHeader } from "../../utils/imageApiHeader.ts";
+import { localStorageUser } from "../../utils/localStorageUser.ts";
 
 interface ProductProps {
   product: any;
@@ -34,18 +35,7 @@ export default function SingleProduct({ product, ID }: ProductProps) {
   const { deleteProduct } = useDeleteProduct();
 
   // get user
-  const storedUserJSON = localStorage.getItem("localUser");
-  let storedUser = null;
-
-  if (storedUserJSON) {
-    try {
-      storedUser = JSON.parse(storedUserJSON);
-    } catch (error) {
-      console.error("Error parsing stored user data:", error);
-    }
-  } else {
-    console.log("No stored user found");
-  }
+  const localStorageUserX = localStorageUser();
 
   //upload image hook
   const { uploadImage, isUploading } = useUploadImage(
@@ -163,7 +153,7 @@ export default function SingleProduct({ product, ID }: ProductProps) {
         <StarRating initialRating={product?.ratingAverage} />
       </div>
 
-      {id && storedUser?.role === "Admin" && (
+      {id && localStorageUserX?.role === "Admin" && (
         <div className="flex items-center justify-between gap-2 mt-2">
           <div className="bg-white rounded-md p-1">
             <input

@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./cartSlice.ts";
 import modalReducer from "./modalSlice.ts"; // Import the modal slice
 import productsReducer from "./productsSlice.ts"; // Import the modal slice
+import SearchBarReducer from "./searchBarSlice.ts"; // Import the modal slice
 
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
     modal: modalReducer,
-    products: productsReducer, // Add modal reducer here
+    products: productsReducer,
+    SearchBarQuery: SearchBarReducer, // Add modal reducer here
   },
 });
 

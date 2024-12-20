@@ -6,9 +6,12 @@ import { ProductType } from "../../interfaces.ts";
 import Modal from "../../ui/Modal.tsx";
 import CreateProductForm from "./CreateProductForm.tsx";
 import SingleProduct from "./SingleProduct.tsx";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store.ts";
 
 const Products: React.FC = () => {
   const dispatch = useDispatch();
+  const query = useSelector((state: RootState) => state.SearchBarQuery);
 
   // Fetch products using React Query
   const { products, isLoadingProducts, refetchProducts } = useFetchProducts();
@@ -45,6 +48,13 @@ const Products: React.FC = () => {
     return <div>Loading products...</div>;
   }
 
+  const filteredProducts = products?.data.filter((p) =>
+    p.name.includes(query.query)
+  );
+
+  console.log(filteredProducts);
+
+  console.log("Current Query:❌❌❌❌", query);
   return (
     <div className="flex flex-col items-center min-w-full md:min-w-[400px] gap-4">
       {storedUser?.role === "Admin" && (

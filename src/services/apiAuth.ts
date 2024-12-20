@@ -59,12 +59,11 @@ export const signup = async function (
 
 export const getUser = async function () {
   try {
-    const response = await axios.get<UpdateUserType>(`${apiURL}/users/user`, {
+    const response = await axios.get<UserProfileToken>(`${apiURL}/users/user`, {
       headers,
     });
-    console.log(response.data);
 
-    return response.data;
+    return response.data.data;
   } catch (err) {
     // ErrorHandler(err);
     if (axios.isAxiosError(err)) {
