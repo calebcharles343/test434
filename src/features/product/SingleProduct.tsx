@@ -93,7 +93,7 @@ export default function SingleProduct({ product, ID }: ProductProps) {
   if (isLoadingProduct) return <SpinnerMini />;
 
   return (
-    <div className="text-gray-600 flex flex-col w-full sm:w-[250px] border border-gray-200 p-4 gap-4 shadow-lg rounded-lg">
+    <div className="text-gray-600 flex flex-col w-[250px] border border-gray-200 p-4 gap-4 shadow-lg rounded-lg">
       <div className="flex items-center justify-between mb-2">
         <p className="text-lg font-semibold">{product.name}</p>
 
@@ -113,12 +113,12 @@ export default function SingleProduct({ product, ID }: ProductProps) {
         className="w-full h-[150px] object-cover rounded-lg"
       />
 
-      <div className="flex flex-col sm:flex-row items-center justify-between mt-2">
-        <div>
+      <div className=" flex  items-center justify-between mt-2">
+        <div className="">
           <span className="text-lg font-semibold text-green-700">
             ${product.price}
           </span>
-          <div className="flex items-center gap-2 text-xs mt-1">
+          <div className=" flex items-center gap-2 text-xs mt-1">
             <span>Qtr: {itemQuantity}</span>
             <button
               onClick={handleReduceQtr}
