@@ -3,6 +3,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { useState } from "react";
 import { createReview as createReviewApi } from "../../services/apiReview.ts";
 import { ReviewType } from "../../interfaces.ts";
+import toast from "react-hot-toast";
 
 interface ErrorResponse {
   message: string;
@@ -11,7 +12,6 @@ interface ErrorResponse {
 interface LoginError extends AxiosError<ErrorResponse> {}
 
 export function useCreateReview(productId: number) {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const {
@@ -22,23 +22,24 @@ export function useCreateReview(productId: number) {
     mutationFn: (data: ReviewType) => createReviewApi(productId, data),
 
     onSuccess: (response) => {
-      if (response.status === 200) {
+      if (response.status === 201) {
         console.log(response.data);
         // Invalidate the cache for the specific product reviews
+        toast.success("Thank you for your feedback");
+
         queryClient.invalidateQueries([`Reviews-${productId}`] as any);
       } else {
-        const errorMessage = response.data?.message || "Unexpected error";
-        setErrorMessage(errorMessage);
-        console.error("Review Creation Error:", errorMessage);
+        toast.error("Review not successful");
       }
     },
 
     onError: (error) => {
+      toast.error("Review Error");
+
       const errorMessage = error.response?.data?.message || "An error occurred";
       console.error("Review Creation Error:", errorMessage);
-      setErrorMessage(errorMessage);
     },
   });
 
-  return { createReview, isPending, isError, errorMessage };
+  return { createReview, isPending, isError };
 }

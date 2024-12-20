@@ -13,7 +13,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   const [reviewText, setReviewText] = useState<string>("");
   const [rating, setRating] = useState<number>(0);
 
-  const { createReview, errorMessage } = useCreateReview(productId);
+  const { createReview } = useCreateReview(productId);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
         </label>
         <textarea
           id="review"
-          className="p-2 border rounded-lg"
+          className="p-2 border rounded-lg shadow-md"
           value={reviewText}
           onChange={(e) => setReviewText(e.target.value)}
         />
@@ -43,7 +43,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
         <input
           type="number"
           id="rating"
-          className="p-2 border rounded-lg"
+          className="p-2 border rounded-lg shadow-md"
           value={rating}
           onChange={(e) => setRating(parseFloat(e.target.value))}
           min="0"
@@ -57,7 +57,6 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
       >
         Submit Review
       </button>
-      {errorMessage && <p className="text-sm text-red-500">{errorMessage}</p>}
     </form>
   );
 };

@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { ReviewType } from "../../interfaces.ts";
+import { localStorageUser } from "../../utils/localStorageUser.ts";
 import { useDeleteReview } from "./useDeleteReview.ts";
 
 interface ReviewProps {
@@ -6,15 +8,17 @@ interface ReviewProps {
 }
 
 const Review: React.FC<ReviewProps> = ({ review }) => {
+  const [isEdit, isSetEdit] = useState<boolean>(false);
+
   const { deleteReview } = useDeleteReview(review?.productId!);
+  const localStorageUserX = localStorageUser();
+
+  const handleToggleEdit = () => {
+    isSetEdit(!isEdit);
+  };
 
   return (
     <div className="border p-4 rounded-lg mb-4 flex items-center gap-4 shadow-lg">
-      {/* <img
-        className="h-20 w-20 rounded-full object-cover"
-        src={review.user?.avatar}
-        alt={`Image of ${review.user?.name}`}
-      /> */}
       <div className="flex flex-col w-full">
         <div className="flex items-center justify-between">
           <p className="text-base font-semibold">{review.user?.name}</p>
@@ -22,15 +26,18 @@ const Review: React.FC<ReviewProps> = ({ review }) => {
             <button
               className="text-sm text-blue-500"
               // onClick={() => updateReviewMutation.mutate(review)}
+              onClick={handleToggleEdit}
             >
               Edit
             </button>
-            <button
-              className="text-sm text-red-500"
-              onClick={() => deleteReview(review?.id!)}
-            >
-              Delete
-            </button>
+            {localStorageUserX.role === "Admin" && (
+              <button
+                className="text-sm text-red-500"
+                onClick={() => deleteReview(review?.id!)}
+              >
+                Delete
+              </button>
+            )}
           </div>
         </div>
         <p className="text-gray-700 mt-2">{review.review}</p>

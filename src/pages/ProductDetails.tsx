@@ -38,7 +38,7 @@ const ProductDetails: React.FC = () => {
         <div className="flex flex-col gap-4 md:w-1/2">
           <div>
             <h2 className="text-lg font-semibold mb-2">Product Details</h2>
-            <div className="w-full border p-4 rounded-lg">
+            <div className="w-full border p-4 rounded-lg shadow-md">
               <p>{mainProduct.description}</p>
             </div>
           </div>
