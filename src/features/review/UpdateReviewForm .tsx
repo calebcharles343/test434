@@ -5,12 +5,14 @@ interface ReviewFormProps {
   productId: number;
   reviewId: number;
   refetchReviews: () => void;
+  isSetEdit: (boolean: boolean) => void;
 }
 
 const UpdateReviewForm: React.FC<ReviewFormProps> = ({
   productId,
   reviewId,
   refetchReviews,
+  isSetEdit,
 }) => {
   const [reviewText, setReviewText] = useState<string>("");
   const [rating, setRating] = useState<number>(0);
@@ -25,6 +27,7 @@ const UpdateReviewForm: React.FC<ReviewFormProps> = ({
     setReviewText("");
     setRating(0);
     refetchReviews();
+    isSetEdit(false);
   };
 
   return (

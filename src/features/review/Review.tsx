@@ -55,6 +55,7 @@ const Review: React.FC<ReviewProps> = ({ review, refetchReviews }) => {
             reviewId={review.id!}
             productId={review.productId!}
             refetchReviews={refetchReviews}
+            isSetEdit={isSetEdit}
           />
         </div>
       )}
