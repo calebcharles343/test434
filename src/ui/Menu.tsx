@@ -32,7 +32,7 @@ const Menu: React.FC = () => {
 
   return (
     <>
-      <button type="button" className="lg:hidden mr-8" onClick={handleMenu}>
+      <button type="button" className="lg:hidden" onClick={handleMenu}>
         <BiMenu style={{ fontSize: "40px", color: "#333" }} />
       </button>
       {isMenu && (

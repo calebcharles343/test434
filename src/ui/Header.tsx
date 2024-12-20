@@ -22,12 +22,14 @@ const Header: React.FC = () => {
   const cart = useSelector((state: RootState) => state.cart);
 
   return (
-    <header className="relative flex items-center justify-between col-start-2 col-end-3 bg-[#FFA82B] shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[20px] border border-[rgba(255, 155, 0, 0.57)] rounded-lg p-4 z-50">
-      <Menu />
-      <form className="relative flex-grow">
-        {location.pathname === "/home" && <SearchBar />}
-      </form>
-      <div className="flex min-h-max items-center gap-4">
+    <header className="relative flex items-center justify-between col-start-2 col-end-3 bg-[#FFA82B] backdrop-blur-[20px] p-4 z-50 shadow-md">
+      <div className="flex items-center gap-4 lg:8">
+        <Menu />
+        <form className="relative flex-grow">
+          {location.pathname === "/home" && <SearchBar />}
+        </form>
+      </div>
+      <div className="flex min-h-max items-center gap-2 md:gap-4">
         <div className="flex" onClick={handleClick}>
           <CartIcon length={cart.items.length} />
         </div>

@@ -5,8 +5,8 @@ import Header from "./Header.tsx";
 
 const AppLayout: React.FC = () => {
   return (
-    <div className="flex flex-col lg:grid lg:grid-cols-[230px_1fr] lg:grid-rows-[65px_1fr] h-screen text-gray-700 overflow-y-scroll lg:gap-[5px] font-joro">
-      <div className="hidden sm:hidden md:hidden lg:block">
+    <div className="flex flex-col lg:grid lg:grid-cols-[230px_1fr] lg:grid-rows-[65px_1fr] h-screen text-gray-700 font-joro">
+      <div className="hidden lg:block">
         <Sidebar />
       </div>
       <Header />

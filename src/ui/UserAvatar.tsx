@@ -64,7 +64,7 @@ const UserAvatar: React.FC = () => {
   }, []);
 
   return (
-    <div ref={avatarRef} className="relative flex items-center gap-6">
+    <div ref={avatarRef} className="min-w-10 relative flex items-center gap-6">
       {isUploading ? (
         <SpinnerMini />
       ) : (

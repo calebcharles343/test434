@@ -27,7 +27,7 @@ const Sidebar: React.FC = () => {
         <ul className="flex flex-col gap-2 text-md w-full p-8 flex-grow">
           <li>
             <Link
-              to="Home"
+              to="home"
               className="flex items-center p-2 rounded hover:bg-[#ffa82b] hover:text-gray-800 transition-colors duration-200"
             >
               <BiHome className="mr-2" /> Home

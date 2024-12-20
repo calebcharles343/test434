@@ -34,31 +34,38 @@ export function useSignup() {
       signupApi(name, email, password, confirmPassword),
 
     onSuccess: (data) => {
-      if (data.status === 200) {
-        // Assuming 'data' has 'data.user' and 'data.token'
-        console.log(data.data.token);
+      if (data.status === 201) {
+        const userData = data.data.user;
 
-        // Cache user data in React Query
-        queryClient.setQueryData(["user"], data.data.user);
+        // Clear React Query cache
+        queryClient.clear();
 
-        // Store JWT token in cookies
+        // Set JWT token in cookies
         Cookies.set("jwt", data.data.token, {
           expires: 7,
-          secure: true, // Only send the cookie over HTTPS
+          secure: true,
           sameSite: "strict",
         });
 
+        // Set user data in React Query cache
+        queryClient.setQueryData(["user", userData.id], userData);
+        localStorage.setItem("localUser", JSON.stringify(userData));
+        // Redirect to the home page
+        navigate("/home", { replace: true });
         toast.success("Sign up successfull");
         // Navigate to home page after successful login
         navigate("/home", { replace: true });
       } else {
+        toast.error(`${data.message}`);
+
         console.error("Login Error:", data.message);
       }
     },
 
     onError: (err: LoginError) => {
-      // Check if the error has a response, if so, display it
-      const error = err.response?.data.message || "An error occurred";
+      toast.error(`${err.response?.data.message}` || "An error occurred");
+
+      const error = err.response?.data.message;
       console.error("Login Error:", error);
     },
   });

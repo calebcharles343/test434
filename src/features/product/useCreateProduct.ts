@@ -4,6 +4,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { useState } from "react";
 import { createProduct as createProductApi } from "../../services/apiProducts.ts";
 import { ProductType } from "../../interfaces.ts";
+import toast from "react-hot-toast";
 
 interface ErrorResponse {
   message: string; // Assuming the error response has a 'message' field
@@ -26,13 +27,15 @@ export function useCreateProduct() {
     mutationFn: (data: Partial<ProductType>) => createProductApi(data),
 
     onSuccess: (data) => {
-      if (data.status === 200) {
+      if (data.status === 201) {
         console.log(data.data);
 
         queryClient.invalidateQueries(["products"] as any);
-      } else if (data.status !== 200) {
+
+        toast.success("Product added successfully");
+      } else if (data.status !== 201) {
         setErrorMessage(data.message);
-        console.error("Login Error:", data.message); // Log error directly here
+        toast.error("Error adding Product");
       }
     },
 

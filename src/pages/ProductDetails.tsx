@@ -17,8 +17,6 @@ const ProductDetails: React.FC = () => {
   const { product, isLoadingProduct } = useGetProduct(ID);
   const { reviews, refetch: refetchReviews } = useFetchReviews(ID);
 
-  console.log(reviews);
-
   if (isLoadingProduct) return <p>Loading...</p>;
 
   if (!product?.data) {

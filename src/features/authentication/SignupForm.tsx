@@ -20,7 +20,7 @@ const SignupForm: React.FC = () => {
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const { signup, isPending, errorMessage } = useSignup();
+  const { signup, isPending } = useSignup();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -107,15 +107,6 @@ const SignupForm: React.FC = () => {
             required
           />
         </div>
-
-        {errorMessage && (
-          <span
-            className="text-[12px] text-center text-red-500"
-            aria-live="polite"
-          >
-            {errorMessage}
-          </span>
-        )}
       </div>
 
       <button

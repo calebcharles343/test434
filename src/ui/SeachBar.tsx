@@ -48,12 +48,19 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div ref={searchBarRef} className="relative flex items-center gap-2">
-      <button type="button" onClick={toggleCheckBoxContainer}>
+    <div
+      ref={searchBarRef}
+      className="w-[90%] md:w-[150%] lg:w-[200%] relative flex items-center gap-2"
+    >
+      <button
+        className="hidden md:block  "
+        type="button"
+        onClick={toggleCheckBoxContainer}
+      >
         <HiSearch style={{ fontSize: "20px", color: "#333" }} />
       </button>
       <input
-        className="px-4 w-[60%] h-8 rounded-full focus:outline-none"
+        className="px-4  w-full h-8 rounded-full focus:outline-none"
         type="text"
         placeholder="Search"
         value={query}
