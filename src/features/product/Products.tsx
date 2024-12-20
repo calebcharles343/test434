@@ -81,7 +81,8 @@ const Products: React.FC = () => {
           </Modal>
         </div>
       )}
-      <ul className="grid grid-cols-1 mediumMobile:grid-cols-2 mid:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
+      {/* <ul className="grid grid-cols-1 mediumMobile:grid-cols-2 mid:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-12"> */}
+      <ul className="grid grid-cols-1 mediumMobile:grid-cols-1 largeMobile:grid-cols-1 tablet:grid-cols-2 mid:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
         {filteredProducts?.map((product: ProductType) => (
           <SingleProduct key={product.id} product={product} />
         ))}
