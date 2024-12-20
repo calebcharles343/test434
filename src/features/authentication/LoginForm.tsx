@@ -15,7 +15,7 @@ const LoginForm: React.FC = () => {
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const { login, isPending: isLoading, errorMessage } = useLogin();
+  const { login, isPending: isLoading } = useLogin();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -84,15 +84,6 @@ const LoginForm: React.FC = () => {
             </span>
           </div>
         </div>
-
-        {errorMessage && (
-          <span
-            className="text-[12px] text-center text-red-500"
-            aria-live="polite"
-          >
-            {errorMessage}
-          </span>
-        )}
       </div>
 
       <button

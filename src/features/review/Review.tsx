@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ReviewType } from "../../interfaces.ts";
 import { localStorageUser } from "../../utils/localStorageUser.ts";
 import { useDeleteReview } from "./useDeleteReview.ts";
-import UpdateReviewForm from "./updateReviewForm .tsx";
+import UpdateReviewForm from "./UpdateReviewForm.tsx";
 
 interface ReviewProps {
   review: ReviewType;
