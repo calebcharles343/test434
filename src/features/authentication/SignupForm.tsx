@@ -39,7 +39,7 @@ const SignupForm: React.FC = () => {
     <div className="flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 w-full bg-white bg-opacity-90 p-6  rounded-md shadow-xl backdrop-blur-lg"
+        className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 w-full bg-white bg-opacity-90 p-6  rounded-md shadow-xl backdrop-blur-lg  mx-4 md:mx-0"
       >
         <div className="flex flex-col w-full gap-4">
           <div>
@@ -132,7 +132,7 @@ const SignupForm: React.FC = () => {
 
         <button
           type="submit"
-          className="w-full h-8 md:h-10 flex justify-center items-center bg-gray-800 text-[#ff9928] rounded-md shadow-md"
+          className="w-full h-8 md:h-10 flex justify-center items-center bg-gray-800 text-white rounded-md shadow-md"
           disabled={isPending}
         >
           {isPending ? <SpinnerMini /> : "Sign up"}

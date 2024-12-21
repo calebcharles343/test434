@@ -19,7 +19,7 @@ const Auth: React.FC = () => {
         Shopping List
       </span>
       <div
-        className=" min-w-[350px]"
+        className=" min-w-full md:min-w-[350px]"
         // style={{ backgroundImage: `url(${authBg})` }}
       >
         {isLogin ? <LoginForm /> : <SignupForm />}
