@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
-import SpinnerMini from "../../ui/SpinnerMini.tsx";
-import ShowPasswordIcon from "../../ui/ShowPasswordIcon.tsx";
-import { useSignup } from "./useSignup.ts";
+import ShowPasswordIcon from "../../ui/ShowPasswordIcon";
+import SpinnerMini from "../../ui/SpinnerMini"; // Assuming this component exists
+import { useSignup } from "./useSignup";
 
 interface FormData {
   name: string;
@@ -9,7 +9,6 @@ interface FormData {
   password: string;
   confirmPassword: string;
 }
-
 const SignupForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -37,86 +36,109 @@ const SignupForm: React.FC = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10"
-    >
-      <div className="flex flex-col w-full max-w-sm border rounded-md px-4 py-6 bg-[rgba(255,255,255,0.1)] backdrop-blur-[6.2px] border-[rgba(255,153,40,1)] text-gray-700 font-medium gap-4 shadow-xl sm:max-w-md sm:px-6 sm:py-8 md:max-w-lg md:px-8 md:py-10">
-        <div>
-          <label htmlFor="name" className="block mb-1">
-            Name
-          </label>
-          <input
-            className="placeholder:text-sm w-full h-10 px-2 rounded-md shadow-md bg-gray-100 border focus:border-[#B97743] focus:outline-none sm:h-10 sm:px-4 md:h-10 md:px-5 lg:h-10 lg:px-6"
-            id="name"
-            type="text"
-            placeholder="Enter your name"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="email" className="block mb-1">
-            Email
-          </label>
-          <input
-            className="placeholder:text-sm w-full h-10 px-2 rounded-md shadow-md bg-gray-100 border focus:border-[#B97743] focus:outline-none sm:h-10 sm:px-4 md:h-10 md:px-5 lg:h-10 lg:px-6"
-            id="email"
-            type="email"
-            placeholder="Enter your email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="password" className="block mb-1">
-            Password
-          </label>
-          <div className="relative w-full">
+    <div className="flex items-center justify-center">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 w-full bg-white bg-opacity-90 p-6  rounded-md shadow-xl backdrop-blur-lg"
+      >
+        <div className="flex flex-col w-full gap-4">
+          <div>
+            <label
+              htmlFor="name"
+              className="block mb-1 font-bold text-gray-700"
+            >
+              Name
+            </label>
             <input
-              className="placeholder:text-sm w-full h-10 px-2 rounded-md shadow-md bg-gray-100 border focus:border-[#B97743] focus:outline-none sm:h-10 sm:px-4 md:h-10 md:px-5 lg:h-10 lg:px-6"
-              id="password"
-              type={showPassword ? "text" : "password"}
-              placeholder="Enter your password"
-              value={formData.password}
+              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+              id="name"
+              type="text"
+              placeholder="Enter your name"
+              value={formData.name}
               onChange={handleInputChange}
               required
             />
-            <span
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
-              onClick={handleShowPassword}
+          </div>
+
+          <div>
+            <label
+              htmlFor="email"
+              className="block mb-1 font-bold text-gray-700"
             >
-              <ShowPasswordIcon showPassword={showPassword} />
-            </span>
+              Email
+            </label>
+            <input
+              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="password"
+              className="block mb-1 font-bold text-gray-700"
+            >
+              Password
+            </label>
+            <div className="relative w-full">
+              <input
+                className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+                id="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                value={formData.password}
+                onChange={handleInputChange}
+                required
+              />
+              <span
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                onClick={handleShowPassword}
+              >
+                <ShowPasswordIcon showPassword={showPassword} />
+              </span>
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="confirmPassword"
+              className="block mb-1 font-bold text-gray-700"
+            >
+              Confirm Password
+            </label>
+            <div className="relative w-full">
+              <input
+                className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+                id="confirmPassword"
+                type={showPassword ? "text" : "password"}
+                placeholder="Confirm your password"
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+                required
+              />
+              <span
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                onClick={handleShowPassword}
+              >
+                <ShowPasswordIcon showPassword={showPassword} />
+              </span>
+            </div>
           </div>
         </div>
-        <div>
-          <label htmlFor="confirmPassword" className="block mb-1">
-            Confirm Password
-          </label>
-          <input
-            className="placeholder:text-sm w-full h-10 px-2 rounded-md shadow-md bg-gray-100 border focus:border-[#B97743] focus:outline-none sm:h-10 sm:px-4 md:h-10 md:px-5 lg:h-10 lg:px-6"
-            id="confirmPassword"
-            type={showPassword ? "text" : "password"}
-            placeholder="Confirm your password"
-            value={formData.confirmPassword}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-      </div>
 
-      <button
-        type="submit"
-        className="w-20 flex justify-center items-center bg-gray-800 text-white px-3 py-2 rounded-md shadow-md"
-        disabled={isPending}
-      >
-        {isPending ? <SpinnerMini /> : "Sign up"}
-      </button>
-    </form>
+        <button
+          type="submit"
+          className="w-full h-8 md:h-10 flex justify-center items-center bg-gray-800 text-[#ff9928] rounded-md shadow-md"
+          disabled={isPending}
+        >
+          {isPending ? <SpinnerMini /> : "Sign up"}
+        </button>
+      </form>
+    </div>
   );
 };
 
