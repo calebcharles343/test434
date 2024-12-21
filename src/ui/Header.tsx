@@ -13,8 +13,6 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // const { refetch: refetchUser } = useUser(localStorageUserX?.id);
-
   const handleClick = () => {
     navigate(`/cartPage`);
   };
