@@ -29,7 +29,7 @@ const Header: React.FC = () => {
           {location.pathname === "/home" && <SearchBar />}
         </form>
       </div>
-      <div className="flex min-h-max items-center gap-2 md:gap-4">
+      <div className="flex min-h-max items-center gap-4">
         <div className="flex" onClick={handleClick}>
           <CartIcon length={cart.items.length} />
         </div>
