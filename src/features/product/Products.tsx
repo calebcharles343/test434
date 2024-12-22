@@ -16,7 +16,7 @@ const Products: React.FC = () => {
   );
 
   // Fetch products using React Query
-  const { products, isLoadingProducts, refetchProducts } = useFetchProducts();
+  const { products, refetchProducts } = useFetchProducts();
 
   // Refetch products on component mount
   useEffect(() => {
@@ -44,10 +44,6 @@ const Products: React.FC = () => {
     }
   } else {
     console.log("No stored user found");
-  }
-
-  if (isLoadingProducts) {
-    return <div>Loading products...</div>;
   }
 
   // Filter products based on name, description, and category

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { OrderType, ProductType } from "../interfaces.ts";
+import { OrderType } from "../interfaces.ts";
 import { generalApiHeader } from "../utils/generalApiHeader.ts";
 
 const headers = generalApiHeader();
@@ -38,31 +38,28 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export const createProduct = async (productData: Partial<OrderType>) => {
-  const response = await axiosInstance.post(`/products/create`, productData);
+export const createOrder = async (orderData: OrderType) => {
+  const response = await axiosInstance.post(`/orders/create`, orderData);
   return response.data;
 };
-export const getAllProducts = async () => {
-  const response = await axiosInstance.get("/products");
-  return response.data;
-};
-
-export const getProduct = async (id: number) => {
-  const response = await axiosInstance.get(`/products/${id}`);
+export const getAllOrders = async () => {
+  const response = await axiosInstance.get("/orders");
   return response.data;
 };
 
-export const updateProduct = async (
+export const getOrder = async (id: number) => {
+  const response = await axiosInstance.get(`/orders/${id}`);
+  return response.data;
+};
+
+export const updateOrder = async (
   id: number,
-  productData: Partial<ProductType>
+  orderData: Partial<OrderType>
 ) => {
-  const response = await axiosInstance.patch(
-    `/products/update/${id}`,
-    productData
-  );
+  const response = await axiosInstance.patch(`/orders/update/${id}`, orderData);
   return response.data;
 };
-export const deleteProduct = async (id: number) => {
-  const response = await axiosInstance.delete(`/products/delete/${id}`);
+export const deleteOrder = async (id: number) => {
+  const response = await axiosInstance.delete(`/orders/delete/${id}`);
   return response.data;
 };

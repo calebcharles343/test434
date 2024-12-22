@@ -7,7 +7,7 @@ export function useUser(id: number) {
     queryKey: ["user", id],
     queryFn: getUser,
     staleTime: 0,
-    // refetchOnWindowFocus: true,
-    // refetchInterval: 3000, // Refetch every 3 seconds
   });
 }
+
+// localStorage.setItem("localUser", JSON.stringify(userData));

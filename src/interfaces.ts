@@ -43,7 +43,6 @@ export interface UpdateUserType {
 export interface ProductsType {
   data: ProductType[];
 }
-
 export interface ProductType {
   id: number;
   name: string;
@@ -56,6 +55,7 @@ export interface ProductType {
   ratingAverage: number;
   createdAt: string;
   updatedAt: string;
+  Reviews: ReviewType[];
 }
 
 ////////////////
@@ -66,7 +66,7 @@ export interface CartType {
   items: ItemType[];
 }
 export interface ItemType {
-  productId: number | string;
+  productId: number;
   name: string;
   price: number;
   quantity: number;
@@ -78,26 +78,31 @@ export interface OrderType {
 }
 
 export interface OrderItemType {
-  productId: number | string;
-  quantity: number | string;
-}
-////////////////
-//images
-////////////////
-export interface Imagedata {
-  data: ImageUrls;
-}
-export interface ImageUrls {
-  urls: { url: string; key: string }[]; // Define the expected structure of your response
+  productId: number;
+  quantity: number;
 }
 
-export interface ErrorProps {
-  children: React.ReactNode;
+////////////////
+//Orders
+////////////////
+
+export type OrdersType = OrderType[];
+
+export interface OrderType {
+  id: number;
+  userId: number;
+  totalPrice: string;
+  status: string;
+  Items: OrderItemType[];
 }
 
-export interface ImageProps {
-  url: { url: string; key: string };
-  refetch: () => void;
+export interface OrderItemType {
+  id: number;
+  orderId: number;
+  productId: number;
+  quantity: number;
+  pricePerItem: string;
+  Product: ProductType;
 }
 
 //useMutation
@@ -118,14 +123,14 @@ export interface Headers {
 }
 
 export interface ReviewsType {
-  reviews: ReviewType[];
+  Reviews: ReviewType[];
 }
 export interface ReviewType {
   id?: number;
   productId?: number;
   review: string;
   rating: number;
-  user: Partial<UserType>;
+  User: Partial<UserType>;
 }
 
 export interface CheckboxProps {

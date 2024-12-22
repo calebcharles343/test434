@@ -15,6 +15,8 @@ export function useLogin() {
       if (data.status === 200) {
         const userData = data.data.user;
 
+        console.log(data.data, "❌❌");
+
         // Clear React Query cache
         queryClient.clear();
 

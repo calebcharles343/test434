@@ -4,6 +4,7 @@ import { useLogout } from "../features/authentication/useLogout.ts";
 import SpinnerMini from "./SpinnerMini.tsx";
 import sideBarImg2 from "../data/img/SIdeBar-2.jpg";
 import { BiCart, BiHome, BiInfoCircle, BiLogOut } from "react-icons/bi";
+import { FiMenu } from "react-icons/fi";
 
 const Sidebar: React.FC = () => {
   const { logout, isPending } = useLogout();
@@ -47,6 +48,14 @@ const Sidebar: React.FC = () => {
               className="flex items-center p-2 rounded hover:bg-[#ffa82b] hover:text-gray-800 transition-colors duration-200"
             >
               <BiInfoCircle className="mr-2" /> Product info
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="orders"
+              className="flex items-center p-2 rounded hover:bg-[#ffa82b] hover:text-gray-800 transition-colors duration-200"
+            >
+              <FiMenu className="mr-2" /> Orders
             </Link>
           </li>
         </ul>

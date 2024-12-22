@@ -15,6 +15,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ProductDetails from "./pages/ProductDetails.tsx";
 import { Toaster } from "react-hot-toast";
+import Orders from "./pages/Orders.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "cartPage",
         element: <CartPage />,
+      },
+      {
+        path: "orders",
+        element: <Orders />,
       },
     ],
   },

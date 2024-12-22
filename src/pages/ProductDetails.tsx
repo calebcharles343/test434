@@ -25,6 +25,8 @@ const ProductDetails: React.FC = () => {
 
   const mainProduct = product?.data || firstProduct;
 
+  console.log(mainProduct);
+
   return (
     <div className="flex flex-col items-center w-full">
       <div className="flex flex-col md:flex-row lg:w-[800px] gap-8 p-4 overflow-y-auto">
@@ -38,7 +40,7 @@ const ProductDetails: React.FC = () => {
         <div className="flex flex-col gap-4 md:w-1/2">
           <div>
             <h2 className="text-lg font-semibold mb-2">Product Details</h2>
-            <div className="w-full border p-4 rounded-lg shadow-md">
+            <div className="min-w-full md:min-w-[268.5px] border p-4 rounded-lg shadow-md">
               <p>{mainProduct.description}</p>
             </div>
           </div>
@@ -46,7 +48,7 @@ const ProductDetails: React.FC = () => {
           <div className="w-full">
             <h2 className="text-lg font-semibold mb-2">Reviews</h2>
             {reviews?.data.length ? (
-              reviews.data.map((review: ReviewType) => (
+              mainProduct.Reviews.map((review: ReviewType) => (
                 <Review
                   key={review.id}
                   review={review}

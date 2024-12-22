@@ -2,6 +2,8 @@ import { ItemType } from "../../interfaces.ts";
 import { removeItem } from "../../store/cartSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/store.ts";
+import { useCreateOrder } from "../order/useCreateOrder.ts";
+import SpinnerMini from "../../ui/SpinnerMini.tsx";
 // import cartImg3 from "../../data/img/cart.png";
 
 const Cart = () => {
@@ -12,28 +14,19 @@ const Cart = () => {
   //   dispatch(addItem(item));
   // };
 
+  const { createOrder, isPending } = useCreateOrder();
   const handleRemoveItem = (productId: number | string) => {
     dispatch(removeItem(productId));
   };
+  const orderData = {
+    items: cart.items.map(({ productId, quantity }) => ({
+      productId,
+      quantity,
+    })),
+  };
 
   const handleSendCart = async () => {
-    try {
-      const response = await fetch("http://your-backend-url/api/cart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ items: cart.items }),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Cart sent to backend:", data);
-      } else {
-        console.error("Failed to send cart to backend:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error sending cart to backend:", error);
-    }
+    createOrder(orderData);
   };
 
   return (
@@ -73,7 +66,7 @@ const Cart = () => {
           onClick={handleSendCart}
           className="mt-4 bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-600"
         >
-          Make Order
+          {isPending ? <SpinnerMini /> : "Make Order"}
         </button>
       </div>
     </div>

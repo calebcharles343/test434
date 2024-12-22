@@ -38,7 +38,7 @@ const UpdateReviewForm: React.FC<ReviewFormProps> = ({
         </label>
         <textarea
           id="review"
-          className="p-2 border rounded-lg shadow-md"
+          className="p-2 h-24 text-sm border rounded-lg shadow-md"
           value={reviewText}
           onChange={(e) => setReviewText(e.target.value)}
         />
@@ -60,7 +60,7 @@ const UpdateReviewForm: React.FC<ReviewFormProps> = ({
       </div>
       <button
         type="submit"
-        className="px-4  py-2 bg-blue-500 text-white rounded-lg"
+        className="p-2 text-xs bg-blue-500 text-white rounded-lg"
       >
         Edit Review
       </button>

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Products from "../../src/features/product/Products.tsx";
+import Products from "../features/product/Products.tsx";
 
 const ProductsContainer: React.FC = () => {
   4;

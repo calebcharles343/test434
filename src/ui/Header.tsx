@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 4;
 import CartIcon from "./CartIcon";
 
-import SearchBar from "../ui/SeachBar";
+import SearchBar from "./SeachBar";
 import UserAvatar from "./UserAvatar";
 import Menu from "./Menu";
 import { RootState } from "../store/store";
