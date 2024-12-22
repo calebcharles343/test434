@@ -9,9 +9,9 @@ const Orders: React.FC = () => {
   const localStorageUserX = localStorageUser();
 
   const {
-    data: freshOrder,
+    // data: freshOrder,
     refetch: refetchOrders,
-    isLoading,
+    // isLoading,
   } = useOrders(localStorageUserX.id);
 
   useEffect(() => {
