@@ -56,11 +56,19 @@ export const getOrder = async (id: number) => {
   return response.data;
 };
 
-export const updateOrder = async (
+export const updateOrderStatus = async (
   id: number,
   orderData: Partial<OrderType>
 ) => {
   const response = await axiosInstance.patch(`/orders/update/${id}`, orderData);
+  return response.data;
+};
+
+export const cancelOrder = async (
+  id: number,
+  orderData: Partial<OrderType>
+) => {
+  const response = await axiosInstance.patch(`/orders/cancel/${id}`, orderData);
   return response.data;
 };
 export const deleteOrder = async (id: number) => {

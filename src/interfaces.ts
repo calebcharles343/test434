@@ -55,7 +55,7 @@ export interface ProductType {
   ratingAverage: number;
   createdAt: string;
   updatedAt: string;
-  Reviews: ReviewType[];
+  Reviews?: ReviewType[];
 }
 
 ////////////////
@@ -94,6 +94,7 @@ export interface OrderType {
   totalPrice: string;
   status: string;
   Items: OrderItemType[];
+  User?: UserType;
 }
 
 export interface OrderItemType {
@@ -130,7 +131,7 @@ export interface ReviewType {
   productId?: number;
   review: string;
   rating: number;
-  User: Partial<UserType>;
+  User?: Partial<UserType>;
 }
 
 export interface CheckboxProps {

@@ -48,7 +48,7 @@ const ProductDetails: React.FC = () => {
           <div className="w-full">
             <h2 className="text-lg font-semibold mb-2">Reviews</h2>
             {reviews?.data.length ? (
-              mainProduct.Reviews.map((review: ReviewType) => (
+              mainProduct?.Reviews?.map((review: ReviewType) => (
                 <Review
                   key={review.id}
                   review={review}

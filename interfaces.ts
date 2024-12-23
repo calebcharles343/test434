@@ -74,12 +74,16 @@ export interface ItemType {
 }
 
 export interface OrderType {
+  id?: number;
+  userId?: number;
+  totalPrice?: string;
+  status?: string;
+  Items?: OrderItemType[];
   items: OrderItemType[];
 }
-
 export interface OrderItemType {
-  productId: number | string;
-  quantity: number | string;
+  productId: number;
+  quantity: number;
 }
 ////////////////
 //images

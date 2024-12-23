@@ -24,9 +24,8 @@ const Cart = () => {
       quantity,
     })),
   };
-
   const handleSendCart = async () => {
-    createOrder(orderData);
+    createOrder(orderData as any);
   };
 
   return (
