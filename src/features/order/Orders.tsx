@@ -4,6 +4,7 @@ import Order from "./Order";
 import { useOrders } from "./useFetchOrders";
 import { localStorageUser } from "../../utils/localStorageUser";
 import { Link } from "react-router-dom";
+import { useAdminOrders } from "./useFetchAdminOrders";
 
 const Orders: React.FC = () => {
   const localStorageUserX = localStorageUser();
@@ -14,6 +15,10 @@ const Orders: React.FC = () => {
     // isLoading,
   } = useOrders(localStorageUserX.id);
 
+  const { data: adminOrders } = useAdminOrders();
+
+  console.log(adminOrders);
+
   useEffect(() => {
     refetchOrders();
   }, [refetchOrders]);
@@ -22,9 +27,9 @@ const Orders: React.FC = () => {
 
   if (localStorageUserX.Orders.length === 0)
     return (
-      <div className="text-center pt-8">
-        No orders! Please explore our{" "}
-        <span className="text-[]">
+      <div className="text-lg text-center pt-8">
+        You have no orders! Please explore our{" "}
+        <span className="text-xl font-bold text-[#FFA82B] hover:underline">
           <Link to={"/home"}>store </Link>
         </span>
       </div>

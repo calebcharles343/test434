@@ -25,7 +25,7 @@ const AppLayout: React.FC = () => {
     );
 
   return (
-    <div className="flex flex-col lg:grid lg:grid-cols-[230px_1fr] lg:grid-rows-[65px_1fr] h-screen text-gray-700 font-joro">
+    <div className="flex flex-col lg:grid lg:grid-cols-[230px_1fr] lg:grid-rows-[65px_1fr] h-screen text-gray-700 font-joro bg-gray-50">
       <div className="hidden lg:block">
         <Sidebar />
       </div>

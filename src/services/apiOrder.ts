@@ -46,6 +46,10 @@ export const getAllOrders = async () => {
   const response = await axiosInstance.get("/orders");
   return response.data;
 };
+export const getAllAdminOrders = async () => {
+  const response = await axiosInstance.get("/orders/admin");
+  return response.data;
+};
 
 export const getOrder = async (id: number) => {
   const response = await axiosInstance.get(`/orders/${id}`);

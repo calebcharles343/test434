@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CartType, ItemType } from "../interfaces.ts";
+import toast from "react-hot-toast";
 
 interface CartState extends CartType {
   isCartNotEmpty: boolean;
@@ -22,7 +23,8 @@ const cartSlice = createSlice({
       );
 
       if (action.payload.quantity === 0) {
-        alert("Quantity cannot be zero.");
+        toast.error("Quantity cannot be zero.");
+
         return;
       }
 
