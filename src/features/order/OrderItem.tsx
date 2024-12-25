@@ -11,8 +11,8 @@ const OrderItem: React.FC<OrderItemProps> = ({ item }) => {
       <span>{item.Product.name}</span>
       <span>Quantity: {item.quantity}</span>
       <div>
-        <span>Price:</span>
-        <span className="text-green-700"> {item.pricePerItem}</span>
+        <span>Price: $</span>
+        <span className="text-green-700">{item.pricePerItem}</span>
       </div>
     </li>
   );

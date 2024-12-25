@@ -24,7 +24,7 @@ const AdminOrder: React.FC<OrderProps> = ({ order }) => {
 
   return (
     <div
-      className={`w-full md:w-[500px] border-l-8 border-[#FFA82B] p-4 rounded-lg mb-4 bg-gray-100 shadow-lg ${
+      className={`w-full md:w-[500px] border-l-8 border-[#FFA82B] p-4 rounded-lg mb-4 bg-white shadow-lg ${
         order.status === "pending" && "border-[#FFA82B]"
       } ${order.status === "cancelled" && "border-red-500"} ${
         order.status === "completed" && "border-green-500"
@@ -51,7 +51,7 @@ const AdminOrder: React.FC<OrderProps> = ({ order }) => {
             </div>
           </div>
           <p className="text-sm md:text-base text-gray-700 mt-2">
-            Total Price: {order.totalPrice}
+            Total Price: ${order.totalPrice}
           </p>
           <div className="text-xs md:text-sm text-blue-500 font-bold mt-1">
             Items:

@@ -2,6 +2,7 @@ import { OrderType } from "../../interfaces";
 import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
 import OrderItem from "./OrderItem";
 import { useCancelOrder } from "./useCancelOrder";
+import { dateformat } from "../../utils/dateFormat";
 
 interface OrderProps {
   order: OrderType;
@@ -21,7 +22,7 @@ const Order: React.FC<OrderProps> = ({ order, refetchOrders }) => {
   return (
     // <div className={`w-full md:w-[500px] border-l-8 border-[#FFA82B] p-4 rounded-lg mb-4   bg-gray-100 shadow-lg`}>
     <div
-      className={`w-full md:w-[500px] border-l-8 border-[#FFA82B] p-4 rounded-lg mb-4 bg-gray-100 shadow-lg ${
+      className={`w-full md:w-[500px] border-l-8 border-[#FFA82B] p-4 rounded-lg mb-4 bg-white shadow-lg ${
         order.status === "pending" && "border-[#FFA82B]"
       } ${order.status === "cancelled" && "border-red-500"} ${
         order.status === "completed" && "border-green-500"
@@ -46,18 +47,19 @@ const Order: React.FC<OrderProps> = ({ order, refetchOrders }) => {
                   {capitalizeFirstLetter(order.status)}
                 </span>
               </p>
-
-              <button
-                className="text-xs text-gray-50 bg-red-500 px-2 rounded-md"
-                onClick={handleCancelOrder}
-                disabled={isPending}
-              >
-                X
-              </button>
+              {order.status !== "completed" && (
+                <button
+                  className="text-xs text-gray-50 bg-red-500 px-2 rounded-md"
+                  onClick={handleCancelOrder}
+                  disabled={isPending}
+                >
+                  X
+                </button>
+              )}
             </div>
           </div>
           <p className="text-xs md:text-base text-gray-700 mt-2">
-            Total Price: {order.totalPrice}
+            Total Price: ${order.totalPrice}
           </p>
           <div className=" text-xs md:text-sm  font-bold mt-1">
             <p className="text-blue-500">Items:</p>
@@ -67,6 +69,9 @@ const Order: React.FC<OrderProps> = ({ order, refetchOrders }) => {
               ))}
             </ul>
           </div>
+          <p className="text-xs md:text-sm pt-2">
+            {dateformat(order.createdAt)}
+          </p>
         </div>
       </div>
     </div>

@@ -89,7 +89,17 @@ export default function SingleProduct({ product, ID }: ProductProps) {
     navigate(`/home/product/${id}`);
   };
 
+  const handleDelete = (ID: number) => {
+    const userConfirmed = confirm(
+      "Are you sure you want to delete this product?"
+    );
+    if (userConfirmed) {
+      deleteProduct(ID);
+    }
+  };
+
   const { id } = useParams<{ id: string }>();
+
   if (isLoadingProduct) return <SpinnerMini />;
 
   return (
@@ -187,7 +197,7 @@ export default function SingleProduct({ product, ID }: ProductProps) {
           </Modal>
 
           <button
-            onClick={() => deleteProduct(ID!)}
+            onClick={() => handleDelete(ID!)}
             className="text-xs px-2 py-1 border border-red-500 text-red-500 rounded-md"
           >
             Delete

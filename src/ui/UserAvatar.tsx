@@ -79,7 +79,9 @@ const UserAvatar: React.FC = () => {
           alt="User Avatar"
         />
       )}
-      <span className="hidden sm:block">{localStorageUserX?.name}</span>
+      <span className="hidden sm:block">
+        {localStorageUserX?.name.toUpperCase()}
+      </span>
       {isUpdateBox && (
         <div className="absolute transform -translate-x-10 translate-y-9  flex items-center justify-center bg-white rounded-md border p-1 shadow-lg">
           <input

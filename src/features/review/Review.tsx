@@ -21,7 +21,7 @@ const Review: React.FC<ReviewProps> = ({ review, refetchReviews }) => {
   };
 
   return (
-    <div className="border-l-8 border-[#FFA82B] border p-4 rounded-lg mb-4 shadow-lg">
+    <div className="border-l-8 border-[#FFA82B] border p-4 rounded-lg mb-4 bg-white shadow-lg">
       <div className=" flex items-center gap-4">
         <div className="flex flex-col w-full">
           <div className="flex items-center justify-between">
