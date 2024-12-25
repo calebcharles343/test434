@@ -81,7 +81,7 @@ const UserAvatar: React.FC = () => {
       )}
       <span className="hidden sm:block">{localStorageUserX?.name}</span>
       {isUpdateBox && (
-        <div className="absolute flex items-center justify-center bottom-[-30px] bg-white rounded-md border p-1 shadow-lg">
+        <div className="absolute transform -translate-x-10 translate-y-9  flex items-center justify-center bg-white rounded-md border p-1 shadow-lg">
           <input
             id="imageInput"
             type="file"
@@ -90,7 +90,7 @@ const UserAvatar: React.FC = () => {
           />
           <label
             htmlFor="imageInput"
-            className="flex text-xs items-center justify-center border border-solid border-white rounded-lg cursor-pointer w-32 md:w-28 sm:w-24"
+            className="flex text-xs items-center justify-center border border-solid border-white rounded-lg cursor-pointer w-20 md:w-28 sm:w-24"
           >
             {isUploading ? "..." : "Upload Photo"}
           </label>

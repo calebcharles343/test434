@@ -3,6 +3,7 @@ import { OrderType, OrderItemType } from "../../interfaces";
 import OrderItem from "./OrderItem";
 import { useUpdateOrderStatus } from "./useUpdateOrderStatus";
 import { useDeleteOrder } from "./useDeleteOrder";
+import { dateformat } from "../../utils/dateFormat";
 
 interface OrderProps {
   order: OrderType;
@@ -60,21 +61,31 @@ const AdminOrder: React.FC<OrderProps> = ({ order }) => {
               ))}
             </ul>
           </div>
-          <div className="mt-4">
-            <label htmlFor={`status-${order.id}`} className="mr-2">
-              Status:
-            </label>
-            <select
-              id={`status-${order.id}`}
-              value={status}
-              onChange={handleStatusChange}
-              className="border p-1 rounded"
-              disabled={isPending}
-            >
-              <option value="pending">Pending</option>
-              <option value="completed">Completed</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
+
+          <div className="flex items-center justify-between mt-4">
+            <div className="">
+              <label
+                htmlFor={`status-${order.id}`}
+                className="text-sm md:text-base mr-2"
+              >
+                Status:
+              </label>
+              <select
+                id={`status-${order.id}`}
+                value={status}
+                onChange={handleStatusChange}
+                className="text-xs md:text-sm border p-1 rounded"
+                disabled={isPending}
+              >
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+
+            <span className="text-[9px] md:text-base">
+              {dateformat(order.createdAt)}
+            </span>
           </div>
         </div>
       </div>

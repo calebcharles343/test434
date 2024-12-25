@@ -46,21 +46,20 @@ const SearchBar: React.FC = () => {
   const handleFocus = () => {
     setShowCheckBoxContainer(true);
   };
-
   return (
     <div
       ref={searchBarRef}
       className="w-[90%] md:w-[150%] lg:w-[200%] relative flex items-center gap-2"
     >
       <button
-        className="hidden md:block  "
+        className="hidden md:block"
         type="button"
         onClick={toggleCheckBoxContainer}
       >
         <HiSearch style={{ fontSize: "20px", color: "#333" }} />
       </button>
       <input
-        className="px-4  w-full h-8 rounded-full focus:outline-none"
+        className="px-4 w-full h-8 rounded-full focus:outline-none"
         type="text"
         placeholder="Search"
         value={query}
@@ -68,7 +67,7 @@ const SearchBar: React.FC = () => {
         onFocus={handleFocus} // Show CheckBox container on focus
       />
       {showCheckBoxContainer && (
-        <div className="w-[62%] absolute left-6 top-10 flex items-center bg-white border p-2 rounded-lg shadow-lg">
+        <div className="absolute transform -translate-x-0 translate-y-8 md:-translate-y-5  mt-2 flex items-center bg-white border p-2 rounded-lg shadow-lg md:left-6 md:top-12 lg:w-[62%]">
           <CheckBox
             label="Top Ratings"
             name="ratingCheckbox"

@@ -95,6 +95,8 @@ export interface OrderType {
   status: string;
   Items: OrderItemType[];
   User?: UserType;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface OrderItemType {
@@ -131,6 +133,8 @@ export interface ReviewType {
   productId?: number;
   review: string;
   rating: number;
+  createdAt?: string;
+  updatedAt?: string;
   User?: Partial<UserType>;
 }
 

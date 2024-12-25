@@ -3,6 +3,7 @@ import { ReviewType } from "../../interfaces.ts";
 import { localStorageUser } from "../../utils/localStorageUser.ts";
 import { useDeleteReview } from "./useDeleteReview.ts";
 import UpdateReviewForm from "./UpdateReviewForm.tsx";
+import { dateformat } from "../../utils/dateFormat.ts";
 
 interface ReviewProps {
   review: ReviewType;
@@ -50,6 +51,7 @@ const Review: React.FC<ReviewProps> = ({ review, refetchReviews }) => {
           <p className="text-sm text-blue-500 font-bold mt-1">
             Rating: {review.rating.toFixed(1)}
           </p>
+          <span className="text-xs">{dateformat(review?.createdAt!)}</span>
         </div>
       </div>
       {isEdit && (

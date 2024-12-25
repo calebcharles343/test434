@@ -6,7 +6,7 @@ import SpinnerMini from "../../ui/SpinnerMini";
 const AdminOrders: React.FC = () => {
   const { data: adminOrders, isLoading } = useAdminOrders();
 
-  console.log(adminOrders);
+  // console.log(adminOrders);
 
   if (isLoading)
     return (

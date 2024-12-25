@@ -25,10 +25,8 @@ const ProductDetails: React.FC = () => {
 
   const mainProduct = product?.data || firstProduct;
 
-  console.log(mainProduct);
-
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full pb-20">
       <div className="flex flex-col md:flex-row lg:w-[800px] gap-8 p-4 overflow-y-auto">
         {/* Product Section */}
         <div className="flex flex-col md:w-1/2 md:mr-4 md:px-4">

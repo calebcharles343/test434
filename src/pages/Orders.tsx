@@ -7,7 +7,7 @@ const Oders: React.FC = () => {
   const localStorageUserX = localStorageUser();
 
   return (
-    <div>
+    <div className="pb-20">
       {localStorageUserX.role !== "Admin" ? <Orders /> : <AdminOrders />}
     </div>
   );

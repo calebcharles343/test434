@@ -20,7 +20,7 @@ function CheckBox({ checked, onChange, label }: CheckboxProps) {
           }`}
         /> */}
       </div>
-      <span className="ml-2 text-xs">
+      <span className=" text-xs">
         {label} <span className="hidden md:inline">Only</span>
       </span>
     </label>

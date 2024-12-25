@@ -3,7 +3,7 @@ import ProductsContainer from "../ui/ProductsContainer.tsx";
 
 const Home: React.FC = () => {
   return (
-    <div>
+    <div className="pb-20">
       <ProductsContainer />
     </div>
   );
