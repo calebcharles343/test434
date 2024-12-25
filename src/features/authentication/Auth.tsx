@@ -2,6 +2,7 @@ import { useState } from "react";
 // import authBg from "../../data/img/bg-2.jpg";
 import LoginForm from "./LoginForm.tsx";
 import SignupForm from "./SignupForm.tsx";
+import { Link } from "react-router-dom";
 
 const Auth: React.FC = () => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
@@ -24,18 +25,26 @@ const Auth: React.FC = () => {
       >
         {isLogin ? <LoginForm /> : <SignupForm />}
       </div>
-      <div className="flex items-center text-white">
+      <div className="flex flex-col items-center text-white gap-2">
+        <div className="flex items-center">
+          <p>
+            {isLogin
+              ? "Need an account? sign up"
+              : "Already have an account? log in"}
+          </p>
+          <span
+            onClick={handleLogin}
+            className="text-[#ff9928] px-1 cursor-pointer hover:underline"
+          >
+            here.
+          </span>
+        </div>
         <p>
-          {isLogin
-            ? "Need an account? sign up"
-            : "Already have an account? log in"}
+          forgot password? click
+          <span className="text-[#ff9928] px-1 cursor-pointer hover:underline">
+            {<Link to="forgotPassword">here.</Link>}
+          </span>
         </p>
-        <span
-          onClick={handleLogin}
-          className="text-[#ff9928] px-1 cursor-pointer hover:underline"
-        >
-          here.
-        </span>
       </div>
     </div>
   );

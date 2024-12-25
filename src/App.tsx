@@ -16,6 +16,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ProductDetails from "./pages/ProductDetails.tsx";
 import { Toaster } from "react-hot-toast";
 import Orders from "./pages/Orders.tsx";
+import ResetPasswordForm from "./features/authentication/ResetPasswordForm.tsx";
+import ForgotPasswordForm from "./features/authentication/ForgotPasswordForm.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -50,6 +52,8 @@ const router = createBrowserRouter([
     ],
   },
   { path: "auth", element: <Auth /> },
+  { path: "auth/forgotPassword", element: <ForgotPasswordForm /> },
+  { path: "auth/resetPassword", element: <ResetPasswordForm /> },
   { path: "*", element: <PageNotFound /> },
 ]);
 
