@@ -20,8 +20,6 @@ const ForgotPasswordForm: React.FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    console.log(formData, "Form Data");
-
     const data = {
       data: formData,
     };

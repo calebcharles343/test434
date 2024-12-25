@@ -37,7 +37,7 @@ export function useResetPassword(token: string) {
       resetPasswordApi(token, data),
 
     onSuccess: (data) => {
-      if (data.status === 201) {
+      if (data.status === 200) {
         // const userData = data.data.user;
 
         toast.success("Password reset successfull");

@@ -142,7 +142,7 @@ export const resetPassword = async function (
   data: PasswordResetTypes
 ) {
   try {
-    const response = await axios.post<PasswordResetTypes>(
+    const response = await axios.patch<PasswordResetTypes>(
       `${apiURL}/users/resetPassword/${token}`,
       data
     );
