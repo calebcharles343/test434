@@ -4,6 +4,7 @@ import { resetPassword as resetPasswordApi } from "../../services/apiAuth.ts";
 import { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-hot-toast";
 import { PasswordResetTypes } from "../../interfaces.ts";
+import { useNavigate } from "react-router-dom";
 
 // interface Sig {
 //   name: string;
@@ -26,7 +27,7 @@ interface LoginError extends AxiosError {
 }
 
 export function useResetPassword(token: string) {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const {
     mutate: resetPassword,
@@ -42,7 +43,7 @@ export function useResetPassword(token: string) {
 
         toast.success("Password reset successfull");
         // Navigate to home page after successful login
-        // navigate("/login", { replace: true });
+        navigate("/login", { replace: true });
       } else {
         toast.error(`${data.message}`);
 
