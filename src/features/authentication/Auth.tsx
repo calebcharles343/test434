@@ -39,9 +39,9 @@ const Auth: React.FC = () => {
             here.
           </span>
         </div>
-        <p>
+        <p className="text-xs">
           forgot password? click
-          <span className="text-[#ff9928] px-1 cursor-pointer hover:underline">
+          <span className=" text-[#ff9928] px-1 cursor-pointer hover:underline">
             {<Link to="forgotPassword">here.</Link>}
           </span>
         </p>
