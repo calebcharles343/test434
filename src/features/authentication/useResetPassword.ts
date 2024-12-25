@@ -43,7 +43,7 @@ export function useResetPassword(token: string) {
 
         toast.success("Password reset successfull");
         // Navigate to home page after successful login
-        navigate("/login", { replace: true });
+        navigate("/auth", { replace: true });
       } else {
         toast.error(`${data.message}`);
 

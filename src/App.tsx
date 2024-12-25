@@ -73,7 +73,7 @@ const App: React.FC = () => {
             duration: 5000,
           },
           style: {
-            fontSize: "16px",
+            fontSize: "10px",
             maxWidth: "500px",
             padding: "16px 24px",
             backgroundColor: "white",
