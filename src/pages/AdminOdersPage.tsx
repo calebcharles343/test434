@@ -1,11 +1,11 @@
-import { localStorageUser } from "../utils/localStorageUser";
 import AdminOrders from "../features/order/AdminOrders";
 import { useUser } from "../features/authentication/useUser";
+import { sessionStorageUser } from "../utils/sessionStorageUser";
 
 const AdminOrdersPage: React.FC = () => {
-  const localStorageUserX = localStorageUser();
+  const sessionStorageUserX = sessionStorageUser();
 
-  const { data: user } = useUser(localStorageUserX?.id);
+  const { data: user } = useUser(sessionStorageUserX?.id);
 
   if (!user) {
     return (

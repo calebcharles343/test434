@@ -1,16 +1,18 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { OrderType } from "../interfaces.ts";
+import { sessionStorageUser } from "../utils/sessionStorageUser.ts";
 
 const url = "https://tia-backend-final.onrender.com/api/v1/e-commerce";
 
 const axiosInstance = axios.create({
   baseURL: url,
 });
+const sessionStorageUserX = sessionStorageUser();
 
 // Add request interceptor to attach token dynamically
 axiosInstance.interceptors.request.use((config) => {
-  const token = Cookies.get("jwt");
+  const token = Cookies.get(`token-${sessionStorageUserX.id}`);
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

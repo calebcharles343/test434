@@ -1,5 +1,5 @@
-export function localStorageUser() {
-  const storedUserJSON = localStorage.getItem("currentLocalUser");
+export function sessionStorageUser() {
+  const storedUserJSON = sessionStorage.getItem("currentSessionUser");
   let storedUser = null;
 
   if (storedUserJSON) {
@@ -14,5 +14,5 @@ export function localStorageUser() {
 }
 
 export function getUserToken(userId: number) {
-  return localStorage.getItem(`token-${userId}`);
+  return sessionStorage.getItem(`token-${userId}`);
 }

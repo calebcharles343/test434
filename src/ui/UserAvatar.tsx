@@ -3,9 +3,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useUploadImage } from "../hooks/images/useUploadImage";
 import SpinnerMini from "./SpinnerMini";
 import outline from "../data/img/passportDPnew.webp";
-import { localStorageUser } from "../utils/localStorageUser";
+
 import { imageHeader } from "../utils/imageApiHeader";
 import { useUser } from "../features/authentication/useUser";
+import { sessionStorageUser } from "../utils/sessionStorageUser";
 
 const UserAvatar: React.FC = () => {
   const [errorFile, setErrorFile] = useState<string | undefined>();
@@ -15,19 +16,19 @@ const UserAvatar: React.FC = () => {
   const queryClient = useQueryClient();
 
   // Get the current user from localStorage
-  const localStorageUserX = localStorageUser();
+  const sessionStorageUserX = sessionStorageUser();
 
   // Check if the user is authenticated
-  const isAuthenticated = Boolean(localStorageUserX);
+  const isAuthenticated = Boolean(sessionStorageUserX);
 
   // Safely call useUser hook only when authenticated
   const { data: user, refetch: refetchUser } = isAuthenticated
-    ? useUser(localStorageUserX!.id)
+    ? useUser(sessionStorageUserX!.id)
     : { data: null, refetch: () => {} };
 
   // Safely call useUploadImage hook only when authenticated
   const { uploadImage, isUploading } = isAuthenticated
-    ? useUploadImage(imageHeader(`userAvatar-${localStorageUserX!.id}`))
+    ? useUploadImage(imageHeader(`userAvatar-${sessionStorageUserX!.id}`))
     : { uploadImage: () => {}, isUploading: false };
 
   // Refetch user data when the component mounts
@@ -92,9 +93,9 @@ const UserAvatar: React.FC = () => {
 
   // Determine avatar source
   const avatarSrc =
-    user?.id === localStorageUserX?.id
+    user?.id === sessionStorageUserX?.id
       ? user?.avatar || outline
-      : localStorageUserX?.avatar || outline;
+      : sessionStorageUserX?.avatar || outline;
 
   return (
     <div ref={avatarRef} className="min-w-10 relative flex items-center gap-6">
@@ -109,7 +110,7 @@ const UserAvatar: React.FC = () => {
         />
       )}
       <span className="hidden sm:block">
-        {localStorageUserX?.name?.toUpperCase() || "Guest"}
+        {sessionStorageUserX?.name?.toUpperCase() || "Guest"}
       </span>
       {isUpdateBox && (
         <div className="absolute transform -translate-x-10 translate-y-9 flex items-center justify-center bg-white rounded-md border p-1 shadow-lg">

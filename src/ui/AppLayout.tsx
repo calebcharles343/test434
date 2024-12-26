@@ -2,17 +2,18 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { useUser } from "../features/authentication/useUser";
-import { localStorageUser } from "../utils/localStorageUser";
 import Spinner from "./Spinner";
 import { useFetchProducts } from "../features/product/useFetchProducts";
 import AuthGuard from "../features/authentication/AuthGuard";
+import { sessionStorageUser } from "../utils/sessionStorageUser";
 
 const AppLayout: React.FC = () => {
-  const localStorageUserX = localStorageUser();
-  const isAuthenticated = !!localStorageUserX;
+  const sessionStorageUserX = sessionStorageUser();
+  // const localStorageUserX = localStorageUser();
+  const isAuthenticated = !!sessionStorageUserX;
 
   const { isLoading } = isAuthenticated
-    ? useUser(localStorageUserX?.id)
+    ? useUser(sessionStorageUserX?.id)
     : { isLoading: false };
 
   // Fetch products using React Query

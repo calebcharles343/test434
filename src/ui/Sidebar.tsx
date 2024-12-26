@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useLogout } from "../features/authentication/useLogout.ts";
 import SpinnerMini from "./SpinnerMini.tsx";
@@ -11,16 +11,28 @@ import {
   BiLogOut,
 } from "react-icons/bi";
 import { FiMenu } from "react-icons/fi";
-import { localStorageUser } from "../utils/localStorageUser.ts";
+import { sessionStorageUser } from "../utils/sessionStorageUser.ts";
 
 const Sidebar: React.FC = () => {
-  const localStorageUserX = localStorageUser();
-  const isAuthenticated = !!localStorageUserX;
+  const [user, setUser] = useState(sessionStorageUser());
+  const isAuthenticated = !!user;
   const { logout, isPending } = useLogout();
 
   const handleLogout = async () => {
     logout();
   };
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setUser(sessionStorageUser());
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   return (
     <div>
@@ -29,7 +41,7 @@ const Sidebar: React.FC = () => {
         style={{ backgroundImage: `url(${sideBarImg2})` }}
       >
         <span
-          className="text-sm  text-[#ffa82b] font-extrabold p-2 border border-[#ffa82b] rounded-lg"
+          className="text-sm text-[#ffa82b] font-extrabold p-2 border border-[#ffa82b] rounded-lg"
           style={{ fontFamily: "Syncopate" }}
         >
           Shopping List
@@ -59,7 +71,7 @@ const Sidebar: React.FC = () => {
               <BiInfoCircle className="mr-2" /> Product info
             </Link>
           </li>
-          {isAuthenticated && localStorageUserX.role !== "Admin" && (
+          {isAuthenticated && user.role !== "Admin" && (
             <li>
               <Link
                 to="orders"
@@ -69,7 +81,7 @@ const Sidebar: React.FC = () => {
               </Link>
             </li>
           )}
-          {isAuthenticated && localStorageUserX.role === "Admin" && (
+          {isAuthenticated && user.role === "Admin" && (
             <li>
               <Link
                 to="adminOrders"

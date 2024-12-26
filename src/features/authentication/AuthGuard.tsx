@@ -1,21 +1,26 @@
 import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import {
+  sessionStorageUser,
+  getUserToken,
+} from "../../utils/sessionStorageUser";
 
 interface AuthGuardProps {
   children: ReactNode;
 }
 
 const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
-  const authToken = Cookies.get("jwt");
+  const sessionStorageUserX = sessionStorageUser();
 
-  // console.log(authToken);
+  if (!sessionStorageUserX) {
+    return <Navigate to="/auth" replace />;
+  }
+
+  const authToken = getUserToken(sessionStorageUserX.id);
 
   if (!authToken) {
-    // Clear specific items from localStorage
-    localStorage.removeItem("localUser"); // Adjust the key as necessary
-    localStorage.removeItem("authData"); // Adjust the key as necessary
-
+    sessionStorage.removeItem("currentSessionUser");
+    sessionStorage.removeItem(`token-${sessionStorageUserX.id}`);
     return <Navigate to="/auth" replace />;
   }
 

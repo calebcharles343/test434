@@ -4,13 +4,13 @@ import Cookies from "js-cookie";
 import { logout as logOutApi } from "../../services/apiAuth";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../../store/cartSlice";
-import { localStorageUser } from "../../utils/localStorageUser";
+import { sessionStorageUser } from "../../utils/sessionStorageUser";
 
 export function useLogout() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
-  const localStorageUserX = localStorageUser();
+  const sessionStorageUserX = sessionStorageUser();
 
   const { mutate: logout, isPending } = useMutation({
     mutationFn: logOutApi,
@@ -21,14 +21,11 @@ export function useLogout() {
       queryClient.clear();
 
       // Remove JWT token from cookies
-      Cookies.remove("jwt");
+      Cookies.remove(`token-${sessionStorageUserX?.id}`);
 
-      Cookies.remove("jwt");
-      localStorage.removeItem("localUser");
-      localStorage.removeItem(`token${localStorageUserX.id}`);
-
-      // Clear all local storage
-      localStorage.clear();
+      // Clear specific items from sessionStorage
+      sessionStorage.removeItem("currentSessionUser");
+      sessionStorage.removeItem(`token-${sessionStorageUserX?.id}`);
 
       // Redirect to the auth (login) page
       navigate("/auth", { replace: true });

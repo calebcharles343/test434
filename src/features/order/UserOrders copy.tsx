@@ -1,17 +1,18 @@
 import React from "react";
 import { OrderType } from "../../interfaces";
 import { useFetchOrders } from "./useFetchOrders";
-import { localStorageUser } from "../../utils/localStorageUser";
 import { Link } from "react-router-dom";
 import SpinnerMini from "../../ui/SpinnerMini";
 import UserOrder from "./UserOrder";
+import { sessionStorageUser } from "../../utils/sessionStorageUser";
 // import { useOrders } from "./hooks/useOrders";
 
 const UserOrders: React.FC = () => {
-  const localStorageUserX = localStorageUser();
+  // const sessionStorageUserX = localStorageUser();
+  const sessionStorageUserX = sessionStorageUser();
 
   const { orders, refetchOrders, isLoadingOrders } = useFetchOrders(
-    localStorageUserX?.id
+    sessionStorageUserX?.id
   );
 
   // In UserOrders.tsx
@@ -19,10 +20,10 @@ const UserOrders: React.FC = () => {
   //   data: orders,
   //   isLoading,
   //   refetch: refetchOrders,
-  // } = useOrders(localStorageUserX.id);
-  // localStorageUserX?.id;
+  // } = useOrders(sessionStorageUserX.id);
+  // sessionStorageUserX?.id;
 
-  // const { data: orders, isLoading } = useOrders(localStorageUserX?.id);
+  // const { data: orders, isLoading } = useOrders(sessionStorageUserX?.id);
 
   // Ensure we have a valid list of orders
   const mainOrders = orders?.data || [];

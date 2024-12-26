@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { login as loginApi } from "../../services/apiAuth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import Cookies from "js-cookie";
+import { login as loginApi } from "../../services/apiAuth";
 
 export function useLogin() {
   const queryClient = useQueryClient();
@@ -19,19 +19,16 @@ export function useLogin() {
         queryClient.clear();
 
         // Set JWT token in cookies
-        Cookies.set("jwt", data.data.token, {
+        Cookies.set(`token-${userData.id}`, data.data.token, {
           expires: 7,
           secure: true,
           sameSite: "strict",
         });
 
-        // Set user data in React Query cache
-        queryClient.setQueryData(["user", userData.id], userData);
-        localStorage.setItem("localUser", JSON.stringify(userData));
-        localStorage.setItem(
-          `token${data.data.user.id}`,
-          JSON.stringify(data.data.token)
-        );
+        // Set current user in sessionStorage
+        sessionStorage.setItem("currentSessionUser", JSON.stringify(userData));
+        sessionStorage.setItem(`token-${userData.id}`, data.data.token);
+
         // Redirect to the home page
         navigate("/home", { replace: true });
       } else {

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { ReviewType } from "../../interfaces.ts";
-import { localStorageUser } from "../../utils/localStorageUser.ts";
 import { useDeleteReview } from "./useDeleteReview.ts";
 import UpdateReviewForm from "./UpdateReviewForm.tsx";
 import { dateformat } from "../../utils/dateFormat.ts";
+import { sessionStorageUser } from "../../utils/sessionStorageUser.ts";
 
 interface ReviewProps {
   review: ReviewType;
@@ -14,7 +14,8 @@ const Review: React.FC<ReviewProps> = ({ review, refetchReviews }) => {
   const [isEdit, isSetEdit] = useState<boolean>(false);
 
   const { deleteReview } = useDeleteReview(review?.productId!);
-  const localStorageUserX = localStorageUser();
+
+  const sessionStorageUserX = sessionStorageUser();
 
   const handleToggleEdit = () => {
     isSetEdit(!isEdit);
@@ -27,7 +28,7 @@ const Review: React.FC<ReviewProps> = ({ review, refetchReviews }) => {
           <div className="flex items-center justify-between">
             <p className="text-base font-semibold">{review.User?.name}</p>
             <div className="flex items-center gap-2">
-              {localStorageUserX.id === review?.User?.id && (
+              {sessionStorageUserX.id === review?.User?.id && (
                 <button
                   className="text-sm text-blue-500"
                   // onClick={() => updateReviewMutation.mutate(review)}
@@ -37,7 +38,7 @@ const Review: React.FC<ReviewProps> = ({ review, refetchReviews }) => {
                 </button>
               )}
 
-              {localStorageUserX.role === "Admin" && (
+              {sessionStorageUserX.role === "Admin" && (
                 <button
                   className="text-sm text-red-500"
                   onClick={() => deleteReview(review?.id!)}

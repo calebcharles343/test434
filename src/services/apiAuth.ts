@@ -6,13 +6,15 @@ import {
   UpdateUserType,
   UserProfileToken,
 } from "../interfaces.ts";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
+import { generalApiHeader } from "../utils/generalApiHeader.ts";
 
 // const apiURL = "https://shopping-list-f1b6.onrender.com/api/v1/shopping-list";
-const authToken = Cookies.get("jwt");
+// const authToken = Cookies.get("jwt");
 
 const apiURL = "https://tia-backend-final.onrender.com/api/v1/e-commerce";
-const headers = { authorization: `Bearer ${authToken}` };
+// const headers = { authorization: `Bearer ${authToken}` };
+const headers = generalApiHeader();
 
 export const login = async function (email: string, password: string) {
   try {

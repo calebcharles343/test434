@@ -7,7 +7,7 @@ import Modal from "../../ui/Modal.tsx";
 import CreateProductForm from "./CreateProductForm.tsx";
 import SingleProduct from "./SingleProduct.tsx";
 import { RootState } from "../../store/store.ts";
-import { localStorageUser } from "../../utils/localStorageUser";
+import { sessionStorageUser } from "../../utils/sessionStorageUser.ts";
 
 const Products: React.FC = () => {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const Products: React.FC = () => {
   }, [products, dispatch]);
 
   // Get authenticated user
-  const storedUser = localStorageUser();
+  const storedUser = sessionStorageUser();
 
   // Filter products based on name, description, and category
   const filteredProducts = products?.data.filter((p) => {

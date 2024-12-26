@@ -11,8 +11,9 @@ import { useUploadImage } from "../../hooks/images/useUploadImage.ts";
 import { useGetProduct } from "./useGetProduct.ts";
 import { useDeleteProduct } from "./useDeleteProduct.ts";
 import { imageHeader } from "../../utils/imageApiHeader.ts";
-import { localStorageUser } from "../../utils/localStorageUser.ts";
+
 import toast, { Toaster } from "react-hot-toast";
+import { sessionStorageUser } from "../../utils/sessionStorageUser.ts";
 
 interface ProductProps {
   product: any;
@@ -30,7 +31,7 @@ export default function SingleProduct({ product, ID }: ProductProps) {
   } = useGetProduct(product.id);
   const { deleteProduct } = useDeleteProduct();
 
-  const localStorageUserX = localStorageUser();
+  const sessionStorageUserX = sessionStorageUser();
 
   const { uploadImage, isUploading } = useUploadImage(
     imageHeader(`productAvatar-${freshProduct?.data.id}`)
@@ -156,7 +157,7 @@ export default function SingleProduct({ product, ID }: ProductProps) {
       <div className="mt-2">
         <StarRating initialRating={product?.ratingAverage} />
       </div>
-      {id && localStorageUserX?.role === "Admin" && (
+      {id && sessionStorageUserX?.role === "Admin" && (
         <div className="flex items-center justify-between gap-2 mt-2">
           <div className="bg-white rounded-md p-1">
             <input

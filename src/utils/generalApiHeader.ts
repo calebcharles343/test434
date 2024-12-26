@@ -1,8 +1,9 @@
-import Cookies from "js-cookie";
+import { getUserToken, sessionStorageUser } from "./sessionStorageUser";
 
-const authToken = Cookies.get("jwt");
+const currentUser = sessionStorageUser();
+const authToken = currentUser ? getUserToken(currentUser.id) : null;
 
 export function generalApiHeader() {
-  const header = { authorization: `Bearer ${authToken}` };
+  const header = authToken ? { authorization: `Bearer ${authToken}` } : {};
   return header;
 }
