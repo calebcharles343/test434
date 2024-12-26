@@ -1,19 +1,18 @@
-import { useDispatch } from "react-redux";
-import Modal from "../../ui/Modal.tsx";
-
 import { ChangeEvent, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { ItemType } from "../../interfaces.ts";
 import { addItem } from "../../store/cartSlice.ts";
 import SpinnerMini from "../../ui/SpinnerMini.tsx";
 import StarRating from "../../ui/StarRating.tsx";
 import UpdateProductForm from "./UpdateProductForm.tsx";
+import Modal from "../../ui/Modal.tsx";
 import { useUploadImage } from "../../hooks/images/useUploadImage.ts";
-
 import { useGetProduct } from "./useGetProduct.ts";
 import { useDeleteProduct } from "./useDeleteProduct.ts";
 import { imageHeader } from "../../utils/imageApiHeader.ts";
 import { localStorageUser } from "../../utils/localStorageUser.ts";
+import toast, { Toaster } from "react-hot-toast";
 
 interface ProductProps {
   product: any;
@@ -24,26 +23,20 @@ export default function SingleProduct({ product, ID }: ProductProps) {
   const [errorFile, setErrorFile] = useState<string | undefined>();
   const [itemQuantity, setitemQuantity] = useState<number>(0);
 
-  useParams();
-  // get product
   const {
     product: freshProduct,
     refetchProduct,
     isLoadingProduct,
   } = useGetProduct(product.id);
-
   const { deleteProduct } = useDeleteProduct();
 
-  // get user
   const localStorageUserX = localStorageUser();
 
-  //upload image hook
   const { uploadImage, isUploading } = useUploadImage(
     imageHeader(`productAvatar-${freshProduct?.data.id}`)
   );
 
-  //Upload image function
-  async function handleUpload(e: ChangeEvent<HTMLInputElement>) {
+  const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
       if (!["image/jpg", "image/jpeg", "image/png"].includes(file.type)) {
@@ -63,18 +56,22 @@ export default function SingleProduct({ product, ID }: ProductProps) {
         },
       });
     }
-  }
+  };
 
-  //Cart Slice
   const dispatch = useDispatch();
 
   const handleAddItem = (item: ItemType) => {
+    if (item.quantity <= 0) {
+      toast.error("Item quantity cannot be zero");
+      return;
+    }
     dispatch(addItem(item));
   };
 
   const handleAddQtr = () => {
     setitemQuantity(itemQuantity + 1);
   };
+
   const handleReduceQtr = () => {
     if (itemQuantity > 0) setitemQuantity(itemQuantity - 1);
   };
@@ -104,9 +101,9 @@ export default function SingleProduct({ product, ID }: ProductProps) {
 
   return (
     <div className="text-gray-600 flex flex-col w-[280px] border border-gray-200 p-4 gap-4 shadow-lg rounded-lg">
+      <Toaster />
       <div className="flex items-center justify-between mb-2">
         <p className="text-lg font-semibold">{product.name}</p>
-
         {!id && (
           <button
             onClick={() => handleClick(product.id)}
@@ -116,19 +113,17 @@ export default function SingleProduct({ product, ID }: ProductProps) {
           </button>
         )}
       </div>
-
       <img
         src={product.avatar}
         alt={`Image of ${product.name}`}
         className="w-full h-[150px] object-cover rounded-lg"
       />
-
-      <div className=" flex  items-center justify-between mt-2">
-        <div className="">
+      <div className="flex items-center justify-between mt-2">
+        <div>
           <span className="text-lg font-semibold text-green-700">
             ${product.price}
           </span>
-          <div className=" flex items-center gap-2 text-xs mt-1">
+          <div className="flex items-center gap-2 text-xs mt-1">
             <span>Qtr: {itemQuantity}</span>
             <button
               onClick={handleReduceQtr}
@@ -158,11 +153,9 @@ export default function SingleProduct({ product, ID }: ProductProps) {
           Add to Cart
         </button>
       </div>
-
       <div className="mt-2">
         <StarRating initialRating={product?.ratingAverage} />
       </div>
-
       {id && localStorageUserX?.role === "Admin" && (
         <div className="flex items-center justify-between gap-2 mt-2">
           <div className="bg-white rounded-md p-1">
@@ -178,8 +171,7 @@ export default function SingleProduct({ product, ID }: ProductProps) {
             >
               {isUploading ? "..." : "Photo +"}
             </label>
-
-            {errorFile && <p className="text-xs text-red-500">errorFile</p>}
+            {errorFile && <p className="text-xs text-red-500">{errorFile}</p>}
           </div>
           <Modal>
             <Modal.Open open="editProduct">
@@ -190,12 +182,10 @@ export default function SingleProduct({ product, ID }: ProductProps) {
                 Edit
               </button>
             </Modal.Open>
-
             <Modal.Window name="editProduct">
               <UpdateProductForm product={product} />
             </Modal.Window>
           </Modal>
-
           <button
             onClick={() => handleDelete(ID!)}
             className="text-xs px-2 py-1 border border-red-500 text-red-500 rounded-md"
