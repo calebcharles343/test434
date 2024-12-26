@@ -1,17 +1,23 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import { OrderType } from "../interfaces.ts";
-import { generalApiHeader } from "../utils/generalApiHeader.ts";
 
-const headers = generalApiHeader();
 const url = "https://tia-backend-final.onrender.com/api/v1/e-commerce";
-
-// console.log(headers);
 
 const axiosInstance = axios.create({
   baseURL: url,
-  headers,
 });
 
+// Add request interceptor to attach token dynamically
+axiosInstance.interceptors.request.use((config) => {
+  const token = Cookies.get("jwt");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+// Retry logic for rate-limiting errors (429)
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1000; // Initial delay in milliseconds
 
@@ -28,6 +34,7 @@ const retryRequest = async (error: any, retries: number = 0): Promise<any> => {
     .catch((err) => retryRequest(err, retries + 1));
 };
 
+// Add response interceptor to handle retries
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -38,14 +45,17 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export const createOrder = async (orderData: any) => {
+// API Functions
+export const createOrder = async (orderData: OrderType) => {
   const response = await axiosInstance.post(`/orders/create`, orderData);
   return response.data;
 };
+
 export const getAllOrders = async () => {
   const response = await axiosInstance.get("/orders");
   return response.data;
 };
+
 export const getAllAdminOrders = async () => {
   const response = await axiosInstance.get("/orders/admin");
   return response.data;
@@ -71,6 +81,7 @@ export const cancelOrder = async (
   const response = await axiosInstance.patch(`/orders/cancel/${id}`, orderData);
   return response.data;
 };
+
 export const deleteOrder = async (id: number) => {
   const response = await axiosInstance.delete(`/orders/delete/${id}`);
   return response.data;

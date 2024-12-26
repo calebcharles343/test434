@@ -1,5 +1,5 @@
 import React from "react";
-import { useAdminOrders } from "./hooks/useOrders";
+import { useAdminOrders } from "./useFetchAdminOrders";
 import AdminOrder from "./AdminOrder";
 import SpinnerMini from "../../ui/SpinnerMini";
 import { OrderType } from "../../interfaces";

@@ -59,7 +59,7 @@ const Sidebar: React.FC = () => {
               <BiInfoCircle className="mr-2" /> Product info
             </Link>
           </li>
-          {localStorageUserX.role !== "Admin" && (
+          {isAuthenticated && localStorageUserX.role !== "Admin" && (
             <li>
               <Link
                 to="orders"
@@ -69,7 +69,7 @@ const Sidebar: React.FC = () => {
               </Link>
             </li>
           )}
-          {localStorageUserX.role === "Admin" && (
+          {isAuthenticated && localStorageUserX.role === "Admin" && (
             <li>
               <Link
                 to="adminOrders"
