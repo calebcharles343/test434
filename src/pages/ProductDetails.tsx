@@ -6,6 +6,7 @@ import { useGetProduct } from "../features/product/useGetProduct"; // Correct pa
 import SingleProduct from "../features/product/SingleProduct"; // Correct path
 import ReviewForm from "../features/review/ReviewForm";
 import Review from "../features/review/Review";
+import AuthGuard from "../features/authentication/AuthGuard";
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
@@ -31,7 +32,9 @@ const ProductDetails: React.FC = () => {
         {/* Product Section */}
         <div className="flex flex-col md:w-1/2 md:mr-4 md:px-4">
           <SingleProduct product={mainProduct} ID={ID} />
-          <ReviewForm productId={ID} refetchReviews={refetchReviews} />
+          <AuthGuard>
+            <ReviewForm productId={ID} refetchReviews={refetchReviews} />
+          </AuthGuard>
         </div>
 
         {/* Reviews Section */}

@@ -10,24 +10,50 @@ interface OrderProps {
 }
 
 const AdminOrder: React.FC<OrderProps> = ({ order }) => {
+  console.log(order, "❌❌❌❌");
+
   const [status, setStatus] = useState(order.status);
+  const [isError, setIsError] = useState(false);
 
   const { updateOrderStatus, isPending } = useUpdateOrderStatus(order.id);
   const { deleteOrder, isDeletingOrder } = useDeleteOrder();
 
-  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleStatusChange = async (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const newStatus = e.target.value;
-    setStatus(newStatus);
 
-    updateOrderStatus({ status: newStatus });
+    // Optimistically update the UI
+    setStatus(newStatus);
+    setIsError(false);
+
+    try {
+      updateOrderStatus({ status: newStatus });
+    } catch (error) {
+      console.error("Failed to update order status:", error);
+      // Revert the status if the API call fails
+      setStatus(order.status);
+      setIsError(true);
+    }
+  };
+
+  const handleDeleteOrder = async () => {
+    setIsError(false);
+
+    try {
+      await deleteOrder(order.id);
+    } catch (error) {
+      console.error("Failed to delete order:", error);
+      setIsError(true);
+    }
   };
 
   return (
     <div
-      className={`w-full md:w-[500px] border-l-8 border-[#FFA82B] p-4 rounded-lg mb-4 bg-white shadow-lg ${
-        order.status === "pending" && "border-[#FFA82B]"
-      } ${order.status === "cancelled" && "border-red-500"} ${
-        order.status === "completed" && "border-green-500"
+      className={`w-full md:w-[500px] border-l-8 p-4 rounded-lg mb-4 bg-white shadow-lg ${
+        status === "pending" ? "border-[#FFA82B]" : ""
+      } ${status === "cancelled" ? "border-red-500" : ""} ${
+        status === "completed" ? "border-green-500" : ""
       }`}
     >
       <div className="flex items-center gap-4">
@@ -38,15 +64,14 @@ const AdminOrder: React.FC<OrderProps> = ({ order }) => {
             </p>
             <div className="flex items-center gap-4">
               <p className="text-sm md:text-base font-semibold">
-                User: {order.User?.name}
+                User: {order.User?.name || "Unknown"}
               </p>
-
               <button
                 className="text-xs text-gray-50 bg-red-500 px-2 rounded-md"
-                onClick={() => deleteOrder(order.id)}
+                onClick={handleDeleteOrder}
                 disabled={isDeletingOrder}
               >
-                X
+                {isDeletingOrder ? "Deleting..." : "X"}
               </button>
             </div>
           </div>
@@ -56,14 +81,14 @@ const AdminOrder: React.FC<OrderProps> = ({ order }) => {
           <div className="text-xs md:text-sm text-blue-500 font-bold mt-1">
             Items:
             <ul className="mt-2">
-              {order.Items.map((item: OrderItemType) => (
+              {order.Items?.map((item: OrderItemType) => (
                 <OrderItem key={item.id} item={item} />
               ))}
             </ul>
           </div>
 
           <div className="flex items-center justify-between mt-4">
-            <div className="">
+            <div>
               <label
                 htmlFor={`status-${order.id}`}
                 className="text-sm md:text-base mr-2"
@@ -82,13 +107,17 @@ const AdminOrder: React.FC<OrderProps> = ({ order }) => {
                 <option value="cancelled">Cancelled</option>
               </select>
             </div>
-
             <span className="text-[9px] md:text-base">
               {dateformat(order.createdAt)}
             </span>
           </div>
         </div>
       </div>
+      {isError && (
+        <div className="text-red-500 text-sm mt-2">
+          An error occurred. Please try again.
+        </div>
+      )}
     </div>
   );
 };

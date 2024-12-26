@@ -3,9 +3,11 @@ import cartReducer from "./cartSlice.ts";
 import modalReducer from "./modalSlice.ts"; // Import the modal slice
 import productsReducer from "./productsSlice.ts"; // Import the modal slice
 import SearchBarReducer from "./searchBarSlice.ts"; // Import the modal slice
+import authReducer from "./authSlice";
 
 export const store = configureStore({
   reducer: {
+    auth: authReducer,
     cart: cartReducer,
     modal: modalReducer,
     products: productsReducer,

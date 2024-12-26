@@ -9,9 +9,13 @@ interface AuthGuardProps {
 const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
   const authToken = Cookies.get("jwt");
 
-  console.log(authToken);
+  // console.log(authToken);
 
   if (!authToken) {
+    // Clear specific items from localStorage
+    localStorage.removeItem("localUser"); // Adjust the key as necessary
+    localStorage.removeItem("authData"); // Adjust the key as necessary
+
     return <Navigate to="/auth" replace />;
   }
 

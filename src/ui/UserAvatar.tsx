@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, ChangeEvent } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUploadImage } from "../hooks/images/useUploadImage";
 import SpinnerMini from "./SpinnerMini";
@@ -12,38 +12,51 @@ const UserAvatar: React.FC = () => {
   const [isUpdateBox, setIsUpdateBox] = useState<boolean>(false);
 
   const avatarRef = useRef<HTMLDivElement>(null);
-
   const queryClient = useQueryClient();
+
+  // Get the current user from localStorage
   const localStorageUserX = localStorageUser();
 
-  const { data: freshUser, refetch: refetchUser } = useUser(
-    localStorageUserX?.id
-  );
+  // Check if the user is authenticated
+  const isAuthenticated = Boolean(localStorageUserX);
 
+  // Safely call useUser hook only when authenticated
+  const { data: user, refetch: refetchUser } = isAuthenticated
+    ? useUser(localStorageUserX!.id)
+    : { data: null, refetch: () => {} };
+
+  // Safely call useUploadImage hook only when authenticated
+  const { uploadImage, isUploading } = isAuthenticated
+    ? useUploadImage(imageHeader(`userAvatar-${localStorageUserX!.id}`))
+    : { uploadImage: () => {}, isUploading: false };
+
+  // Refetch user data when the component mounts
   useEffect(() => {
-    refetchUser();
-  }, [refetchUser]);
-
-  const { uploadImage, isUploading } = useUploadImage(
-    imageHeader(`userAvatar-${localStorageUserX?.id}`)
-  );
+    if (isAuthenticated) {
+      refetchUser();
+    }
+  }, [isAuthenticated, refetchUser]);
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files[0];
-      if (!["image/jpg", "image/jpeg", "image/png"].includes(file.type)) {
-        setErrorFile("File must be in JPG, JPEG, or PNG format.");
-        return;
-      }
-      setErrorFile("");
-      const formData = new FormData();
-      formData.append("image", file);
-      uploadImage(formData, {
-        onSuccess: () => {
-          queryClient.invalidateQueries(["user"] as any);
-        },
-      });
+    if (!e.target.files) return;
+    const file = e.target.files[0];
+
+    if (!["image/jpg", "image/jpeg", "image/png"].includes(file.type)) {
+      setErrorFile("File must be in JPG, JPEG, or PNG format.");
+      return;
     }
+
+    setErrorFile(""); // Clear any previous errors
+    const formData = new FormData();
+    formData.append("image", file);
+
+    uploadImage(formData, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["user"] as any);
+        refetchUser();
+      },
+    });
+
     setIsUpdateBox(false);
   };
 
@@ -63,6 +76,26 @@ const UserAvatar: React.FC = () => {
     };
   }, []);
 
+  // Fallback if user data is unavailable
+  if (!isAuthenticated) {
+    return (
+      <div className="min-w-10 relative flex items-center gap-6">
+        <img
+          className="w-10 h-10 rounded-full"
+          src={outline}
+          alt="Default Avatar"
+        />
+        <span className="hidden sm:block">Guest</span>
+      </div>
+    );
+  }
+
+  // Determine avatar source
+  const avatarSrc =
+    user?.id === localStorageUserX?.id
+      ? user?.avatar || outline
+      : localStorageUserX?.avatar || outline;
+
   return (
     <div ref={avatarRef} className="min-w-10 relative flex items-center gap-6">
       {isUploading ? (
@@ -71,19 +104,15 @@ const UserAvatar: React.FC = () => {
         <img
           onClick={() => setIsUpdateBox((prev) => !prev)}
           className="w-10 h-10 rounded-full cursor-pointer"
-          src={
-            freshUser?.id === localStorageUserX.id
-              ? freshUser?.avatar
-              : localStorageUserX.avatar || outline
-          }
+          src={avatarSrc}
           alt="User Avatar"
         />
       )}
       <span className="hidden sm:block">
-        {localStorageUserX?.name.toUpperCase()}
+        {localStorageUserX?.name?.toUpperCase() || "Guest"}
       </span>
       {isUpdateBox && (
-        <div className="absolute transform -translate-x-10 translate-y-9  flex items-center justify-center bg-white rounded-md border p-1 shadow-lg">
+        <div className="absolute transform -translate-x-10 translate-y-9 flex items-center justify-center bg-white rounded-md border p-1 shadow-lg">
           <input
             id="imageInput"
             type="file"
@@ -96,7 +125,7 @@ const UserAvatar: React.FC = () => {
           >
             {isUploading ? "..." : "Upload Photo"}
           </label>
-          {errorFile && <p>{errorFile}</p>}
+          {errorFile && <p className="text-red-500">{errorFile}</p>}
         </div>
       )}
     </div>

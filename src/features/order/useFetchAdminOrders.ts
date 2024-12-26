@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { AxiosError, AxiosResponse } from "axios";
+// import { AxiosError, AxiosResponse } from "axios";
 import { OrdersType } from "../../interfaces.ts";
 import { getAllAdminOrders } from "../../services/apiOrder.ts";
+import { AxiosError, AxiosResponse } from "axios";
 
 interface ErrorResponse {
   message: string;
@@ -43,10 +44,11 @@ export function useFetchAdminOrders() {
   };
 }
 
-export function useAdminOrders() {
-  return useQuery<UseFetchOrdersType, Error>({
-    queryKey: ["adminOrders"],
-    queryFn: getAllAdminOrders,
-    staleTime: 0,
-  });
-}
+// export function useAdminOrders() {
+//   return useQuery<UseFetchOrdersType, Error>({
+//     queryKey: ["adminOrders"],
+//     queryFn: getAllAdminOrders,
+//     staleTime: 0,
+//     retry: 3,
+//   });
+// }

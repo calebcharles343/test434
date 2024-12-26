@@ -7,6 +7,7 @@ import Modal from "../../ui/Modal.tsx";
 import CreateProductForm from "./CreateProductForm.tsx";
 import SingleProduct from "./SingleProduct.tsx";
 import { RootState } from "../../store/store.ts";
+import { localStorageUser } from "../../utils/localStorageUser";
 
 const Products: React.FC = () => {
   const dispatch = useDispatch();
@@ -32,19 +33,8 @@ const Products: React.FC = () => {
     }
   }, [products, dispatch]);
 
-  // Get user
-  const storedUserJSON = localStorage.getItem("localUser");
-  let storedUser = null;
-
-  if (storedUserJSON) {
-    try {
-      storedUser = JSON.parse(storedUserJSON);
-    } catch (error) {
-      console.error("Error parsing stored user data:", error);
-    }
-  } else {
-    console.log("No stored user found");
-  }
+  // Get authenticated user
+  const storedUser = localStorageUser();
 
   // Filter products based on name, description, and category
   const filteredProducts = products?.data.filter((p) => {
@@ -57,6 +47,7 @@ const Products: React.FC = () => {
 
     return queryMatch && ratingMatch;
   });
+
   return (
     <div className="flex flex-col items-center min-w-full md:min-w-[400px] gap-4">
       {storedUser?.role === "Admin" && (
@@ -77,8 +68,7 @@ const Products: React.FC = () => {
           </Modal>
         </div>
       )}
-      {/* <ul className="grid grid-cols-1 mediumMobile:grid-cols-2 mid:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-12"> */}
-      <ul className="grid grid-cols-1 mediumMobile:grid-cols-1 largeMobile:grid-cols-1 tablet:grid-cols-2 mid:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8  mb-16">
+      <ul className="grid grid-cols-1 mediumMobile:grid-cols-1 largeMobile:grid-cols-1 tablet:grid-cols-2 mid:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-16">
         {filteredProducts?.map((product: ProductType) => (
           <SingleProduct key={product.id} product={product} />
         ))}

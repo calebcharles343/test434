@@ -2,8 +2,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { logout as logOutApi } from "../../services/apiAuth";
-import { useDispatch } from "react-redux";
 import { clearCart } from "../../store/cartSlice";
+import { useDispatch } from "react-redux";
+import { clearAuthState } from "../../store/authSlice";
 
 export function useLogout() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export function useLogout() {
     mutationFn: logOutApi,
     onSuccess: () => {
       dispatch(clearCart());
-
+      dispatch(clearAuthState());
       // Clear React Query cache
       queryClient.clear();
 

@@ -43,10 +43,11 @@ export function useFetchOrders(user1d: number) {
   };
 }
 
-export function useOrders(userId: number) {
-  return useQuery<UseFetchOrdersType, Error>({
-    queryKey: ["orders", userId],
-    queryFn: getAllOrders,
-    staleTime: 0,
-  });
-}
+// export function useOrders(userId: number) {
+//   return useQuery<UseFetchOrdersType, Error>({
+//     queryKey: ["orders", userId],
+//     queryFn: getAllOrders,
+//     staleTime: 0,
+//     retry: 3,
+//   });
+// }

@@ -1,3 +1,7 @@
+export interface HeadersType {
+  authorization: string;
+}
+
 export interface UserProfileToken {
   data: Root;
 }

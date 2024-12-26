@@ -6,7 +6,7 @@ import { generalApiHeader } from "../utils/generalApiHeader";
 const headers = generalApiHeader();
 const url = "https://tia-backend-final.onrender.com/api/v1/e-commerce";
 
-console.log(headers);
+// console.log(headers);
 
 const axiosInstance = axios.create({
   baseURL: url,

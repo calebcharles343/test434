@@ -5,7 +5,7 @@ import { generalApiHeader } from "../utils/generalApiHeader.ts";
 const headers = generalApiHeader();
 const url = "https://tia-backend-final.onrender.com/api/v1/e-commerce";
 
-console.log(headers);
+// console.log(headers);
 
 const axiosInstance = axios.create({
   baseURL: url,
@@ -38,7 +38,7 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export const createOrder = async (orderData: OrderType) => {
+export const createOrder = async (orderData: any) => {
   const response = await axiosInstance.post(`/orders/create`, orderData);
   return response.data;
 };
