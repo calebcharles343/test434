@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
 import { OrdersType } from "../../interfaces.ts";
 import { getAllAdminOrders } from "../../services/apiOrder.ts";
+import Cookies from "js-cookie";
 
 interface ErrorResponse {
   message: string;
@@ -43,10 +44,15 @@ export function useFetchAdminOrders() {
   };
 }
 
+// import { useQuery } from "@tanstack/react-query";
+
 export function useAdminOrders() {
-  return useQuery<UseFetchOrdersType, Error>({
-    queryKey: ["adminOrders"],
+  const token = Cookies.get("jwt");
+
+  return useQuery({
+    queryKey: ["adminOrders", token], // Include token in the key
     queryFn: getAllAdminOrders,
+    enabled: !!token, // Only fetch if the token exists
     staleTime: 0,
   });
 }

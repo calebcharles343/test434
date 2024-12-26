@@ -28,6 +28,10 @@ export function useLogin() {
         // Set user data in React Query cache
         queryClient.setQueryData(["user", userData.id], userData);
         localStorage.setItem("localUser", JSON.stringify(userData));
+        localStorage.setItem(
+          `token${data.data.user.id}`,
+          JSON.stringify(data.data.token)
+        );
         // Redirect to the home page
         navigate("/home", { replace: true });
       } else {

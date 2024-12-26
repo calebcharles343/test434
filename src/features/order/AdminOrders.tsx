@@ -2,6 +2,7 @@ import React from "react";
 import { useAdminOrders } from "./useFetchAdminOrders";
 import AdminOrder from "./AdminOrder";
 import SpinnerMini from "../../ui/SpinnerMini";
+import { OrderType } from "../../interfaces";
 
 const AdminOrders: React.FC = () => {
   const { data: adminOrders, isLoading } = useAdminOrders();
@@ -22,7 +23,7 @@ const AdminOrders: React.FC = () => {
   return (
     // <></>
     <div className="flex flex-col items-center">
-      {adminOrders?.data.map((order) => (
+      {adminOrders?.data.map((order: OrderType) => (
         <AdminOrder
           key={order.id}
           order={order}
