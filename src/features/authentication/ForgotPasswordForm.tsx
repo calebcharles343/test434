@@ -33,7 +33,7 @@ const ForgotPasswordForm: React.FC = () => {
         className="Protest+Revolution text-[16px] text-[#ff9928] font-extrabold p-2 border border-[#ff9928] rounded-lg"
         style={{ fontFamily: "Syncopate" }}
       >
-        Shopping List
+        E-COMMERCE
       </span>
       <div className="flex flex-col items-center w-full md:w-[350px] p-2">
         <form

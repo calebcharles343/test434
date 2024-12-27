@@ -45,7 +45,7 @@ const Sidebar: React.FC = () => {
           className="text-sm text-[#ffa82b] font-extrabold p-2 border border-[#ffa82b] rounded-lg"
           style={{ fontFamily: "Syncopate" }}
         >
-          Shopping List
+          E-COMMERCE
         </span>
         <ul className="flex flex-col gap-2 text-md w-full p-8 flex-grow">
           <li>

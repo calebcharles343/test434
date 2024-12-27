@@ -17,7 +17,7 @@ const Auth: React.FC = () => {
         className="Protest+Revolution text-[16px] text-[#ff9928] font-extrabold p-2 border border-[#ff9928] rounded-lg"
         style={{ fontFamily: "Syncopate" }}
       >
-        Shopping List
+        E-COMMERCE
       </span>
       <div
         className=" min-w-full md:min-w-[350px]"

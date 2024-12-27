@@ -35,7 +35,7 @@ const ResetPasswordForm: React.FC = () => {
         style={{ fontFamily: "Syncopate" }}
       >
         {" "}
-        Shopping List{" "}
+        E-COMMERCE{" "}
       </span>{" "}
       <div className="flex flex-col items-center w-full md:w-[350px] p-2">
         {" "}
