@@ -12,6 +12,7 @@ import {
 } from "react-icons/bi";
 import { FiMenu } from "react-icons/fi";
 import { sessionStorageUser } from "../utils/sessionStorageUser.ts";
+import Uploader from "../data/Uploader.tsx";
 
 const Sidebar: React.FC = () => {
   const [user, setUser] = useState(sessionStorageUser());
@@ -92,6 +93,11 @@ const Sidebar: React.FC = () => {
             </li>
           )}
         </ul>
+        {isAuthenticated && user.role === "Admin" && (
+          <div>
+            <Uploader />
+          </div>
+        )}
 
         {isAuthenticated ? (
           isPending ? (

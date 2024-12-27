@@ -3,38 +3,43 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { ItemType } from "../../interfaces.ts";
 import { addItem } from "../../store/cartSlice.ts";
-import SpinnerMini from "../../ui/SpinnerMini.tsx";
+// import SpinnerMini from "../../ui/SpinnerMini.tsx";
 import StarRating from "../../ui/StarRating.tsx";
 import UpdateProductForm from "./UpdateProductForm.tsx";
 import Modal from "../../ui/Modal.tsx";
 import { useUploadImage } from "../../hooks/images/useUploadImage.ts";
-import { useGetProduct } from "./useGetProduct.ts";
+// import { useGetProduct } from "./useGetProduct.ts";
 import { useDeleteProduct } from "./useDeleteProduct.ts";
 import { imageHeader } from "../../utils/imageApiHeader.ts";
 
 import toast, { Toaster } from "react-hot-toast";
 import { sessionStorageUser } from "../../utils/sessionStorageUser.ts";
+import { useFetchProducts } from "./useFetchProducts.ts";
 
 interface ProductProps {
   product: any;
   ID?: number;
 }
 
-export default function SingleProduct({ product, ID }: ProductProps) {
+export default function SingleProduct({ product }: ProductProps) {
   const [errorFile, setErrorFile] = useState<string | undefined>();
   const [itemQuantity, setitemQuantity] = useState<number>(0);
+  const { id } = useParams<{ id: string }>();
 
-  const {
-    product: freshProduct,
-    refetchProduct,
-    isLoadingProduct,
-  } = useGetProduct(product.id);
+  // const {
+  //   product: freshProduct,
+  //   refetchProduct,
+  //   // isLoadingProduct,
+  // } = useGetProduct(product.id);
   const { deleteProduct } = useDeleteProduct();
 
   const sessionStorageUserX = sessionStorageUser();
 
+  // Fetch products using React Query
+  const { refetchProducts } = useFetchProducts();
+
   const { uploadImage, isUploading } = useUploadImage(
-    imageHeader(`productAvatar-${freshProduct?.data.id}`)
+    imageHeader(`productAvatar-${Number(id)!}`)
   );
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,11 +54,11 @@ export default function SingleProduct({ product, ID }: ProductProps) {
       formData.append("image", file);
       uploadImage(formData, {
         onSuccess: () => {
-          refetchProduct();
+          refetchProducts();
         },
         onError: (error) => {
-          setErrorFile("An error occurred while uploading the image.");
-          console.error("Upload Error:", error);
+          // setErrorFile("An error occurred while uploading the image.");
+          console.error("Upload Error:", error, errorFile);
         },
       });
     }
@@ -87,24 +92,22 @@ export default function SingleProduct({ product, ID }: ProductProps) {
     navigate(`/home/product/${id}`);
   };
 
-  const handleDelete = (ID: number) => {
+  const handleDelete = (id: number) => {
     const userConfirmed = confirm(
       "Are you sure you want to delete this product?"
     );
     if (userConfirmed) {
-      deleteProduct(ID);
+      deleteProduct(Number(id)!);
     }
   };
 
-  const { id } = useParams<{ id: string }>();
-
-  if (isLoadingProduct) return <SpinnerMini />;
+  // if (isLoadingProduct) return <SpinnerMini />;
 
   return (
     <div className="text-gray-600 flex flex-col w-[280px] border border-gray-200 p-4 gap-4 shadow-lg rounded-lg">
       <Toaster />
       <div className="flex items-center justify-between mb-2">
-        <p className="text-lg font-semibold">{product.name}</p>
+        <p className="text-base font-semibold">{product.name}</p>
         {!id && (
           <button
             onClick={() => handleClick(product.id)}
@@ -117,8 +120,9 @@ export default function SingleProduct({ product, ID }: ProductProps) {
       <img
         src={product.avatar}
         alt={`Image of ${product.name}`}
-        className="w-full h-[150px] object-cover rounded-lg"
+        className="w-full h-[150px] object-contain rounded-lg"
       />
+
       <div className="flex items-center justify-between mt-2">
         <div>
           <span className="text-lg font-semibold text-green-700">
@@ -172,7 +176,7 @@ export default function SingleProduct({ product, ID }: ProductProps) {
             >
               {isUploading ? "..." : "Photo +"}
             </label>
-            {errorFile && <p className="text-xs text-red-500">{errorFile}</p>}
+            {/* {errorFile && <p className="text-xs text-red-500">{errorFile}</p>} */}
           </div>
           <Modal>
             <Modal.Open open="editProduct">
@@ -188,7 +192,7 @@ export default function SingleProduct({ product, ID }: ProductProps) {
             </Modal.Window>
           </Modal>
           <button
-            onClick={() => handleDelete(ID!)}
+            onClick={() => handleDelete(Number(id)!)}
             className="text-xs px-2 py-1 border border-red-500 text-red-500 rounded-md"
           >
             Delete
