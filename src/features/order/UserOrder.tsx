@@ -49,7 +49,7 @@ const UserOrder: React.FC<OrderProps> = ({ order }) => {
                   {capitalizeFirstLetter(order.status)}
                 </span>
               </p>
-              {order.status !== "completed" && (
+              {order.status === "pending" && (
                 <button
                   className="text-xs text-gray-50 bg-red-500 px-2 rounded-md"
                   onClick={handleCancelOrder}
