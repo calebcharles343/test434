@@ -10,23 +10,21 @@ export function useLogout() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
-  const sessionStorageUserX = sessionStorageUser();
+  // const sessionStorageUserX = sessionStorageUser();
 
   const { mutate: logout, isPending } = useMutation({
     mutationFn: logOutApi,
     onSuccess: () => {
       dispatch(clearCart());
+      // Clear sessionStorage
+      sessionStorage.removeItem("currentSessionUser");
+      sessionStorage.clear();
+
+      // Clear cookies
+      Cookies.remove(`token-${sessionStorageUser()?.id}`);
 
       // Clear React Query cache
       queryClient.clear();
-
-      // Remove JWT token from cookies
-      Cookies.remove(`token-${sessionStorageUserX?.id}`);
-
-      // Clear specific items from sessionStorage
-      sessionStorage.removeItem("currentSessionUser");
-      sessionStorage.removeItem(`token-${sessionStorageUserX?.id}`);
-
       // Redirect to the auth (login) page
       navigate("/auth", { replace: true });
     },
