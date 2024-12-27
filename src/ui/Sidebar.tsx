@@ -38,7 +38,7 @@ const Sidebar: React.FC = () => {
   return (
     <div>
       <nav
-        className="text-sm flex flex-col bg-gray-800 text-gray-50 items-center row-start-1 row-end-3 w-full min-w-[230px] h-[100vh] px-4 pt-4 pb-24 shadow-xl gap-4 bg-cover bg-center bg-no-repeat"
+        className=" text-sm md:text-lg flex flex-col bg-gray-800 text-gray-50 items-center row-start-1 row-end-3 w-[170px] md:min-w-[230px] h-[100vh]  pt-4 pb-24 shadow-xl gap-4 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${sideBarImg2})` }}
       >
         <span
@@ -47,7 +47,7 @@ const Sidebar: React.FC = () => {
         >
           E-COMMERCE
         </span>
-        <ul className="flex flex-col gap-2 text-md w-full p-8 flex-grow">
+        <ul className="flex flex-col item gap-2 w-full pl-8 md:pl-12 flex-grow">
           <li>
             <Link
               to="home"
