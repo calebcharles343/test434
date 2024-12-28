@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
 import { AxiosError, AxiosResponse } from "axios";
 import { useState } from "react";
 import { createOrder as createOrderApi } from "../../services/apiOrder.ts";
@@ -7,7 +6,7 @@ import { OrderType } from "../../interfaces.ts";
 import toast from "react-hot-toast";
 
 interface ErrorResponse {
-  message: string; // Assuming the error response has a 'message' field
+  message: string;
 }
 
 interface LoginError extends AxiosError {
@@ -17,7 +16,6 @@ interface LoginError extends AxiosError {
 export function useCreateOrder() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
-  // const navigate = useNavigate();
   const {
     mutate: createOrder,
     isPending,
@@ -27,11 +25,13 @@ export function useCreateOrder() {
 
     onSuccess: (data) => {
       if (data.status === 201) {
-        console.log(data.data);
+        console.log(data.data.session.url);
 
         queryClient.invalidateQueries(["orders"] as any);
-
         toast.success("Order added successfully");
+
+        // Redirect to the Stripe checkout session URL
+        window.location.href = data.data.session.url;
       } else if (data.status !== 201) {
         setErrorMessage(data.message);
         toast.error("Error adding Order");
