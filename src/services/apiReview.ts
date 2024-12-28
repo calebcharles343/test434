@@ -1,40 +1,36 @@
 import axios from "axios";
 
 import { ReviewType } from "../interfaces";
-import { generalApiHeader } from "../utils/generalApiHeader";
+import { sessionStorageUser } from "../utils/sessionStorageUser";
+import Cookies from "js-cookie";
 
-const headers = generalApiHeader();
 const url = "https://tia-backend-final.onrender.com/api/v1/e-commerce";
-
-// console.log(headers);
 
 const axiosInstance = axios.create({
   baseURL: url,
-  headers,
 });
 
-const MAX_RETRIES = 3;
-const RETRY_DELAY = 1000; // Initial delay in milliseconds
-
-const retryRequest = async (error: any, retries: number = 0): Promise<any> => {
-  if (retries >= MAX_RETRIES) {
-    return Promise.reject(error);
-  }
-
-  const delay = RETRY_DELAY * Math.pow(2, retries); // Exponential backoff
-  await new Promise((resolve) => setTimeout(resolve, delay));
-
-  return axiosInstance
-    .request(error.config)
-    .catch((err) => retryRequest(err, retries + 1));
+const getToken = () => {
+  const sessionStorageUserX = sessionStorageUser();
+  return sessionStorageUserX
+    ? Cookies.get(`token-${sessionStorageUserX.id}`) ||
+        sessionStorage.getItem(`token-${sessionStorageUserX.id}`)
+    : null;
 };
 
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response && error.response.status === 429) {
-      return retryRequest(error);
+// Add request interceptor to attach token dynamically
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+      console.log("Token attached to request:", token); // Debugging token attachment
+    } else {
+      console.error("No token found, request not authorized");
     }
+    return config;
+  },
+  (error) => {
     return Promise.reject(error);
   }
 );

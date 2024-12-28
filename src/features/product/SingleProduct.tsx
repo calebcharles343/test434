@@ -12,7 +12,7 @@ import { useUploadImage } from "../../hooks/images/useUploadImage.ts";
 import { useDeleteProduct } from "./useDeleteProduct.ts";
 import { imageHeader } from "../../utils/imageApiHeader.ts";
 
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { sessionStorageUser } from "../../utils/sessionStorageUser.ts";
 import { useFetchProducts } from "./useFetchProducts.ts";
 
@@ -105,7 +105,6 @@ export default function SingleProduct({ product }: ProductProps) {
 
   return (
     <div className="text-gray-600 flex flex-col w-[280px] border border-gray-200 p-4 gap-4 shadow-lg rounded-lg">
-      <Toaster />
       <div className="flex items-center justify-between mb-2">
         <p className="text-base font-semibold">{product.name}</p>
         {!id && (
