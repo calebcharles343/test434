@@ -74,7 +74,7 @@ export const getAllOrders = async () => {
 };
 
 export const getAllAdminOrders = async () => {
-  const response = await axiosInstance.get("/orders/admin");
+  const response = await axiosInstance.get("/orders/administrator");
   return response.data;
 };
 
