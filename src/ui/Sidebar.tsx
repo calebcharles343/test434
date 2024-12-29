@@ -47,7 +47,7 @@ const Sidebar: React.FC = () => {
         >
           E-COMMERCE
         </span>
-        <ul className="flex flex-col item gap-2 w-full px-6  flex-grow">
+        <ul className="flex flex-col item gap-2 w-full px-6 md:px-8 flex-grow">
           <li>
             <Link
               to="home"
