@@ -7,6 +7,7 @@ import SingleProduct from "../features/product/SingleProduct"; // Correct path
 import ReviewForm from "../features/review/ReviewForm";
 import Review from "../features/review/Review";
 import AuthGuard from "../features/authentication/AuthGuard";
+import SpinnerMini from "../ui/SpinnerMini";
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
@@ -18,7 +19,12 @@ const ProductDetails: React.FC = () => {
   const { product, isLoadingProduct } = useGetProduct(ID);
   const { reviews, refetch: refetchReviews } = useFetchReviews(ID);
 
-  if (isLoadingProduct) return <p>Loading...</p>;
+  if (isLoadingProduct)
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+        <SpinnerMini />;
+      </div>
+    );
 
   if (!product?.data) {
     return <p>No product to display</p>;
