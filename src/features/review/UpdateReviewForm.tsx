@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useUpdateReview } from "./useUpdateReview.ts";
+import toast from "react-hot-toast";
 
 interface ReviewFormProps {
   productId: number;
@@ -21,6 +22,14 @@ const UpdateReviewForm: React.FC<ReviewFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!rating || !reviewText) {
+      toast.error("invalid inputs");
+      return;
+    }
+    if (rating < 1) {
+      toast.error("Rating must be greater than 0");
+      return;
+    }
     const data = { review: reviewText, rating };
 
     UpdateReview({ reviewId, data } as any);

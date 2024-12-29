@@ -1,17 +1,40 @@
 import axios from "axios";
 import { OrderType, ProductType } from "../interfaces.ts";
-import { generalApiHeader } from "../utils/generalApiHeader.ts";
+import Cookies from "js-cookie";
+import { sessionStorageUser } from "../utils/sessionStorageUser.ts";
 
-const headers = generalApiHeader();
 const url = "https://tia-backend-final.onrender.com/api/v1/e-commerce";
-
-console.log(headers);
 
 const axiosInstance = axios.create({
   baseURL: url,
-  headers,
 });
 
+const getToken = () => {
+  const sessionStorageUserX = sessionStorageUser();
+  return sessionStorageUserX
+    ? Cookies.get(`token-${sessionStorageUserX.id}`) ||
+        sessionStorage.getItem(`token-${sessionStorageUserX.id}`)
+    : null;
+};
+
+// Add request interceptor to attach token dynamically
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+      console.log("Token attached to request:", token); // Debugging token attachment
+    } else {
+      console.error("No token found, request not authorized");
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Retry logic for rate-limiting errors (429)
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1000; // Initial delay in milliseconds
 
@@ -28,6 +51,7 @@ const retryRequest = async (error: any, retries: number = 0): Promise<any> => {
     .catch((err) => retryRequest(err, retries + 1));
 };
 
+// Add response interceptor to handle retries
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -37,7 +61,6 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
 export const createProduct = async (productData: Partial<OrderType>) => {
   const response = await axiosInstance.post(`/products/create`, productData);
   return response.data;
