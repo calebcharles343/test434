@@ -157,8 +157,9 @@ export default function SingleProduct({ product }: ProductProps) {
           Add to Cart
         </button>
       </div>
-      <div className="mt-2">
+      <div className="flex items-center justify-between mt-2">
         <StarRating initialRating={product?.ratingAverage} />
+        <span>Stock: {product?.stock}</span>
       </div>
       {id && sessionStorageUserX?.role === "Admin" && (
         <div className="flex items-center justify-between gap-2 mt-2">
