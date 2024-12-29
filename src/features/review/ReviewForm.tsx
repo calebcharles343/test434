@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useCreateReview } from "./useCreateReview.ts";
+import toast from "react-hot-toast";
 
 interface ReviewFormProps {
   productId: number;
@@ -15,8 +16,25 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 
   const { createReview } = useCreateReview(productId);
 
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   createReview({ review: reviewText, rating } as any);
+  //   setReviewText("");
+  //   setRating(0);
+  //   refetchReviews();
+  // };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!rating || !reviewText) {
+      toast.error("invalid inputs");
+      return;
+    }
+    if (rating < 1) {
+      toast.error("Rating must be greater than 0");
+      return;
+    }
+
     createReview({ review: reviewText, rating } as any);
     setReviewText("");
     setRating(0);
