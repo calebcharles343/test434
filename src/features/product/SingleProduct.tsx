@@ -23,7 +23,7 @@ interface ProductProps {
 
 export default function SingleProduct({ product }: ProductProps) {
   const [errorFile, setErrorFile] = useState<string | undefined>();
-  const [itemQuantity, setitemQuantity] = useState<number>(0);
+  const [itemQuantity, setitemQuantity] = useState<number>(1);
   const { id } = useParams<{ id: string }>();
 
   // const {

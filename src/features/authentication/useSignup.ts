@@ -37,23 +37,21 @@ export function useSignup() {
       if (data.status === 201) {
         const userData = data.data.user;
 
-        // Clear React Query cache
+        // Clear React Query cache and reset headers
         queryClient.clear();
 
         // Set JWT token in cookies
-        Cookies.set("jwt", data.data.token, {
+        Cookies.set(`token-${userData.id}`, data.data.token, {
           expires: 7,
           secure: true,
           sameSite: "strict",
         });
 
-        // Set user data in React Query cache
-        queryClient.setQueryData(["user", userData.id], userData);
-        localStorage.setItem("localUser", JSON.stringify(userData));
+        // Set current user in sessionStorage
+        sessionStorage.setItem("currentSessionUser", JSON.stringify(userData));
+        sessionStorage.setItem(`token-${userData.id}`, data.data.token);
+
         // Redirect to the home page
-        navigate("/home", { replace: true });
-        toast.success("Sign up successfull");
-        // Navigate to home page after successful login
         navigate("/home", { replace: true });
       } else {
         toast.error(`${data.message}`);
