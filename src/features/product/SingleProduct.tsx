@@ -83,7 +83,7 @@ export default function SingleProduct({ product }: ProductProps) {
   };
 
   useEffect(() => {
-    setitemQuantity(0);
+    setitemQuantity(1);
   }, []);
 
   const navigate = useNavigate();
@@ -119,7 +119,7 @@ export default function SingleProduct({ product }: ProductProps) {
       <img
         src={product.avatar}
         alt={`Image of ${product.name}`}
-        className="w-full h-[150px] object-contain rounded-lg"
+        className="w-full h-[160px] object-fill rounded-lg"
       />
 
       <div className="flex items-center justify-between mt-2">
