@@ -119,48 +119,54 @@ export default function SingleProduct({ product }: ProductProps) {
       <img
         src={product.avatar}
         alt={`Image of ${product.name}`}
-        className="w-full h-[160px] object-fill rounded-lg"
+        className="w-full h-[180px] object-contain rounded-lg"
       />
 
-      <div className="flex items-center justify-between mt-2">
-        <div>
-          <span className="text-lg font-semibold text-green-700">
-            ${product.price}
-          </span>
-          <div className="flex items-center gap-2 text-xs mt-1">
-            <span>Qtr: {itemQuantity}</span>
+      <div className="flex flex-col gap-2">
+        <span className="text-lg font-semibold text-green-700">
+          ${product.price}
+        </span>
+
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="flex items-center gap-2 text-xs mt-1">
+                <span>Qtr: {itemQuantity}</span>
+                <button
+                  onClick={handleReduceQtr}
+                  className="w-6 h-6 flex items-center justify-center border border-gray-300 rounded-full shadow-sm"
+                >
+                  -
+                </button>
+                <button
+                  onClick={handleAddQtr}
+                  className="w-6 h-6 flex items-center justify-center border border-gray-300 rounded-full shadow-sm"
+                >
+                  +
+                </button>
+              </div>
+            </div>
             <button
-              onClick={handleReduceQtr}
-              className="w-6 h-6 flex items-center justify-center border border-gray-300 rounded-full shadow-sm"
+              className="mt-2 sm:mt-0 px-3 py-1 text-xs text-white bg-blue-500 border border-blue-500 rounded-full hover:bg-blue-600"
+              onClick={() =>
+                handleAddItem({
+                  productId: product.id,
+                  name: product.name,
+                  price: product.price,
+                  quantity: itemQuantity,
+                })
+              }
             >
-              -
-            </button>
-            <button
-              onClick={handleAddQtr}
-              className="w-6 h-6 flex items-center justify-center border border-gray-300 rounded-full shadow-sm"
-            >
-              +
+              Add to Cart
             </button>
           </div>
+          <div className="flex items-center justify-between">
+            <StarRating initialRating={product?.ratingAverage} />
+            <span>Stock: {product?.stock}</span>
+          </div>
         </div>
-        <button
-          className="mt-2 sm:mt-0 px-3 py-1 text-xs text-white bg-blue-500 border border-blue-500 rounded-full hover:bg-blue-600"
-          onClick={() =>
-            handleAddItem({
-              productId: product.id,
-              name: product.name,
-              price: product.price,
-              quantity: itemQuantity,
-            })
-          }
-        >
-          Add to Cart
-        </button>
       </div>
-      <div className="flex items-center justify-between mt-2">
-        <StarRating initialRating={product?.ratingAverage} />
-        <span>Stock: {product?.stock}</span>
-      </div>
+
       {id && sessionStorageUserX?.role === "Admin" && (
         <div className="flex items-center justify-between gap-2 mt-2">
           <div className="bg-white rounded-md p-1">

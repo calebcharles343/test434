@@ -104,7 +104,7 @@ const UserAvatar: React.FC = () => {
       ) : (
         <img
           onClick={() => setIsUpdateBox((prev) => !prev)}
-          className="w-10 h-10 rounded-full cursor-pointer"
+          className="w-10 h-10 rounded-full object-center cursor-pointer"
           src={avatarSrc}
           alt="User Avatar"
         />
