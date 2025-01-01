@@ -10,8 +10,6 @@ interface OrderProps {
 }
 
 const AdminOrder: React.FC<OrderProps> = ({ order }) => {
-  console.log(order, "❌❌❌❌");
-
   const [status, setStatus] = useState(order.status);
   const [isError, setIsError] = useState(false);
 
@@ -50,29 +48,29 @@ const AdminOrder: React.FC<OrderProps> = ({ order }) => {
 
   return (
     <div
-      className={`w-full md:w-[500px] border-l-8 p-4 rounded-lg mb-4 bg-white shadow-lg ${
+      className={`relative w-full md:w-[500px] border-l-8 p-4 rounded-lg mb-4 bg-white shadow-lg ${
         status === "pending" ? "border-[#FFA82B]" : ""
       } ${status === "cancelled" ? "border-red-500" : ""} ${
         status === "completed" ? "border-green-500" : ""
       }`}
     >
+      <button
+        className="absolute top-2 right-2 text-xs text-gray-50 bg-red-500 px-2 rounded-md"
+        onClick={handleDeleteOrder}
+        disabled={isDeletingOrder}
+      >
+        {isDeletingOrder ? "Deleting..." : "X"}
+      </button>
       <div className="flex items-center gap-4">
         <div className="flex flex-col w-full">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row items-center justify-between pt-2">
             <p className="text-sm md:text-base font-semibold">
               Order ID: {order.id}
             </p>
             <div className="flex items-center gap-4">
               <p className="text-sm md:text-base font-semibold">
-                User: {order.User?.name || "Unknown"}
+                User: {order.User?.email || "Unknown"}
               </p>
-              <button
-                className="text-xs text-gray-50 bg-red-500 px-2 rounded-md"
-                onClick={handleDeleteOrder}
-                disabled={isDeletingOrder}
-              >
-                {isDeletingOrder ? "Deleting..." : "X"}
-              </button>
             </div>
           </div>
           <p className="text-sm md:text-base text-gray-700 mt-2">

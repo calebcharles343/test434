@@ -5,15 +5,9 @@ import { RootState } from "../../store/store.ts";
 import { useCreateOrder } from "../order/useCreateOrder.ts";
 import SpinnerMini from "../../ui/SpinnerMini.tsx";
 
-// import cartImg3 from "../../data/img/cart.png";
-
 const Cart = () => {
   const cart = useSelector((state: RootState) => state.cart); // state.cart will be of type CartType
   const dispatch = useDispatch();
-
-  // const handleAddItem = (item: ItemType) => {
-  //   dispatch(addItem(item));
-  // };
 
   const { createOrder, isPending } = useCreateOrder();
   const handleRemoveItem = (productId: number | string) => {
