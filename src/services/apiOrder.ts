@@ -2,8 +2,10 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { OrderType } from "../interfaces.ts";
 import { sessionStorageUser } from "../utils/sessionStorageUser.ts";
+import { baseUrl } from "./baseUrl.ts";
 
-const url = "https://tia-backend-final.onrender.com/api/v1/e-commerce";
+// const url = "https://tia-backend-final.onrender.com/api/v1/e-commerce";
+const url = baseUrl();
 
 const axiosInstance = axios.create({
   baseURL: url,

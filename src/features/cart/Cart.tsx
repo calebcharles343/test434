@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/store.ts";
 import { useCreateOrder } from "../order/useCreateOrder.ts";
 import SpinnerMini from "../../ui/SpinnerMini.tsx";
+
 // import cartImg3 from "../../data/img/cart.png";
 
 const Cart = () => {

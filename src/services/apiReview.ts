@@ -3,8 +3,9 @@ import axios from "axios";
 import { ReviewType } from "../interfaces";
 import { sessionStorageUser } from "../utils/sessionStorageUser";
 import Cookies from "js-cookie";
+import { baseUrl } from "./baseUrl";
 
-const url = "https://tia-backend-final.onrender.com/api/v1/e-commerce";
+const url = baseUrl();
 
 const axiosInstance = axios.create({
   baseURL: url,

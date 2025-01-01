@@ -8,11 +8,13 @@ import {
 } from "../interfaces.ts";
 // import Cookies from "js-cookie";
 import { generalApiHeader } from "../utils/generalApiHeader.ts";
+import { baseUrl } from "./baseUrl.ts";
 
 // const apiURL = "https://shopping-list-f1b6.onrender.com/api/v1/shopping-list";
 // const authToken = Cookies.get("jwt");
 
-const apiURL = "https://tia-backend-final.onrender.com/api/v1/e-commerce";
+// const apiURL = "https://tia-backend-final.onrender.com/api/v1/e-commerce";
+const apiURL = baseUrl();
 // const headers = { authorization: `Bearer ${authToken}` };
 const headers = generalApiHeader();
 

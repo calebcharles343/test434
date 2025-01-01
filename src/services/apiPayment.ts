@@ -1,8 +1,8 @@
 import axios from "axios";
-import { OrderType, ProductType } from "../interfaces.ts";
 import Cookies from "js-cookie";
 import { sessionStorageUser } from "../utils/sessionStorageUser.ts";
 import { baseUrl } from "./baseUrl.ts";
+import { OrderType } from "../interfaces.ts";
 
 const url = baseUrl();
 
@@ -62,31 +62,9 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-export const createProduct = async (productData: Partial<OrderType>) => {
-  const response = await axiosInstance.post(`/products/create`, productData);
-  return response.data;
-};
-export const getAllProducts = async () => {
-  const response = await axiosInstance.get("/products");
-  return response.data;
-};
 
-export const getProduct = async (id: number) => {
-  const response = await axiosInstance.get(`/products/${id}`);
-  return response.data;
-};
-
-export const updateProduct = async (
-  id: number,
-  productData: Partial<ProductType>
-) => {
-  const response = await axiosInstance.patch(
-    `/products/update/${id}`,
-    productData
-  );
-  return response.data;
-};
-export const deleteProduct = async (id: number) => {
-  const response = await axiosInstance.delete(`/products/delete/${id}`);
+// API Functions
+export const createPaymentSession = async (orderData: OrderType) => {
+  const response = await axiosInstance.post(`/payments/pay`, orderData);
   return response.data;
 };

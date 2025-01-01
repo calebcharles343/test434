@@ -1,4 +1,7 @@
 import axios from "axios";
+import { baseUrl } from "./baseUrl";
+
+const url = baseUrl();
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1000; // Initial delay in milliseconds
@@ -30,12 +33,8 @@ export const uploadImageApi = async (
   formData: FormData,
   headers: Record<string, string>
 ) => {
-  const response = await axios.put(
-    `https://tia-backend-final.onrender.com/api/v1/e-commerce/images`,
-    formData,
-    {
-      headers,
-    }
-  );
+  const response = await axios.put(`${url}/images`, formData, {
+    headers,
+  });
   return response.data;
 };
