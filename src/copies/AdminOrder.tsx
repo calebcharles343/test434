@@ -7,10 +7,9 @@ import { dateformat } from "../../utils/dateFormat";
 
 interface OrderProps {
   order: OrderType;
-  handleCloseModal: () => void;
 }
 
-const AdminOrder: React.FC<OrderProps> = ({ order, handleCloseModal }) => {
+const AdminOrder: React.FC<OrderProps> = ({ order }) => {
   const [status, setStatus] = useState(order.status);
   const [isError, setIsError] = useState(false);
 
@@ -39,27 +38,29 @@ const AdminOrder: React.FC<OrderProps> = ({ order, handleCloseModal }) => {
   const handleDeleteOrder = async () => {
     setIsError(false);
 
-    deleteOrder(order.id);
-    handleCloseModal();
+    try {
+      await deleteOrder(order.id);
+    } catch (error) {
+      console.error("Failed to delete order:", error);
+      setIsError(true);
+    }
   };
 
   return (
     <div
-      className={`relative w-full max-w-[500px] min-w-[270px] md:w-[500px] border-l-8 p-4 rounded-lg mb-4 bg-white shadow-lg mt-2 ${
+      className={`relative w-full md:w-[500px] border-l-8 p-4 rounded-lg mb-4 bg-white shadow-lg ${
         status === "pending" ? "border-[#FFA82B]" : ""
       } ${status === "cancelled" ? "border-red-500" : ""} ${
         status === "completed" ? "border-green-500" : ""
       }`}
     >
-      {status === "cancelled" && (
-        <button
-          className="absolute top-2 right-2 text-xs text-gray-50 bg-red-500 px-2 rounded-md"
-          onClick={handleDeleteOrder}
-          disabled={isDeletingOrder}
-        >
-          {isDeletingOrder ? "Deleting..." : "Delete"}
-        </button>
-      )}
+      <button
+        className="absolute top-2 right-2 text-xs text-gray-50 bg-red-500 px-2 rounded-md"
+        onClick={handleDeleteOrder}
+        disabled={isDeletingOrder}
+      >
+        {isDeletingOrder ? "Deleting..." : "X"}
+      </button>
       <div className="flex items-center gap-4">
         <div className="flex flex-col w-full">
           <div className="flex flex-col md:flex-row items-center justify-between pt-2">
@@ -77,14 +78,14 @@ const AdminOrder: React.FC<OrderProps> = ({ order, handleCloseModal }) => {
           </p>
           <div className="text-xs md:text-sm text-blue-500 font-bold mt-1">
             Items:
-            <ul className="mt-0 md:mt-2">
+            <ul className="mt-2">
               {order.Items?.map((item: OrderItemType) => (
                 <OrderItem key={item.id} item={item} />
               ))}
             </ul>
           </div>
 
-          <div className="flex flex-col gap-2 md:gap-0 md:flex-row items-center justify-between mt-4">
+          <div className="flex items-center justify-between mt-4">
             <div>
               <label
                 htmlFor={`status-${order.id}`}
@@ -92,21 +93,17 @@ const AdminOrder: React.FC<OrderProps> = ({ order, handleCloseModal }) => {
               >
                 Status:
               </label>
-              {order.status !== "cancelled" ? (
-                <select
-                  id={`status-${order.id}`}
-                  value={status}
-                  onChange={handleStatusChange}
-                  className="text-xs md:text-sm border p-1 rounded"
-                  disabled={isPending}
-                >
-                  <option value="pending">Pending</option>
-                  <option value="completed">Completed</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
-              ) : (
-                "Cancelled"
-              )}
+              <select
+                id={`status-${order.id}`}
+                value={status}
+                onChange={handleStatusChange}
+                className="text-xs md:text-sm border p-1 rounded"
+                disabled={isPending}
+              >
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
             </div>
             <span className="text-[9px] md:text-base">
               {dateformat(order.createdAt)}

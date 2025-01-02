@@ -28,7 +28,7 @@ export function useDeleteOrder() {
       // Invalidate and refetch Orders
     },
     onError: (error) => {
-      toast.error("Error deleting order");
+      toast.error(`${error.response?.data.message}`);
 
       const errorMessage =
         error.response?.data.message ||

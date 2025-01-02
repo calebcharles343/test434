@@ -16,14 +16,6 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 
   const { createReview } = useCreateReview(productId);
 
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   createReview({ review: reviewText, rating } as any);
-  //   setReviewText("");
-  //   setRating(0);
-  //   refetchReviews();
-  // };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!rating || !reviewText) {
@@ -63,10 +55,17 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
           id="rating"
           className="p-2 border rounded-lg shadow-md"
           value={rating}
-          onChange={(e) => setRating(parseFloat(e.target.value))}
-          min="0"
+          onChange={(e) => {
+            const value = parseFloat(e.target.value);
+            if (value >= 1 && value <= 5) {
+              setRating(value);
+            } else if (!e.target.value) {
+              setRating(0); // Reset to 0 if the field is cleared
+            }
+          }}
+          min="1"
           max="5"
-          step="0.1"
+          step="1"
         />
       </div>
       <button
