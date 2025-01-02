@@ -6,11 +6,13 @@ import AdminOrder from "./AdminOrder";
 import Table from "../../ui/Table";
 import TableModal from "../../ui/TableModal";
 import { format, parseISO } from "date-fns";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const AdminOrders: React.FC = () => {
   const { data: adminOrders, isLoading } = useAdminOrders();
   const [selectedOrder, setSelectedOrder] = useState<OrderType | null>(null);
-  const [searchDate, setSearchDate] = useState<string>("");
+  const [searchDate, setSearchDate] = useState<Date | null>(null);
   const [searchId, setSearchId] = useState<string>("");
   const [searchEmail, setSearchEmail] = useState<string>("");
   const [filteredOrders, setFilteredOrders] = useState<OrderType[]>([]);
@@ -20,9 +22,9 @@ const AdminOrders: React.FC = () => {
       const filtered = adminOrders.data
         .filter(
           (order: OrderType) =>
-            format(parseISO(order.createdAt), "yyyy-MM-dd").includes(
-              searchDate
-            ) &&
+            (!searchDate ||
+              format(parseISO(order.createdAt), "yyyy-MM-dd") ===
+                format(searchDate, "yyyy-MM-dd")) &&
             order.id.toString().includes(searchId) &&
             (order.User?.email || "")
               .toLowerCase()
@@ -60,14 +62,14 @@ const AdminOrders: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center w-full">
-      {/* Search bar for Date */}
+      {/* Custom Date Picker */}
       <div className="w-full max-w-[218px] mb-4">
-        <input
-          type="date"
-          value={searchDate}
-          onChange={(e) => setSearchDate(e.target.value)}
+        <DatePicker
+          selected={searchDate}
+          onChange={(date) => setSearchDate(date)}
+          dateFormat="yyyy-MM-dd"
           className="w-full p-2 border rounded-md"
-          placeholder="Search by date (yyyy-mm-dd)"
+          placeholderText="Search by date (yyyy-mm-dd)"
         />
       </div>
       <div className="flex flex-col gap-0 md:flex-row md:gap-4">
@@ -94,10 +96,10 @@ const AdminOrders: React.FC = () => {
 
       <Table columns="1fr 2fr 1fr 1fr">
         <Table.Header>
-          <div className="text-[10px] md:text-base">Order ID</div>
-          <div className="text-[10px] md:text-base">Email</div>
-          <div className="text-[10px] md:text-base">Date</div>
-          <div className="text-[10px] md:text-base">Actions</div>
+          <div className="text-[14px] md:text-base">Order ID</div>
+          <div className="text-[12px] md:text-base">Email</div>
+          <div className="text-[12px] md:text-base">Date</div>
+          <div className="text-[12px] md:text-base">Actions</div>
         </Table.Header>
 
         <Table.Body
@@ -105,7 +107,7 @@ const AdminOrders: React.FC = () => {
           render={(order: OrderType) => (
             <Table.Row key={order.id}>
               <div
-                className={`text-[8px] md:text-base font-bold text-center ${
+                className={`text-[10px] md:text-base font-bold text-center ${
                   order.status === "pending" ? "bg-[#FFA82B]" : ""
                 } ${order.status === "cancelled" ? "bg-red-500" : ""} ${
                   order.status === "completed" ? "bg-green-500" : ""
@@ -136,7 +138,10 @@ const AdminOrders: React.FC = () => {
       {/* Modal for viewing the selected order */}
       {selectedOrder && (
         <TableModal onClose={handleCloseModal}>
-          <AdminOrder order={selectedOrder} handleCloseModal={handleCloseModal}/>
+          <AdminOrder
+            order={selectedOrder}
+            handleCloseModal={handleCloseModal}
+          />
         </TableModal>
       )}
     </div>
