@@ -43,7 +43,7 @@ const AdminOrder: React.FC<OrderProps> = ({ order, handleCloseModal }) => {
 
   return (
     <div
-      className={`relative w-full max-w-[500px] min-w-[270px] md:w-[500px] border-l-8 p-4 rounded-lg mb-4 bg-white shadow-lg mt-2 ${
+      className={`relative w-full md:w-[500px] border-l-8 p-4 rounded-lg mb-4 bg-white shadow-lg mt-2 ${
         status === "pending" ? "border-[#FFA82B]" : ""
       } ${status === "cancelled" ? "border-red-500" : ""} ${
         status === "completed" ? "border-green-500" : ""
