@@ -62,16 +62,16 @@ const AdminOrders: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center w-full">
-      {/* Custom Date Picker */}
-      <div className="w-full max-w-[218px] mb-4">
+      <div className="flex flex-col items-center w-full max-w-[218px] mb-4">
         <DatePicker
           selected={searchDate}
           onChange={(date) => setSearchDate(date)}
           dateFormat="yyyy-MM-dd"
           className="w-full p-2 border rounded-md"
-          placeholderText="Search by date (yyyy-mm-dd)"
+          placeholderText="Date (yyyy-mm-dd)"
         />
       </div>
+
       <div className="flex flex-col gap-0 md:flex-row md:gap-4">
         <div className="w-full max-w-[218px] mb-4">
           <input
