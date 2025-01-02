@@ -21,8 +21,6 @@ const AdminOrder: React.FC<OrderProps> = ({ order, handleCloseModal }) => {
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const newStatus = e.target.value;
-
-    // Optimistically update the UI
     setStatus(newStatus);
     setIsError(false);
 
