@@ -6,8 +6,8 @@ import { useGetProduct } from "../features/product/useGetProduct"; // Correct pa
 import SingleProduct from "../features/product/SingleProduct"; // Correct path
 import ReviewForm from "../features/review/ReviewForm";
 import Review from "../features/review/Review";
-import AuthGuard from "../features/authentication/AuthGuard";
 import SpinnerMini from "../ui/SpinnerMini";
+import { sessionStorageUser } from "../utils/sessionStorageUser";
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
@@ -32,15 +32,21 @@ const ProductDetails: React.FC = () => {
 
   const mainProduct = product?.data || firstProduct;
 
+  const sessionStorageUserX = sessionStorageUser(); // Check if the user has already reviewed the product
+  const reviewed = mainProduct.Reviews?.some(
+    (review: ReviewType) => review.User?.id === sessionStorageUserX.id
+  );
+  console.log(reviewed);
+
   return (
     <div className="flex flex-col items-center w-full pb-20">
       <div className="flex flex-col md:flex-row lg:w-[800px] gap-8 p-4 overflow-y-auto">
         {/* Product Section */}
         <div className="flex flex-col md:w-1/2 md:mr-4 md:px-4">
           <SingleProduct product={mainProduct} ID={ID} />
-          <AuthGuard>
+          {!reviewed && (
             <ReviewForm productId={ID} refetchReviews={refetchReviews} />
-          </AuthGuard>
+          )}
         </div>
 
         {/* Reviews Section */}
