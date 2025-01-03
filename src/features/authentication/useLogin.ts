@@ -33,10 +33,12 @@ export function useLogin() {
         queryClient.invalidateQueries(["adminOrders"] as any);
         queryClient.invalidateQueries(["orders"] as any);
 
+        toast.success(`Login sucessfull`);
+
         // Redirect to the home page
         navigate("/home", { replace: true });
       } else {
-        toast.error("Provided email or password are incorrect");
+        toast.error(`${data.message}`);
         console.error("Login Error:", data.message);
       }
     },

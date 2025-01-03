@@ -99,6 +99,20 @@ export const getUser = async function () {
   }
 };
 
+export const updateUserRole = async function (
+  userId: number,
+  data: UpdateUserType
+) {
+  try {
+    const response = await axiosInstance.patch<UpdateUserType>(
+      `/users/updateUserRole/${userId}`,
+      data
+    );
+    return response.data;
+  } catch (err) {
+    return handleError(err);
+  }
+};
 export const updateUser = async function (data: UpdateUserType) {
   try {
     const response = await axiosInstance.patch<UpdateUserType>(

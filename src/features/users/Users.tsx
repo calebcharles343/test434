@@ -55,16 +55,15 @@ const Users: React.FC = () => {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full p-2 border rounded-md"
+          className="w-full p-2 border rounded-md placeholder:text-xs"
           placeholder="Search by ID, Name, Email, or Role"
         />
       </div>
 
       <Table columns="1fr 1fr 1fr 1fr 1fr">
         <Table.Header>
-          <div className="text-[14px] md:text-base">User ID</div>
+          <div className="text-[14px] md:text-base">ID</div>
           <div className="text-[12px] md:text-base">Name</div>
-          {/* <div className="text-[12px] md:text-base">Email</div> */}
           <div className="text-[12px] md:text-base">Role</div>
           <div className="text-[12px] md:text-base">Actions</div>
         </Table.Header>
@@ -73,19 +72,23 @@ const Users: React.FC = () => {
           render={(user: UserType) => (
             <Table.Row key={user.id}>
               {/* User ID */}
-              <div className="text-[10px] md:text-base font-bold text-center">
+              <div
+                className={`text-[12px] md:text-base font-bold text-center 
+               
+                ${user.active === false ? "bg-red-500" : ""} ${
+                  user.active === true ? "bg-green-500" : ""
+                }`}
+              >
                 {user.id}
               </div>
-              {/* Name */}
-              <div className="text-[8px] md:text-base">{user.name}</div>
-              {/* Email */}
-              {/* <div className="text-[8px] md:text-base">{user.email}</div> */}
-              {/* Role */}
-              <div className="text-[8px] md:text-base">{user.role}</div>
-              {/* Actions */}
+
+              <div className="text-[10px] md:text-base">{user.name}</div>
+
+              <div className="text-[10px] md:text-base">{user.role}</div>
+
               <div className="flex justify-center">
                 <button
-                  className="text-[8px] md:text-sm text-white bg-blue-500 border border-blue-500 hover:bg-blue-600 px-1 md:px-2 py-1 rounded-md"
+                  className="text-[10px] md:text-sm text-white bg-blue-500 border border-blue-500 hover:bg-blue-600 px-1 md:px-2 py-1 rounded-md"
                   type="button"
                   onClick={() => handleViewClick(user)}
                 >

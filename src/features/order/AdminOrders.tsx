@@ -96,7 +96,7 @@ const AdminOrders: React.FC = () => {
 
       <Table columns="1fr 2fr 1fr 1fr">
         <Table.Header>
-          <div className="text-[14px] md:text-base">Order ID</div>
+          <div className="text-[14px] md:text-base">ID</div>
           <div className="text-[12px] md:text-base">Email</div>
           <div className="text-[12px] md:text-base">Date</div>
           <div className="text-[12px] md:text-base">Actions</div>
@@ -107,15 +107,15 @@ const AdminOrders: React.FC = () => {
           render={(order: OrderType) => (
             <Table.Row key={order.id}>
               <div
-                className={`text-[10px] md:text-base font-bold text-center ${
+                className={`flex items-center justify-center text-[12px] md:text-base font-bold text-center ${
                   order.status === "pending" ? "bg-[#FFA82B]" : ""
                 } ${order.status === "cancelled" ? "bg-red-500" : ""} ${
                   order.status === "completed" ? "bg-green-500" : ""
-                }`}
+                } min-w-8`}
               >
                 {order.id}
               </div>
-              <div className="text-[8px] md:text-base">
+              <div className="text-[10px] md:text-base">
                 {order.User?.email || "Unknown"}
               </div>
               <div className="text-[8px] md:text-base">

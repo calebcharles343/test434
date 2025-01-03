@@ -23,6 +23,15 @@ const Cart = () => {
     createOrder(orderData as any);
   };
 
+  if (cart.items.length < 1) {
+    return (
+      <div className="text-lg text-center pt-8">
+        {" "}
+        No Items in your cart yet!
+      </div>
+    );
+  }
+
   return (
     <div
       className="flex flex-col w-full min-w-[270px] max-w-4xl mx-auto mt-4 p-6 bg-white text-gray-900 rounded-lg border border-gray-300 shadow-sm"
