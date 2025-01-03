@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { getUser } from "../../services/apiAuth";
 import { UserType } from "../../interfaces";
+import { getUser } from "../../services/apiUser";
+// import { getUser } from "../../services/apiAuth";
 
 export function useUser(id: number) {
   return useQuery<UserType, Error>({
@@ -9,5 +10,3 @@ export function useUser(id: number) {
     staleTime: 0,
   });
 }
-
-// localStorage.setItem("localUser", JSON.stringify(userData));

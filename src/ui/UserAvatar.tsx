@@ -5,7 +5,7 @@ import SpinnerMini from "./SpinnerMini";
 import outline from "../data/img/passportDPnew.webp";
 
 import { imageHeader } from "../utils/imageApiHeader";
-import { useUser } from "../features/authentication/useUser";
+import { useUser } from "../features/users/useUser";
 import { sessionStorageUser } from "../utils/sessionStorageUser";
 
 const UserAvatar: React.FC = () => {

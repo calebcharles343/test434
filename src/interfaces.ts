@@ -2,6 +2,10 @@ export interface HeadersType {
   authorization: string;
 }
 
+export interface UsersType {
+  data: UserType[];
+}
+
 export interface UserProfileToken {
   data: Root;
 }

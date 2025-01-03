@@ -9,6 +9,7 @@ import {
   BiInfoCircle,
   BiLogIn,
   BiLogOut,
+  BiPhotoAlbum,
 } from "react-icons/bi";
 import { FiMenu } from "react-icons/fi";
 import { sessionStorageUser } from "../utils/sessionStorageUser.ts";
@@ -104,6 +105,18 @@ const Sidebar: React.FC = () => {
                 )}`}
               >
                 <FiMenu className="mr-2" /> Admin Orders
+              </Link>
+            </li>
+          )}
+          {isAuthenticated && user.role === "Admin" && (
+            <li>
+              <Link
+                to="/users"
+                className={`flex items-center p-2 rounded hover:bg-[#ffa82b] hover:text-gray-800 transition-colors duration-200 ${isActive(
+                  "/users"
+                )}`}
+              >
+                <BiPhotoAlbum className="mr-2" /> Users
               </Link>
             </li>
           )}

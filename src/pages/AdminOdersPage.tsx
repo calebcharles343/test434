@@ -1,5 +1,5 @@
 import AdminOrders from "../features/order/AdminOrders";
-import { useUser } from "../features/authentication/useUser";
+import { useUser } from "../features/users/useUser";
 import { sessionStorageUser } from "../utils/sessionStorageUser";
 
 const AdminOrdersPage: React.FC = () => {

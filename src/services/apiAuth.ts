@@ -3,7 +3,7 @@ import axios from "axios";
 import {
   PasswordForgotTypes,
   PasswordResetTypes,
-  UpdateUserType,
+  // UpdateUserType,
   UserProfileToken,
 } from "../interfaces.ts";
 // import Cookies from "js-cookie";
@@ -79,31 +79,31 @@ export const getUser = async function () {
   }
 };
 
-export const updateUser = async function (
-  UserId: number | undefined,
-  data: UpdateUserType
-) {
-  console.log("❌updateUser", data);
+// export const updateUser = async function (
+//   UserId: number | undefined,
+//   data: UpdateUserType
+// ) {
+//   console.log("❌updateUser", data);
 
-  try {
-    const response = await axios.patch<UpdateUserType>(
-      `${apiURL}/users/${UserId}`,
-      data,
-      { headers }
-    );
-    console.log(response.data);
+//   try {
+//     const response = await axios.patch<UpdateUserType>(
+//       `${apiURL}/users/${UserId}`,
+//       data,
+//       { headers }
+//     );
+//     console.log(response.data);
 
-    return response.data;
-  } catch (err) {
-    // ErrorHandler(err);
-    if (axios.isAxiosError(err)) {
-      return err.response?.data;
-    } else {
-      // Handle other errors
-      console.log(err);
-    }
-  }
-};
+//     return response.data;
+//   } catch (err) {
+//     // ErrorHandler(err);
+//     if (axios.isAxiosError(err)) {
+//       return err.response?.data;
+//     } else {
+//       // Handle other errors
+//       console.log(err);
+//     }
+//   }
+// };
 
 export const logout = async function () {
   try {

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { UpdateUserType } from "../../interfaces.ts";
-import { updateUser as updateUserApi } from "../../services/apiAuth.ts"; // Import the API function
+import { updateUser as updateUserApi } from "../../services/apiUser.ts"; // Import the API function
 
 interface ErrorResponse {
   message: string;
@@ -16,14 +16,8 @@ export function useUpdateUser() {
     isError,
     error,
   } = useMutation({
-    mutationFn: async ({
-      userId,
-      data,
-    }: {
-      userId: number;
-      data: UpdateUserType;
-    }) => {
-      const response = await updateUserApi(userId, data);
+    mutationFn: async ({ data }: { userId: number; data: UpdateUserType }) => {
+      const response = await updateUserApi(data);
       return response;
     },
     onSuccess: (updatedUser) => {

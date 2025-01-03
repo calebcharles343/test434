@@ -1,5 +1,5 @@
 import UserOrders from "../features/order/UserOrders";
-import { useUser } from "../features/authentication/useUser";
+import { useUser } from "../features/users/useUser";
 import { sessionStorageUser } from "../utils/sessionStorageUser";
 
 const OrdersPage: React.FC = () => {

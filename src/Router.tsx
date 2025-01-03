@@ -14,6 +14,7 @@ import OrdersPage from "./pages/OrdersPage";
 import ResetPasswordForm from "./features/authentication/ResetPasswordForm";
 import ForgotPasswordForm from "./features/authentication/ForgotPasswordForm";
 import AdminOrdersPage from "./pages/AdminOdersPage";
+import ActiveUsers from "./features/users/Users";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,14 @@ const router = createBrowserRouter([
         element: (
           <AuthGuard>
             <AdminOrdersPage />
+          </AuthGuard>
+        ),
+      },
+      {
+        path: "users",
+        element: (
+          <AuthGuard>
+            <ActiveUsers />
           </AuthGuard>
         ),
       },
