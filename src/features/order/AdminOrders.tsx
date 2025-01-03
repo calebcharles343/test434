@@ -13,22 +13,20 @@ const AdminOrders: React.FC = () => {
   const { data: adminOrders, isLoading } = useAdminOrders();
   const [selectedOrder, setSelectedOrder] = useState<OrderType | null>(null);
   const [searchDate, setSearchDate] = useState<Date | null>(null);
-  const [searchId, setSearchId] = useState<string>("");
-  const [searchEmail, setSearchEmail] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredOrders, setFilteredOrders] = useState<OrderType[]>([]);
 
   useEffect(() => {
     if (adminOrders?.data) {
+      const term = searchTerm.toLowerCase();
       const filtered = adminOrders.data
         .filter(
           (order: OrderType) =>
             (!searchDate ||
               format(parseISO(order.createdAt), "yyyy-MM-dd") ===
                 format(searchDate, "yyyy-MM-dd")) &&
-            order.id.toString().includes(searchId) &&
-            (order.User?.email || "")
-              .toLowerCase()
-              .includes(searchEmail.toLowerCase())
+            (order.id.toString().includes(term) ||
+              (order.User?.email || "").toLowerCase().includes(term))
         )
         .sort(
           (a: any, b: any) =>
@@ -36,7 +34,7 @@ const AdminOrders: React.FC = () => {
         );
       setFilteredOrders(filtered);
     }
-  }, [searchDate, searchId, searchEmail, adminOrders]);
+  }, [searchDate, searchTerm, adminOrders]);
 
   const handleViewClick = (order: OrderType) => {
     setSelectedOrder(order);
@@ -61,35 +59,25 @@ const AdminOrders: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center w-full">
-      <div className="flex flex-col items-center w-full max-w-[218px] mb-4">
-        <DatePicker
-          selected={searchDate}
-          onChange={(date) => setSearchDate(date)}
-          dateFormat="yyyy-MM-dd"
-          className="w-full p-2 border rounded-md"
-          placeholderText="Date (yyyy-mm-dd)"
-        />
-      </div>
-
-      <div className="flex flex-col gap-0 md:flex-row md:gap-4">
-        <div className="w-full max-w-[218px] mb-4">
-          <input
-            type="text"
-            value={searchId}
-            onChange={(e) => setSearchId(e.target.value)}
-            className="w-full p-2 border rounded-md"
-            placeholder="Search by Order ID"
+    <div className="flex flex-col items-center w-full py-8">
+      <div className="flex w-full items-center flex-col gap-2">
+        <div className="flex flex-col text-sm  items-center w-full max-w-[140px] ">
+          <DatePicker
+            selected={searchDate}
+            onChange={(date) => setSearchDate(date)}
+            dateFormat="yyyy-MM-dd"
+            className="w-full p-2 text-center border border-gray-500 rounded-md"
+            placeholderText="Date (yyyy-mm-dd)"
           />
         </div>
 
-        <div className="w-full max-w-[218px] mb-4">
+        <div className="w-full max-w-[300px] text-sm  mb-4">
           <input
             type="text"
-            value={searchEmail}
-            onChange={(e) => setSearchEmail(e.target.value)}
-            className="w-full p-2 border rounded-md"
-            placeholder="Search by Email"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full text-center p-2 border border-gray-500 rounded-md"
+            placeholder="Order ID or Email?"
           />
         </div>
       </div>
@@ -135,7 +123,6 @@ const AdminOrders: React.FC = () => {
         />
       </Table>
 
-      {/* Modal for viewing the selected order */}
       {selectedOrder && (
         <TableModal onClose={handleCloseModal}>
           <AdminOrder

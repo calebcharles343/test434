@@ -49,14 +49,14 @@ const Users: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center w-full">
-      <div className="w-full max-w-[218px] mb-4">
+    <div className="flex flex-col items-center w-full py-8">
+      <div className="w-full max-w-[175px] mb-4">
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full p-2 border rounded-md placeholder:text-xs"
-          placeholder="Search by ID, Name, Email, or Role"
+          className="w-full p-2 border border-gray-500 rounded-md placeholder:text-sm"
+          placeholder="ID, Name, Email, or Role?"
         />
       </div>
 
