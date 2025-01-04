@@ -22,7 +22,7 @@ const Review: React.FC<ReviewProps> = ({ review, refetchReviews }) => {
   };
 
   return (
-    <div className="border-l-8 border-[#FFA82B] border p-4 rounded-lg mb-4 bg-white shadow-lg">
+    <div className="flex flex-col border-l-8 border-[#FFA82B] border p-2 rounded-lg mb-4 bg-white shadow-lg gap-2">
       <div className=" flex items-center gap-4">
         <div className="flex flex-col w-full">
           <div className="flex items-center justify-between">
@@ -31,10 +31,9 @@ const Review: React.FC<ReviewProps> = ({ review, refetchReviews }) => {
               {sessionStorageUserX.id === review?.User?.id && (
                 <button
                   className="text-sm text-blue-500"
-                  // onClick={() => updateReviewMutation.mutate(review)}
                   onClick={handleToggleEdit}
                 >
-                  {isEdit ? "Cancel Edit" : "Edit"}
+                  {isEdit ? "Cancel" : "Edit"}
                 </button>
               )}
 
@@ -48,11 +47,14 @@ const Review: React.FC<ReviewProps> = ({ review, refetchReviews }) => {
               )}
             </div>
           </div>
-          <p className="text-gray-700 mt-2">{review.review}</p>
-          <p className="text-sm text-blue-500 font-bold mt-1">
-            Rating: {review.rating.toFixed(1)}
-          </p>
-          <span className="text-xs">{dateformat(review?.createdAt!)}</span>
+          <p className="text-sm mt-1">{review.review}</p>
+
+          <div className="flex items-center justify-between">
+            <p className="text-xs text-blue-500 font-bold mt-1">
+              Rating: {review.rating.toFixed(1)}
+            </p>
+            <span className="text-xs">{dateformat(review?.createdAt!)}</span>
+          </div>
         </div>
       </div>
       {isEdit && (
@@ -60,6 +62,7 @@ const Review: React.FC<ReviewProps> = ({ review, refetchReviews }) => {
           <UpdateReviewForm
             reviewId={review.id!}
             productId={review.productId!}
+            review={review}
             refetchReviews={refetchReviews}
             isSetEdit={isSetEdit}
           />

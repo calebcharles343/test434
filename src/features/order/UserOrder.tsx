@@ -60,7 +60,7 @@ const UserOrder: React.FC<OrderProps> = ({ order }) => {
               )}
             </div>
           </div>
-          <p className="text-xs md:text-base text-gray-700 mt-2">
+          <p className="text-xs md:text-base mt-2">
             Total Price: ${order.totalPrice}
           </p>
           <div className="text-xs md:text-sm font-bold mt-1">

@@ -70,7 +70,7 @@ const AdminOrder: React.FC<OrderProps> = ({ order, handleCloseModal }) => {
               </p>
             </div>
           </div>
-          <p className="text-sm md:text-base text-gray-700 mt-2">
+          <p className="text-sm md:text-base  mt-2">
             Total Price: ${order.totalPrice}
           </p>
           <div className="text-xs md:text-sm text-blue-500 font-bold mt-1">

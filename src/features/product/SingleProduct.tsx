@@ -48,6 +48,7 @@ export default function SingleProduct({ product }: ProductProps) {
           refetchProducts();
         },
         onError: (error) => {
+          // setErrorFile("An error occurred while uploading the image.");
           console.error("Upload Error:", error, errorFile);
         },
       });
@@ -91,10 +92,12 @@ export default function SingleProduct({ product }: ProductProps) {
     }
   };
 
-  // if (isLoadingProduct) return <SpinnerMini />;
+  const isAdmin = sessionStorageUserX?.role === "Admin";
 
   return (
-    <div className="text-gray-600 flex flex-col w-[280px] border border-gray-200 p-4 gap-4 shadow-lg rounded-lg">
+    <div
+      className={`text-gray-600 flex flex-col w-[280px] border border-gray-200 p-4 gap-4 shadow-lg rounded-lg`}
+    >
       <div className="flex items-center justify-between mb-2">
         <p className="text-base font-semibold">{product.name}</p>
         {!id && (
@@ -157,7 +160,7 @@ export default function SingleProduct({ product }: ProductProps) {
         </div>
       </div>
 
-      {id && sessionStorageUserX?.role === "Admin" && (
+      {id && isAdmin && (
         <div className="flex items-center justify-between gap-2 mt-2">
           <div className="bg-white rounded-md p-1">
             <input
@@ -172,6 +175,7 @@ export default function SingleProduct({ product }: ProductProps) {
             >
               {isUploading ? "..." : "Photo +"}
             </label>
+            {/* {errorFile && <p className="text-xs text-red-500">{errorFile}</p>} */}
           </div>
           <Modal>
             <Modal.Open open="editProduct">
@@ -197,3 +201,11 @@ export default function SingleProduct({ product }: ProductProps) {
     </div>
   );
 }
+
+/*
+   <div
+      className={`${
+        !isAdmin && "h-[425px]"
+      } text-gray-600 flex flex-col w-[280px] border border-gray-200 p-4 gap-4 shadow-lg rounded-lg`}
+    >
+*/

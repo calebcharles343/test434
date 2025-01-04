@@ -34,7 +34,10 @@ const AppLayout: React.FC = () => {
   }
 
   return (
-    <div className="min-h-full flex flex-col lg:grid lg:grid-cols-[230px_1fr] lg:grid-rows-[65px_1fr] h-screen text-gray-700 font-joro ">
+    <div
+      className="min-h-full flex flex-col lg:grid lg:grid-cols-[230px_1fr] lg:grid-rows-[65px_1fr] h-screen text-gray-600 font-joro "
+      style={{ fontFamily: "Roboto" }}
+    >
       <div className="hidden lg:block">
         {isAuthenticated ? (
           <AuthGuard>

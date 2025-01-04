@@ -48,17 +48,14 @@ const ResetPasswordForm: React.FC = () => {
             {" "}
             <div>
               {" "}
-              <label
-                htmlFor="password"
-                className="block mb-1 font-bold text-gray-700"
-              >
+              <label htmlFor="password" className="block mb-1 font-bold ">
                 {" "}
                 Password{" "}
               </label>{" "}
               <div className="relative w-full">
                 {" "}
                 <input
-                  className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+                  className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
@@ -79,7 +76,7 @@ const ResetPasswordForm: React.FC = () => {
               {" "}
               <label
                 htmlFor="passwordConfirm"
-                className="block mb-1 font-bold text-gray-700"
+                className="block mb-1 font-bold "
               >
                 {" "}
                 Confirm Password{" "}
@@ -87,7 +84,7 @@ const ResetPasswordForm: React.FC = () => {
               <div className="relative w-full">
                 {" "}
                 <input
-                  className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+                  className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
                   id="confirm_password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Confirm your password"

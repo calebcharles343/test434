@@ -53,7 +53,7 @@ const Sidebar: React.FC = () => {
         >
           E-COMMERCE
         </span>
-        <ul className="flex flex-col item gap-2 w-full px-6 md:px-8 flex-grow">
+        <ul className=" text-sm flex flex-col item gap-2 w-full px-6 md:px-8 flex-grow">
           <li>
             <Link
               to="/home"
@@ -129,7 +129,7 @@ const Sidebar: React.FC = () => {
                   "/settings"
                 )}`}
               >
-                <FiSettings className="mr-2" /> settings
+                <FiSettings className="mr-2" /> Settings
               </Link>
             </li>
           )}

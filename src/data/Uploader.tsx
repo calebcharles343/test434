@@ -40,10 +40,10 @@ function Uploader() {
         gap: "8px",
       }}
     >
-      <h3 className="text-gray-700">PRODUCT DATA</h3>
+      <h3 className="text-gray-600">PRODUCT DATA</h3>
 
       <button
-        className="flex items-center justify-center bg-gray-800 text-white p-2"
+        className="flex items-center justify-center  bg-gray-800 text-white p-2"
         onClick={uploadProducts}
         disabled={isLoading}
       >

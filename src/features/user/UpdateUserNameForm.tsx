@@ -35,14 +35,11 @@ const UpdateUserNameForm: React.FC = () => {
       >
         <div className="flex flex-col w-full gap-4">
           <div>
-            <label
-              htmlFor="name"
-              className="block mb-1 font-bold text-gray-700"
-            >
+            <label htmlFor="name" className="block mb-1 font-bold ">
               Name
             </label>
             <input
-              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
               id="name"
               type="text"
               placeholder="Enter your name"

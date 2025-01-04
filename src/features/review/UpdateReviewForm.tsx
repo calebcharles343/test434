@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useUpdateReview } from "./useUpdateReview.ts";
 import toast from "react-hot-toast";
+import { ReviewType } from "../../interfaces.ts";
 
 interface ReviewFormProps {
   productId: number;
   reviewId: number;
+  review: ReviewType;
   refetchReviews: () => void;
   isSetEdit: (boolean: boolean) => void;
 }
@@ -12,11 +14,12 @@ interface ReviewFormProps {
 const UpdateReviewForm: React.FC<ReviewFormProps> = ({
   productId,
   reviewId,
+  review,
   refetchReviews,
   isSetEdit,
 }) => {
-  const [reviewText, setReviewText] = useState<string>("");
-  const [rating, setRating] = useState<number>(0);
+  const [reviewText, setReviewText] = useState<string>(review.review);
+  const [rating, setRating] = useState<number>(review.rating);
 
   const { UpdateReview } = useUpdateReview(productId);
 
@@ -64,7 +67,7 @@ const UpdateReviewForm: React.FC<ReviewFormProps> = ({
           onChange={(e) => setRating(parseFloat(e.target.value))}
           min="0"
           max="5"
-          step="0.1"
+          step="1"
         />
       </div>
       <button

@@ -42,7 +42,7 @@ const User: React.FC<ActiveUserProps> = ({ user }) => {
         </p>
       </div>
 
-      <div className="flex items-center justify-between mt-4 text-sm text-gray-700 gap-2">
+      <div className="flex items-center justify-between mt-4 text-sm gap-2">
         <p>
           <span className="font-semibold">Status:</span>{" "}
           <span

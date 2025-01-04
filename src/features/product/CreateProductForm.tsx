@@ -48,14 +48,11 @@ const CreateProductForm: React.FC = () => {
       >
         <div className="flex flex-col w-full gap-4">
           <div>
-            <label
-              htmlFor="name"
-              className="block mb-1 font-bold text-gray-700"
-            >
+            <label htmlFor="name" className="block mb-1 font-bold ">
               Name
             </label>
             <input
-              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
               id="name"
               type="text"
               placeholder="Enter product name"
@@ -65,14 +62,11 @@ const CreateProductForm: React.FC = () => {
             />
           </div>
           <div>
-            <label
-              htmlFor="description"
-              className="block mb-1 font-bold text-gray-700"
-            >
+            <label htmlFor="description" className="block mb-1 font-bold ">
               Description
             </label>
             <input
-              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
               id="description"
               type="text"
               placeholder="Enter product description"
@@ -82,14 +76,11 @@ const CreateProductForm: React.FC = () => {
             />
           </div>
           <div>
-            <label
-              htmlFor="category"
-              className="block mb-1 font-bold text-gray-700"
-            >
+            <label htmlFor="category" className="block mb-1 font-bold ">
               Category
             </label>
             <input
-              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
               id="category"
               type="text"
               placeholder="Enter product category"
@@ -99,14 +90,11 @@ const CreateProductForm: React.FC = () => {
             />
           </div>
           <div>
-            <label
-              htmlFor="price"
-              className="block mb-1 font-bold text-gray-700"
-            >
+            <label htmlFor="price" className="block mb-1 font-bold ">
               Price
             </label>
             <input
-              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
               id="price"
               type="number"
               placeholder="Enter product price"
@@ -116,14 +104,11 @@ const CreateProductForm: React.FC = () => {
             />
           </div>
           <div>
-            <label
-              htmlFor="stock"
-              className="block mb-1 font-bold text-gray-700"
-            >
+            <label htmlFor="stock" className="block mb-1 font-bold ">
               Stock
             </label>
             <input
-              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
               id="stock"
               type="number"
               placeholder="Enter product stock amount"

@@ -43,14 +43,11 @@ const UpdatePasswordForm: React.FC = () => {
       >
         <div className="flex flex-col w-full gap-4">
           <div>
-            <label
-              htmlFor="passwordCurrent"
-              className="block mb-1 font-bold text-gray-700"
-            >
+            <label htmlFor="passwordCurrent" className="block mb-1 font-bold ">
               Current password
             </label>
             <input
-              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
               id="passwordCurrent"
               type="text"
               placeholder="Enter your current password"
@@ -62,15 +59,12 @@ const UpdatePasswordForm: React.FC = () => {
           </div>
 
           <div>
-            <label
-              htmlFor="password"
-              className="block mb-1 font-bold text-gray-700"
-            >
+            <label htmlFor="password" className="block mb-1 font-bold ">
               New Password
             </label>
             <div className="relative w-full">
               <input
-                className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+                className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
                 id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your new password"
@@ -89,15 +83,12 @@ const UpdatePasswordForm: React.FC = () => {
           </div>
 
           <div>
-            <label
-              htmlFor="passwordConfirm"
-              className="block mb-1 font-bold text-gray-700"
-            >
+            <label htmlFor="passwordConfirm" className="block mb-1 font-bold ">
               Confirm Password
             </label>
             <div className="relative w-full">
               <input
-                className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+                className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
                 id="passwordConfirm"
                 type={showPassword ? "text" : "password"}
                 placeholder="Confirm your new password"

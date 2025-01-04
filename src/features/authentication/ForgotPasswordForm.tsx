@@ -42,14 +42,11 @@ const ForgotPasswordForm: React.FC = () => {
         >
           <div className="flex flex-col w-full gap-4">
             <div>
-              <label
-                htmlFor="email"
-                className="block mb-1 font-bold text-gray-700"
-              >
+              <label htmlFor="email" className="block mb-1 font-bold">
                 Email
               </label>
               <input
-                className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm text-gray-700"
+                className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
                 id="email"
                 type="email"
                 placeholder="Enter your email"
