@@ -3,15 +3,12 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { ItemType } from "../../interfaces.ts";
 import { addItem } from "../../store/cartSlice.ts";
-// import SpinnerMini from "../../ui/SpinnerMini.tsx";
 import StarRating from "../../ui/StarRating.tsx";
 import UpdateProductForm from "./UpdateProductForm.tsx";
 import Modal from "../../ui/Modal.tsx";
 import { useUploadImage } from "../../hooks/images/useUploadImage.ts";
-// import { useGetProduct } from "./useGetProduct.ts";
 import { useDeleteProduct } from "./useDeleteProduct.ts";
 import { imageHeader } from "../../utils/imageApiHeader.ts";
-
 import { toast } from "react-hot-toast";
 import { sessionStorageUser } from "../../utils/sessionStorageUser.ts";
 import { useFetchProducts } from "./useFetchProducts.ts";
@@ -26,16 +23,10 @@ export default function SingleProduct({ product }: ProductProps) {
   const [itemQuantity, setitemQuantity] = useState<number>(1);
   const { id } = useParams<{ id: string }>();
 
-  // const {
-  //   product: freshProduct,
-  //   refetchProduct,
-  //   // isLoadingProduct,
-  // } = useGetProduct(product.id);
   const { deleteProduct } = useDeleteProduct();
 
   const sessionStorageUserX = sessionStorageUser();
 
-  // Fetch products using React Query
   const { refetchProducts } = useFetchProducts();
 
   const { uploadImage, isUploading } = useUploadImage(
@@ -57,7 +48,6 @@ export default function SingleProduct({ product }: ProductProps) {
           refetchProducts();
         },
         onError: (error) => {
-          // setErrorFile("An error occurred while uploading the image.");
           console.error("Upload Error:", error, errorFile);
         },
       });
@@ -182,7 +172,6 @@ export default function SingleProduct({ product }: ProductProps) {
             >
               {isUploading ? "..." : "Photo +"}
             </label>
-            {/* {errorFile && <p className="text-xs text-red-500">{errorFile}</p>} */}
           </div>
           <Modal>
             <Modal.Open open="editProduct">

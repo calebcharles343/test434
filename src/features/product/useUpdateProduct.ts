@@ -8,8 +8,7 @@ import { ProductType } from "../../interfaces.ts";
 import toast from "react-hot-toast";
 
 interface ErrorResponse {
-  message: string; // Assuming the error response has a 'message' field
-  // Add any other properties that might be in the error response
+  message: string;
 }
 
 interface LoginError extends AxiosError {
@@ -19,7 +18,6 @@ interface LoginError extends AxiosError {
 export function useUpdateProduct(id: number) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
-  // const navigate = useNavigate();
 
   const {
     mutate: updateProduct,
@@ -41,8 +39,6 @@ export function useUpdateProduct(id: number) {
 
     onError: (err: LoginError) => {
       toast.error("Error updating Product");
-
-      // Check if the error has a response, if so, display it
       const error = err.response?.data.message || "An error occurred";
 
       console.error("Login Error:", error);

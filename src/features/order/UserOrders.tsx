@@ -17,17 +17,6 @@ const UserOrders: React.FC = () => {
     isLoading: isLoadingOrders,
   } = useFetchOrders();
 
-  if (orders?.data.length === 0) {
-    return (
-      <div className="text-lg text-center pt-8">
-        You have no orders! Please explore our{" "}
-        <span className="text-xl font-bold text-[#FFA82B] hover:underline">
-          <Link to="/home">store</Link>
-        </span>
-      </div>
-    );
-  }
-
   useEffect(() => {
     if (orders?.data) {
       const filtered = orders.data
@@ -38,12 +27,12 @@ const UserOrders: React.FC = () => {
               format(searchDate, "yyyy-MM-dd")
         )
         .sort(
-          (a: any, b: any) =>
+          (a: OrderType, b: OrderType) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
       setFilteredOrders(filtered);
     }
-  }, [searchDate]);
+  }, [searchDate, orders?.data]);
 
   const mainOrders = filteredOrders || [];
 
@@ -55,9 +44,20 @@ const UserOrders: React.FC = () => {
     );
   }
 
+  if (orders?.data?.length < 1) {
+    return (
+      <div className="text-lg text-center pt-8">
+        You have no orders! Please explore our{" "}
+        <span className="text-xl font-bold text-[#FFA82B] hover:underline">
+          <Link to="/home">store</Link>
+        </span>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col items-center py-8">
-      <div className="flex flex-col text-sm  items-center w-full max-w-[140px] ">
+    <div className="flex flex-col items-center py-8 gap-4">
+      <div className="flex flex-col text-sm items-center w-full max-w-[140px]">
         <DatePicker
           selected={searchDate}
           onChange={(date) => setSearchDate(date)}

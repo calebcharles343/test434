@@ -66,9 +66,9 @@ const Sidebar: React.FC = () => {
           </li>
           <li>
             <Link
-              to="/cartPage"
+              to="/cart-page"
               className={`flex items-center p-2 rounded hover:bg-[#ffa82b] hover:text-gray-800 transition-colors duration-200 ${isActive(
-                "/cartPage"
+                "/cart-page"
               )}`}
             >
               <BiCart className="mr-2" /> Cart
@@ -99,9 +99,9 @@ const Sidebar: React.FC = () => {
           {isAuthenticated && user.role === "Admin" && (
             <li>
               <Link
-                to="/adminOrders"
+                to="/admin-orders"
                 className={`flex items-center p-2 rounded hover:bg-[#ffa82b] hover:text-gray-800 transition-colors duration-200 ${isActive(
-                  "/adminOrders"
+                  "/admin-orders"
                 )}`}
               >
                 <FiMenu className="mr-2" /> Admin Orders

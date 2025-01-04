@@ -1,14 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-// import { useNavigate } from "react-router-dom";
-
 import { AxiosError, AxiosResponse } from "axios";
 import { useState } from "react";
 import { updateOrderStatus as updateOrderStatusAPI } from "../../services/apiOrder.ts";
 import toast from "react-hot-toast";
 
 interface ErrorResponse {
-  message: string; // Assuming the error response has a 'message' field
-  // Add any other properties that might be in the error response
+  message: string;
 }
 
 interface LoginError extends AxiosError {
@@ -18,7 +15,6 @@ interface LoginError extends AxiosError {
 export function useUpdateOrderStatus(id: number) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
-  // const navigate = useNavigate();
 
   const {
     mutate: updateOrderStatus,

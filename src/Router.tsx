@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "cartPage",
+        path: "cart-page",
         element: (
           <AuthGuard>
             <CartPage />
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "adminOrders",
+        path: "admin-orders",
         element: (
           <AuthGuard>
             <AdminOrdersPage />
@@ -74,8 +74,8 @@ const router = createBrowserRouter([
     ],
   },
   { path: "auth", element: <Auth /> },
-  { path: "auth/forgotPassword", element: <ForgotPasswordForm /> },
-  { path: "auth/resetPassword/:token", element: <ResetPasswordForm /> },
+  { path: "auth/forgot-password", element: <ForgotPasswordForm /> },
+  { path: "auth/reset-password/:token", element: <ResetPasswordForm /> },
   { path: "*", element: <PageNotFound /> },
 ]);
 

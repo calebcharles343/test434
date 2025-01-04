@@ -28,7 +28,6 @@ export function useDeleteProduct() {
       toast.success("Product deleted successfully");
 
       navigate("/home", { replace: true });
-      // Invalidate and refetch products
     },
     onError: (error) => {
       toast.error("Error deleting Product");

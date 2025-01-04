@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 
 import { useNavigate, useLocation } from "react-router-dom";
-4;
 import CartIcon from "./CartIcon";
 
 import SearchBar from "./SeachBar";
@@ -14,7 +13,7 @@ const Header: React.FC = () => {
   const location = useLocation();
 
   const handleClick = () => {
-    navigate(`/cartPage`);
+    navigate(`/cart-page`);
   };
 
   const cart = useSelector((state: RootState) => state.cart);

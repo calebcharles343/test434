@@ -1,21 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
-// import { useNavigate } from "react-router-dom";
 import { resetPassword as resetPasswordApi } from "../../services/apiAuth.ts";
 import { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-hot-toast";
 import { PasswordResetTypes } from "../../interfaces.ts";
 import { useNavigate } from "react-router-dom";
 
-// interface Sig {
-//   name: string;
-//   email: string;
-//   password: string;
-//   confirmPassword: string;
-// }
-
 interface ErrorResponse {
-  message: string; // Assuming the error response has a 'message' field
-  // Add any other properties that might be in the error response
+  message: string;
 }
 
 interface UseResetPasswordType {
@@ -39,10 +30,8 @@ export function useResetPassword(token: string) {
 
     onSuccess: (data) => {
       if (data.status === 200) {
-        // const userData = data.data.user;
-
         toast.success("Password reset successfull");
-        // Navigate to home page after successful login
+
         navigate("/auth", { replace: true });
       } else {
         toast.error(`${data.message}`);
