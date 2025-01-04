@@ -6,8 +6,7 @@ import SpinnerMini from "../ui/SpinnerMini.js";
 
 function Uploader() {
   const [isLoading, setIsLoading] = useState(false);
-  const { createProduct, isError, errorMessage, isPending } =
-    useCreateProduct();
+  const { createProduct, isError, isPending } = useCreateProduct();
 
   async function uploadProducts() {
     setIsLoading(true);
@@ -59,7 +58,7 @@ function Uploader() {
         Clear Products
       </button> */}
 
-      {isError && <p style={{ color: "red" }}>{errorMessage}</p>}
+      {isError && <p style={{ color: "red" }}>Error Occured</p>}
     </div>
   );
 }

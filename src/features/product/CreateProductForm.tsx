@@ -14,7 +14,7 @@ const CreateProductForm: React.FC = () => {
     stock: 0,
   });
 
-  const { createProduct, errorMessage, isPending } = useCreateProduct();
+  const { createProduct, isPending } = useCreateProduct();
 
   const dispatch = useDispatch();
 
@@ -132,14 +132,6 @@ const CreateProductForm: React.FC = () => {
               required
             />
           </div>
-          {errorMessage && (
-            <span
-              className="text-[12px] text-center text-red-500"
-              aria-live="polite"
-            >
-              {errorMessage}
-            </span>
-          )}
         </div>
         <button
           type="submit"
