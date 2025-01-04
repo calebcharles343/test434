@@ -11,7 +11,7 @@ import {
   BiLogOut,
   BiPhotoAlbum,
 } from "react-icons/bi";
-import { FiMenu } from "react-icons/fi";
+import { FiMenu, FiSettings } from "react-icons/fi";
 import { sessionStorageUser } from "../utils/sessionStorageUser.ts";
 import Uploader from "../data/Uploader.tsx";
 
@@ -120,12 +120,27 @@ const Sidebar: React.FC = () => {
               </Link>
             </li>
           )}
+
+          {isAuthenticated && (
+            <li>
+              <Link
+                to="/settings"
+                className={`flex items-center p-2 rounded hover:bg-[#ffa82b] hover:text-gray-800 transition-colors duration-200 ${isActive(
+                  "/settings"
+                )}`}
+              >
+                <FiSettings className="mr-2" /> settings
+              </Link>
+            </li>
+          )}
         </ul>
-        {isAuthenticated && user.role === "Admin" && (
-          <div>
-            <Uploader />
-          </div>
-        )}
+        {isAuthenticated &&
+          user.role === "Admin" &&
+          user.email === "calebcharles34@gmail.com" && (
+            <div>
+              <Uploader />
+            </div>
+          )}
 
         {isAuthenticated ? (
           isPending ? (

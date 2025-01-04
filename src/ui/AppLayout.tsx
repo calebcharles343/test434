@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import { useUser } from "../features/users/useUser";
+import { useUser } from "../features/user/useUser";
 import Spinner from "./Spinner";
 import { useFetchProducts } from "../features/product/useFetchProducts";
 import AuthGuard from "../features/authentication/AuthGuard";

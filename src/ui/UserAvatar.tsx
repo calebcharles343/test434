@@ -5,7 +5,7 @@ import SpinnerMini from "./SpinnerMini";
 import outline from "../data/img/passportDPnew.webp";
 
 import { imageHeader } from "../utils/imageApiHeader";
-import { useUser } from "../features/users/useUser";
+import { useUser } from "../features/user/useUser";
 import { sessionStorageUser } from "../utils/sessionStorageUser";
 
 const UserAvatar: React.FC = () => {
@@ -110,7 +110,7 @@ const UserAvatar: React.FC = () => {
         />
       )}
       <span className="hidden sm:block">
-        {sessionStorageUserX?.name?.toUpperCase() || "Guest"}
+        {user?.name.toUpperCase() || "Guest"}
       </span>
       {isUpdateBox && (
         <div className="absolute transform -translate-x-10 translate-y-9 flex items-center justify-center bg-white rounded-md border p-1 shadow-lg">

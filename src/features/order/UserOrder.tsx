@@ -24,7 +24,7 @@ const UserOrder: React.FC<OrderProps> = ({ order }) => {
 
   return (
     <div
-      className={`w-full md:w-[500px] border-l-8 p-4 rounded-lg mb-4 bg-white shadow-lg ${
+      className={`w-[300px] md:w-[500px] border-l-8 p-4 rounded-lg mb-4 bg-white shadow-lg ${
         order.status === "pending" ? "border-[#FFA82B]" : ""
       } ${order.status === "cancelled" ? "border-red-500" : ""} ${
         order.status === "completed" ? "border-green-500" : ""

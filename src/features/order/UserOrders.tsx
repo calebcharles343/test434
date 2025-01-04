@@ -1,28 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { OrderType } from "../../interfaces";
 import { useFetchOrders } from "./useFetchOrders";
 import { Link } from "react-router-dom";
 import SpinnerMini from "../../ui/SpinnerMini";
 import UserOrder from "./UserOrder";
+import { format, parseISO } from "date-fns";
+import DatePicker from "react-datepicker";
 
 const UserOrders: React.FC = () => {
+  const [searchDate, setSearchDate] = useState<Date | null>(null);
+  const [filteredOrders, setFilteredOrders] = useState<OrderType[]>([]);
+
   const {
     data: orders,
     refetch: refetchOrders,
     isLoading: isLoadingOrders,
   } = useFetchOrders();
 
-  const mainOrders = orders?.data || [];
-
-  if (isLoadingOrders) {
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
-        <SpinnerMini />
-      </div>
-    );
-  }
-
-  if (mainOrders.length === 0) {
+  if (orders?.data.length === 0) {
     return (
       <div className="text-lg text-center pt-8">
         You have no orders! Please explore our{" "}
@@ -33,8 +28,45 @@ const UserOrders: React.FC = () => {
     );
   }
 
+  useEffect(() => {
+    if (orders?.data) {
+      const filtered = orders.data
+        .filter(
+          (order: OrderType) =>
+            !searchDate ||
+            format(parseISO(order.createdAt), "yyyy-MM-dd") ===
+              format(searchDate, "yyyy-MM-dd")
+        )
+        .sort(
+          (a: any, b: any) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+      setFilteredOrders(filtered);
+    }
+  }, [searchDate]);
+
+  const mainOrders = filteredOrders || [];
+
+  if (isLoadingOrders) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+        <SpinnerMini />
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center py-8">
+      <div className="flex flex-col text-sm  items-center w-full max-w-[140px] ">
+        <DatePicker
+          selected={searchDate}
+          onChange={(date) => setSearchDate(date)}
+          dateFormat="yyyy-MM-dd"
+          className="w-full p-2 text-center border border-gray-500 rounded-md"
+          placeholderText="Date (yyyy-mm-dd)"
+        />
+      </div>
+
       {mainOrders.map((order: OrderType) => (
         <UserOrder key={order.id} order={order} refetchOrders={refetchOrders} />
       ))}

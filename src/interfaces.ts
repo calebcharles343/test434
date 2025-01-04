@@ -52,6 +52,12 @@ export interface PasswordForgotTypes {
   email: string;
 }
 
+export interface UpdatePasswordType {
+  passwordCurrent: string;
+  password: string;
+  passwordConfirm: string;
+}
+
 ////////////////
 //Product
 ////////////////

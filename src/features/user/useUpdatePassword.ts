@@ -3,8 +3,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { AxiosError, AxiosResponse } from "axios";
 import { useState } from "react";
-import { updateUserRole as updateUserRoleAPI } from "../../services/apiUser.ts";
+import { updatePassword as updatePasswordAPI } from "../../services/apiUser.ts";
 import toast from "react-hot-toast";
+import { UpdatePasswordType } from "../../interfaces.ts";
 
 interface ErrorResponse {
   message: string; // Assuming the error response has a 'message' field
@@ -15,25 +16,25 @@ interface LoginError extends AxiosError {
   response?: AxiosResponse<ErrorResponse>;
 }
 
-export function useUpdateUserRole(id: number) {
+export function UpdatePassword() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const {
-    mutate: UpdateUserRole,
+    mutate: updatePassword,
     isPending,
     isError,
   } = useMutation({
-    mutationFn: (data: { role: string }) => updateUserRoleAPI(id, data),
+    mutationFn: (data: UpdatePasswordType) => updatePasswordAPI(data),
 
     onSuccess: (data) => {
       if (data.status === 200) {
         console.log(data.data);
 
         queryClient.invalidateQueries(["activeUser"] as any);
-        toast.success("User role updated");
+        toast.success("Password updated");
       } else if (data.status !== 200) {
-        toast.error("User role update unsuccessfull");
+        toast.error("Password update unsuccessfull");
 
         setErrorMessage(data.message);
         console.error("Error:", data.message); // Log error directly here
@@ -42,7 +43,7 @@ export function useUpdateUserRole(id: number) {
 
     onError: (err: LoginError) => {
       // Check if the error has a response, if so, display it
-      toast.error("Error updating user role");
+      toast.error("Error updating Password");
 
       const error = err.response?.data.message || "An error occurred";
 
@@ -51,5 +52,5 @@ export function useUpdateUserRole(id: number) {
     },
   });
 
-  return { UpdateUserRole, isPending, isError, errorMessage };
+  return { updatePassword, isPending, isError, errorMessage };
 }
