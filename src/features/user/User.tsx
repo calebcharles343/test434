@@ -63,18 +63,17 @@ const User: React.FC<ActiveUserProps> = ({ user }) => {
           >
             Role:
           </label>
-          {user.email === "calebcharles34@gmail.com" && (
-            <select
-              id={`status-${user.id}`}
-              value={role}
-              onChange={handleStatusChange}
-              className="text-xs md:text-sm border p-1 rounded"
-              disabled={isPending}
-            >
-              <option value="Admin">Admin</option>
-              <option value="User">User</option>
-            </select>
-          )}
+
+          <select
+            id={`status-${user.id}`}
+            value={role}
+            onChange={handleStatusChange}
+            className="text-xs md:text-sm border p-1 rounded"
+            disabled={isPending}
+          >
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
+          </select>
         </div>
       </div>
     </div>
