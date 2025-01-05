@@ -29,6 +29,7 @@ export function useUpdateProduct(id: number) {
     onSuccess: (data) => {
       if (data.status === 200) {
         queryClient.invalidateQueries(["products"] as any);
+        queryClient.invalidateQueries([`product-${id}`] as any);
         toast.success("Product updated successfully");
       } else if (data.status !== 200) {
         toast.error("Product update not successfull");

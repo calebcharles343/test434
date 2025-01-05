@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { ProductType } from "../../interfaces";
 import { useCreateProduct } from "./useCreateProduct";
-import { closeModal } from "../../store/modalSlice.ts";
+import { closeModal } from "../../store/modalSlice";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 
@@ -15,10 +15,11 @@ const CreateProductForm: React.FC = () => {
   });
 
   const { createProduct, isPending } = useCreateProduct();
-
   const dispatch = useDispatch();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value.trim() }));
   };
@@ -48,53 +49,58 @@ const CreateProductForm: React.FC = () => {
       >
         <div className="flex flex-col w-full gap-4">
           <div>
-            <label htmlFor="name" className="block mb-1 font-bold ">
+            <label htmlFor="name" className="block mb-1 font-bold">
               Name
             </label>
             <input
-              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
+              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm"
               id="name"
               type="text"
               placeholder="Enter product name"
+              maxLength={30}
+              minLength={1}
               value={formData.name}
               onChange={handleInputChange}
               required
             />
           </div>
           <div>
-            <label htmlFor="description" className="block mb-1 font-bold ">
+            <label htmlFor="description" className="block mb-1 font-bold">
               Description
             </label>
-            <input
-              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
+            <textarea
+              className="w-full h-24 md:h-32 px-4 py-2 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm"
               id="description"
-              type="text"
               placeholder="Enter product description"
+              maxLength={200}
+              minLength={1}
               value={formData.description}
               onChange={handleInputChange}
               required
             />
           </div>
           <div>
-            <label htmlFor="category" className="block mb-1 font-bold ">
+            <label htmlFor="category" className="block mb-1 font-bold">
               Category
             </label>
             <input
-              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
+              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm"
               id="category"
               type="text"
               placeholder="Enter product category"
+              maxLength={50}
+              minLength={1}
               value={formData.category}
               onChange={handleInputChange}
               required
             />
           </div>
           <div>
-            <label htmlFor="price" className="block mb-1 font-bold ">
+            <label htmlFor="price" className="block mb-1 font-bold">
               Price
             </label>
             <input
-              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
+              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm"
               id="price"
               type="number"
               placeholder="Enter product price"
@@ -104,11 +110,11 @@ const CreateProductForm: React.FC = () => {
             />
           </div>
           <div>
-            <label htmlFor="stock" className="block mb-1 font-bold ">
+            <label htmlFor="stock" className="block mb-1 font-bold">
               Stock
             </label>
             <input
-              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm "
+              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm"
               id="stock"
               type="number"
               placeholder="Enter product stock amount"

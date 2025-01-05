@@ -13,7 +13,7 @@ import {
 } from "react-icons/bi";
 import { FiMenu, FiSettings } from "react-icons/fi";
 import { sessionStorageUser } from "../utils/sessionStorageUser.ts";
-import Uploader from "../data/Uploader.tsx";
+// import Uploader from "../data/Uploader.tsx";
 
 const Sidebar: React.FC = () => {
   const [user, setUser] = useState(sessionStorageUser());
@@ -134,20 +134,20 @@ const Sidebar: React.FC = () => {
             </li>
           )}
         </ul>
-        {isAuthenticated &&
+        {/* {isAuthenticated &&
           user.role === "Admin" &&
           user.email === "calebcharles34@gmail.com" && (
             <div>
               <Uploader />
             </div>
-          )}
+          )} */}
 
         {isAuthenticated ? (
           isPending ? (
             <SpinnerMini />
           ) : (
             <button
-              className="flex items-center justify-center gap-2 mt-auto mb-0 text-gray-800 bg-gray-50 p-2 rounded hover:bg-[#ffa82b] hover:text-gray-800 transition-colors duration-200"
+              className="flex items-center justify-center gap-2 mt-auto mb-12 text-gray-800 bg-gray-50 p-2 rounded hover:bg-[#ffa82b] hover:text-gray-800 transition-colors duration-200"
               onClick={handleLogout}
             >
               <BiLogOut />
@@ -157,7 +157,7 @@ const Sidebar: React.FC = () => {
         ) : (
           <Link
             to="/auth"
-            className="flex items-center justify-center gap-2 mt-auto mb-6 text-gray-800 bg-gray-50 p-2 rounded hover:bg-[#ffa82b] hover:text-gray-800 transition-colors duration-200"
+            className="flex items-center justify-center gap-2 mt-auto mb-12 text-gray-800 bg-gray-50 p-2 rounded hover:bg-[#ffa82b] hover:text-gray-800 transition-colors duration-200"
           >
             <BiLogIn />
             Login

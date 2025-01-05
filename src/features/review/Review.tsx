@@ -22,15 +22,15 @@ const Review: React.FC<ReviewProps> = ({ review, refetchReviews }) => {
   };
 
   return (
-    <div className="flex flex-col w-full  border-l-8 border-[#FFA82B] border p-2 rounded-lg mb-4 bg-white shadow-lg gap-2">
+    <div className="flex flex-col w-full  border-l-[4px] border-[#FFA82B] border p-2 rounded-lg mb-4 bg-white shadow-lg gap-2">
       <div className=" flex items-center gap-4">
         <div className="flex flex-col w-full">
           <div className="flex items-center justify-between">
-            <p className="text-base font-semibold">{review.User?.name}</p>
+            <p className="text-sm font-semibold">{review.User?.name}</p>
             <div className="flex items-center gap-2">
               {sessionStorageUserX.id === review?.User?.id && (
                 <button
-                  className="text-sm text-blue-500"
+                  className="text-xs text-blue-500"
                   onClick={handleToggleEdit}
                 >
                   {isEdit ? "Cancel" : "Edit"}
@@ -39,7 +39,7 @@ const Review: React.FC<ReviewProps> = ({ review, refetchReviews }) => {
 
               {sessionStorageUserX.role === "Admin" && (
                 <button
-                  className="text-sm text-red-500"
+                  className="text-xs text-red-500"
                   onClick={() => deleteReview(review?.id!)}
                 >
                   Delete

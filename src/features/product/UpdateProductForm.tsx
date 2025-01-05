@@ -1,9 +1,7 @@
-import { FormEvent, useEffect, useState } from "react";
-import { useUpdateProduct } from "./useUpdateProduct.ts";
-import { ProductType } from "../../interfaces.ts";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store.ts";
-import { closeModal } from "../../store/modalSlice.ts";
+import { FormEvent, useState } from "react";
+import { useUpdateProduct } from "./useUpdateProduct";
+import { ProductType } from "../../interfaces";
+import { closeModal } from "../../store/modalSlice";
 import { useDispatch } from "react-redux";
 
 interface UpdateProductFormProps {
@@ -16,35 +14,18 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({ product }) => {
   );
 
   const [formData, setFormData] = useState<Partial<ProductType>>({
-    name: "",
-    description: "",
-    category: "",
-    price: 0,
-    stock: 0,
+    name: product?.name,
+    description: product?.description,
+    category: product?.category,
+    price: product?.price,
+    stock: product?.stock,
   });
 
   const dispatch = useDispatch();
 
-  const storeProducts = useSelector(
-    (state: RootState) => state.products.products
-  );
-
-  useEffect(() => {
-    const filterP = storeProducts.filter(
-      (productStore: ProductType) => productStore.id === product?.id
-    );
-    if (product) {
-      setFormData({
-        name: filterP[0].name,
-        description: filterP[0].description,
-        category: filterP[0].category,
-        price: filterP[0].price,
-        stock: filterP[0].stock,
-      });
-    }
-  }, [product, storeProducts]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value.trim() }));
   };
@@ -79,6 +60,8 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({ product }) => {
               id="name"
               type="text"
               placeholder="Enter product name"
+              maxLength={30}
+              minLength={1}
               value={formData.name}
               onChange={handleInputChange}
               required
@@ -88,11 +71,12 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({ product }) => {
             <label htmlFor="description" className="block mb-1 font-bold">
               Description
             </label>
-            <input
-              className="w-full h-8 md:h-10 px-4 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm"
+            <textarea
+              className="w-full h-24 md:h-32 px-4 py-2 rounded-md border focus:border-[#B97743] focus:outline-none shadow-sm"
               id="description"
-              type="text"
               placeholder="Enter product description"
+              maxLength={200}
+              minLength={1}
               value={formData.description}
               onChange={handleInputChange}
               required
@@ -107,6 +91,8 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({ product }) => {
               id="category"
               type="text"
               placeholder="Enter product category"
+              maxLength={50}
+              minLength={1}
               value={formData.category}
               onChange={handleInputChange}
               required

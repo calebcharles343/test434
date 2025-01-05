@@ -22,7 +22,8 @@ const ProductDetails: React.FC = () => {
 
   if (isLoadingProduct)
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+      <div className="relative flex items-center justify-center bg-black bg-opacity-20 backdrop-blur-sm w-full h-full">
+        {" "}
         <SpinnerMini />;
       </div>
     );
@@ -70,17 +71,25 @@ const ProductDetails: React.FC = () => {
 
         <div className="flex flex-col gap-4 md:w-1/2">
           <div>
-            <h2 className="text-lg font-semibold mb-2">Product Details</h2>{" "}
-            <div className="min-w-full md:min-w-[268.5px] border p-4 rounded-lg shadow-md">
-              <p>{mainProduct.description}</p>
+            <h2 className="text-base font-semibold mb-2">Product Details</h2>{" "}
+            <div className="text-sm min-w-full md:min-w-[268.5px]  max-h-[150px] border p-4 rounded-lg shadow-md overflow-y-scroll">
+              <p
+                style={{
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  whiteSpace: "pre-wrap",
+                }}
+              >
+                {mainProduct.description}
+              </p>
             </div>
           </div>
           <div className="w-full ">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold mb-2">Reviews</h2>{" "}
+              <h2 className="text-base font-semibold mb-2">Reviews</h2>{" "}
               <span className="text-sm">No: {reviews?.data.length}</span>{" "}
             </div>
-            <div className="max-h-[420px] overflow-y-scroll border-gray-600 border-t border-b shadow-inner py-1">
+            <div className="max-h-[350px] overflow-y-scroll border border-gray-300 rounded-lg px-2 py-4">
               {displayedReviews.length ? (
                 displayedReviews.map((review: ReviewType) => (
                   <Review
