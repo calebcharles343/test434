@@ -157,7 +157,7 @@ const Sidebar: React.FC = () => {
         ) : (
           <Link
             to="/auth"
-            className="flex items-center justify-center gap-2 mt-auto mb-0 text-gray-800 bg-gray-50 p-2 rounded hover:bg-[#ffa82b] hover:text-gray-800 transition-colors duration-200"
+            className="flex items-center justify-center gap-2 mt-auto mb-6 text-gray-800 bg-gray-50 p-2 rounded hover:bg-[#ffa82b] hover:text-gray-800 transition-colors duration-200"
           >
             <BiLogIn />
             Login

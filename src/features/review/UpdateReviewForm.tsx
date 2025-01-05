@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useUpdateReview } from "./useUpdateReview.ts";
 import toast from "react-hot-toast";
 import { ReviewType } from "../../interfaces.ts";
+import ReviewStars from "./ReviewStars.tsx";
 
 interface ReviewFormProps {
   productId: number;
@@ -59,16 +60,7 @@ const UpdateReviewForm: React.FC<ReviewFormProps> = ({
         <label htmlFor="rating" className="mb-2">
           Rating
         </label>
-        <input
-          type="number"
-          id="rating"
-          className="p-2 border rounded-lg shadow-md"
-          value={rating}
-          onChange={(e) => setRating(parseFloat(e.target.value))}
-          min="0"
-          max="5"
-          step="1"
-        />
+        <ReviewStars rating={rating} setRating={setRating} />
       </div>
       <button
         type="submit"

@@ -96,9 +96,9 @@ export default function SingleProduct({ product }: ProductProps) {
 
   return (
     <div
-      className={`text-gray-600 flex flex-col w-[280px] border border-gray-200 p-4 gap-4 shadow-lg rounded-lg`}
+      className={`text-gray-600 flex flex-col w-[280px] border border-gray-200 p-4 gap-2 shadow-lg rounded-lg`}
     >
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center justify-between mb-2 gap-1">
         <p className="text-base font-semibold">{product.name}</p>
         {!id && (
           <button
@@ -120,7 +120,7 @@ export default function SingleProduct({ product }: ProductProps) {
           ${product.price}
         </span>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2 text-xs mt-1">

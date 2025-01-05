@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useCreateReview } from "./useCreateReview.ts";
 import toast from "react-hot-toast";
+import ReviewStars from "./ReviewStars.tsx";
 
 interface ReviewFormProps {
   productId: number;
@@ -11,15 +12,15 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   productId,
   refetchReviews,
 }) => {
-  const [reviewText, setReviewText] = useState<string>("");
-  const [rating, setRating] = useState<number>(0);
+  const [reviewText, setReviewText] = useState<string>("Great product");
+  const [rating, setRating] = useState<number>(4);
 
   const { createReview } = useCreateReview(productId);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!rating || !reviewText) {
-      toast.error("invalid inputs");
+      toast.error("Invalid inputs");
       return;
     }
     if (rating < 1) {
@@ -29,14 +30,14 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 
     createReview({ review: reviewText, rating } as any);
     setReviewText("");
-    setRating(0);
+    setRating(4); // Reset to default rating after submission
     refetchReviews();
   };
 
   return (
     <form onSubmit={handleSubmit} className="mt-4">
       <div className="flex flex-col mb-4">
-        <label htmlFor="review" className="mb-2">
+        <label htmlFor="review" className="font-bold text-center mb-2">
           Review
         </label>
         <textarea
@@ -47,26 +48,8 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
         />
       </div>
       <div className="flex flex-col mb-4">
-        <label htmlFor="rating" className="mb-2">
-          Rating
-        </label>
-        <input
-          type="number"
-          id="rating"
-          className="p-2 border rounded-lg shadow-md"
-          value={rating}
-          onChange={(e) => {
-            const value = parseFloat(e.target.value);
-            if (value >= 1 && value <= 5) {
-              setRating(value);
-            } else if (!e.target.value) {
-              setRating(0); // Reset to 0 if the field is cleared
-            }
-          }}
-          min="1"
-          max="5"
-          step="1"
-        />
+        <label className="font-bold text-center mb-2">Rating</label>
+        <ReviewStars rating={rating} setRating={setRating} />
       </div>
       <button
         type="submit"
