@@ -22,7 +22,7 @@ const Review: React.FC<ReviewProps> = ({ review, refetchReviews }) => {
   };
 
   return (
-    <div className="flex flex-col border-l-8 border-[#FFA82B] border p-2 rounded-lg mb-4 bg-white shadow-lg gap-2">
+    <div className="flex flex-col w-full  border-l-8 border-[#FFA82B] border p-2 rounded-lg mb-4 bg-white shadow-lg gap-2">
       <div className=" flex items-center gap-4">
         <div className="flex flex-col w-full">
           <div className="flex items-center justify-between">
@@ -47,7 +47,16 @@ const Review: React.FC<ReviewProps> = ({ review, refetchReviews }) => {
               )}
             </div>
           </div>
-          <p className="text-sm mt-1">{review.review}</p>
+          <p
+            className="text-xs mt-1"
+            style={{
+              wordBreak: "break-word",
+              overflowWrap: "break-word",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            {review.review}
+          </p>
 
           <div className="flex items-center justify-between">
             <p className="text-xs text-blue-500 font-bold mt-1">

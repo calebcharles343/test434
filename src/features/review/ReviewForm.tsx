@@ -44,6 +44,8 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
           id="review"
           className="p-2 h-24 text-sm border rounded-lg shadow-md resize-none"
           value={reviewText}
+          maxLength={200}
+          minLength={1}
           onChange={(e) => setReviewText(e.target.value)}
         />
       </div>
