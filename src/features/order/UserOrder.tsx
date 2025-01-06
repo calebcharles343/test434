@@ -2,7 +2,7 @@ import React from "react";
 import { OrderType } from "../../interfaces";
 import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
 import OrderItem from "./OrderItem";
-import { useCancelOrder } from "./useCancelOrder";
+// import { useCancelOrder } from "./useCancelOrder";
 import { dateformat } from "../../utils/dateFormat";
 
 interface OrderProps {
@@ -11,20 +11,20 @@ interface OrderProps {
 }
 
 const UserOrder: React.FC<OrderProps> = ({ order }) => {
-  const { cancelOrder, isPending } = useCancelOrder(order.id);
+  // const { cancelOrder, isPending } = useCancelOrder(order.id);
 
-  const handleCancelOrder = async () => {
-    try {
-      await cancelOrder({ status: "cancelled" });
-      // refetchOrders(); // Refetch only after a successful mutation
-    } catch (error) {
-      console.error("Failed to cancel order:", error);
-    }
-  };
+  // const handleCancelOrder = async () => {
+  //   try {
+  //     await cancelOrder({ status: "cancelled" });
+  //     // refetchOrders(); // Refetch only after a successful mutation
+  //   } catch (error) {
+  //     console.error("Failed to cancel order:", error);
+  //   }
+  // };
 
   return (
     <div
-      className={`w-[300px] md:w-[500px] border-l-8 p-4 rounded-lg mb-4 bg-white shadow-lg ${
+      className={`w-[300px] md:w-[500px] border border-l-8 p-4 rounded-lg mb-4 bg-white shadow-lg ${
         order.status === "pending" ? "border-[#FFA82B]" : ""
       } ${order.status === "cancelled" ? "border-red-500" : ""} ${
         order.status === "completed" ? "border-green-500" : ""
@@ -49,7 +49,7 @@ const UserOrder: React.FC<OrderProps> = ({ order }) => {
                   {capitalizeFirstLetter(order.status)}
                 </span>
               </p>
-              {order.status === "pending" && (
+              {/* {order.status === "pending" && (
                 <button
                   className="text-xs text-gray-50 bg-red-500 px-2 rounded-md"
                   onClick={handleCancelOrder}
@@ -57,7 +57,7 @@ const UserOrder: React.FC<OrderProps> = ({ order }) => {
                 >
                   X
                 </button>
-              )}
+              )} */}
             </div>
           </div>
           <p className="text-xs md:text-base mt-2">
