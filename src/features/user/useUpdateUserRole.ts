@@ -33,7 +33,7 @@ export function useUpdateUserRole(id: number) {
         queryClient.invalidateQueries(["activeUser"] as any);
         toast.success("User role updated");
       } else if (data.status !== 200) {
-        toast.error("User role update unsuccessfull");
+        toast.error("User role update unsuccessful");
 
         setErrorMessage(data.message);
         console.error("Error:", data.message); // Log error directly here

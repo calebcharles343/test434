@@ -34,7 +34,7 @@ export function UpdatePassword() {
         queryClient.invalidateQueries(["activeUser"] as any);
         toast.success("Password updated");
       } else if (data.status !== 200) {
-        toast.error("Password update unsuccessfull");
+        toast.error("Password update unsuccessful");
 
         setErrorMessage(data.message);
         console.error("Error:", data.message); // Log error directly here

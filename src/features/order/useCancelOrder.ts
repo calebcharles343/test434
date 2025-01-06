@@ -30,7 +30,7 @@ export function useCancelOrder(id: number) {
         queryClient.invalidateQueries(["products"] as any);
         toast.success("Order cancelled");
       } else if (data.status !== 200) {
-        toast.error("Order cancellation unsuccessfull");
+        toast.error("Order cancellation unsuccessful");
 
         setErrorMessage(data.message);
         console.error("cancelling Error:", data.message);

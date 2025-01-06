@@ -26,7 +26,7 @@ export function useforgotPassword() {
 
     onSuccess: (data) => {
       if (data.status === 200) {
-        toast.success("Successfull! please check your mail.");
+        toast.success("Successful! please check your mail.");
       } else {
         toast.error(`${data.message}`);
 

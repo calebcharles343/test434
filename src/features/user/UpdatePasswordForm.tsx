@@ -35,11 +35,11 @@ const UpdatePasswordForm: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center ">
       <h2 className="text-lg font-extrabold">Reset Password</h2>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 w-full max-w-md bg-white bg-opacity-90 p-6 rounded-md shadow-xl backdrop-blur-lg  mx-4 md:mx-0"
+        className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 w-full max-w-md bg-white bg-opacity-90 p-6 rounded-md shadow-xl backdrop-blur-lg  mx-4 md:mx-0 border-2"
       >
         <div className="flex flex-col w-full gap-4">
           <div>

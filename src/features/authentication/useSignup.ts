@@ -50,7 +50,7 @@ export function useSignup() {
         sessionStorage.setItem("currentSessionUser", JSON.stringify(userData));
         sessionStorage.setItem(`token-${userData.id}`, data.data.token);
 
-        toast.success(`Signup sucessfull`);
+        toast.success(`Signup sucessful`);
 
         // Redirect to the home page
         navigate("/home", { replace: true });

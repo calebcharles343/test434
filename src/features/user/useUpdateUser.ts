@@ -37,7 +37,7 @@ export function useUpdateUser() {
 
         toast.success("User name updated");
       } else if (data.status !== 200) {
-        toast.error("User name update unsuccessfull");
+        toast.error("User name update unsuccessful");
 
         console.error("Error:", data.message); // Log error directly here
       }

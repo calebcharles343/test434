@@ -15,7 +15,7 @@ export function useUploadImage(headers: Record<string, string>) {
       return uploadImageApi(formData, headers);
     },
     onSuccess: () => {
-      toast.success("Image upload successfull");
+      toast.success("Image upload successful");
       // Invalidate user query to refetch data
       queryClient.invalidateQueries(["user"] as any);
     },

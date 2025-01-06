@@ -30,7 +30,7 @@ export function useUpdateOrderStatus(id: number) {
         queryClient.invalidateQueries(["products"] as any);
         toast.success("Order status updated");
       } else if (data.status !== 200) {
-        toast.error("Order status update unsuccessfull");
+        toast.error("Order status update unsuccessful");
 
         setErrorMessage(data.message);
         console.error("Login Error:", data.message); // Log error directly here

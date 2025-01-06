@@ -30,7 +30,7 @@ export function useResetPassword(token: string) {
 
     onSuccess: (data) => {
       if (data.status === 200) {
-        toast.success("Password reset successfull");
+        toast.success("Password reset successful");
 
         navigate("/auth", { replace: true });
       } else {

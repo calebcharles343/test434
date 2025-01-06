@@ -46,7 +46,7 @@ const AdminOrders: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="relative flex items-center justify-center bg-black bg-opacity-20 backdrop-blur-sm w-full h-full">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
         <SpinnerMini />
       </div>
     );
@@ -59,9 +59,9 @@ const AdminOrders: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center w-full py-8">
+    <div className="flex flex-col items-center min-h-screen w-full py-8">
       <div className="flex w-full items-center flex-col gap-2">
-        <div className="flex flex-col text-sm  items-center w-full max-w-[140px] ">
+        <div className="flex flex-col text-sm items-center w-full max-w-[140px]">
           <DatePicker
             selected={searchDate}
             onChange={(date) => setSearchDate(date)}
@@ -71,7 +71,7 @@ const AdminOrders: React.FC = () => {
           />
         </div>
 
-        <div className="w-full max-w-[300px] text-sm  mb-4">
+        <div className="w-full max-w-[300px] text-sm mb-4">
           <input
             type="text"
             value={searchTerm}

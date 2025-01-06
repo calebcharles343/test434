@@ -38,7 +38,7 @@ const UserOrders: React.FC = () => {
 
   if (isLoadingOrders) {
     return (
-      <div className="relative flex items-center justify-center bg-black bg-opacity-20 backdrop-blur-sm w-full h-full">
+      <div className="relative flex items-center justify-center bg-black bg-opacity-20 backdrop-blur-sm w-full h-screen">
         <SpinnerMini />
       </div>
     );
@@ -56,8 +56,8 @@ const UserOrders: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center py-8 gap-4">
-      <div className="flex flex-col text-sm items-center w-full max-w-[140px]">
+    <div className="h-full w-full flex flex-col items-center py-8 gap-4">
+      <div className="flex flex-col text-sm items-center w-full max-w-[200px]">
         <DatePicker
           selected={searchDate}
           onChange={(date) => setSearchDate(date)}

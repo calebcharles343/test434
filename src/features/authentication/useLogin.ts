@@ -33,7 +33,7 @@ export function useLogin() {
         queryClient.invalidateQueries(["adminOrders"] as any);
         queryClient.invalidateQueries(["orders"] as any);
 
-        toast.success(`Login sucessfull`);
+        toast.success(`Login sucessful`);
 
         // Redirect to the home page
         navigate("/home", { replace: true });

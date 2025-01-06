@@ -32,7 +32,7 @@ export function useUpdateProduct(id: number) {
         queryClient.invalidateQueries([`product-${id}`] as any);
         toast.success("Product updated successfully");
       } else if (data.status !== 200) {
-        toast.error("Product update not successfull");
+        toast.error("Product update not successful");
         setErrorMessage(data.message);
         console.error("Login Error:", data.message); // Log error directly here
       }
