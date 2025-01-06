@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useLogout } from "../features/authentication/useLogout.ts";
 import SpinnerMini from "./SpinnerMini.tsx";
-import sideBarImg2 from "../data/img/SIdeBar-2.jpg";
+// import sideBarImg2 from "../data/img/SIdeBar-2.jpg";
 import {
   BiCart,
   BiHome,
@@ -45,7 +45,7 @@ const Sidebar: React.FC = () => {
     <div>
       <nav
         className=" text-sm md:text-lg flex flex-col bg-[#272524] text-gray-50 items-center row-start-1 row-end-3 w-[185px] md:min-w-[230px] h-[100vh]  pt-4 pb-24 shadow-xl gap-4 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${sideBarImg2})` }}
+        // style={{ backgroundImage: `url(${sideBarImg2})` }}
       >
         <span
           className="text-sm text-[#ffa82b] font-extrabold p-2 border border-[#ffa82b] rounded-lg"
