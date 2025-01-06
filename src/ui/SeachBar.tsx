@@ -67,7 +67,7 @@ const SearchBar: React.FC = () => {
         onFocus={handleFocus} // Show CheckBox container on focus
       />
       {showCheckBoxContainer && (
-        <div className="absolute transform -translate-x-0 translate-y-8 md:-translate-y-5  mt-2 flex items-center bg-white border p-2 rounded-lg shadow-lg md:left-6 md:top-12 lg:w-[62%]">
+        <div className="absolute transform translate-x-1 translate-y-8 md:-translate-y-5  mt-2 flex items-center bg-white border p-2 rounded-lg shadow-lg md:left-6 md:top-12 lg:w-[62%]">
           <CheckBox
             label="Top Ratings"
             name="ratingCheckbox"
