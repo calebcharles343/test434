@@ -89,7 +89,10 @@ export const updateOrderStatus = async (
   id: number,
   orderData: Partial<OrderType>
 ) => {
-  const response = await axiosInstance.patch(`/orders/update/${id}`, orderData);
+  const response = await axiosInstance.patch(
+    `/orders/updateOrderStatus/${id}`,
+    orderData
+  );
   return response.data;
 };
 
