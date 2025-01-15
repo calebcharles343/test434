@@ -44,7 +44,7 @@ const UpdateReviewForm: React.FC<ReviewFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4">
+    <form onSubmit={handleSubmit} className="flex flex-col mt-4">
       <div className="flex flex-col mb-4">
         <label htmlFor="review" className="mb-2">
           Review

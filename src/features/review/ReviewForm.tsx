@@ -12,17 +12,18 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   productId,
   refetchReviews,
 }) => {
-  const [reviewText, setReviewText] = useState<string>("Great product");
-  const [rating, setRating] = useState<number>(4);
+  const [reviewText, setReviewText] = useState<string>();
+  const [rating, setRating] = useState<number>();
 
   const { createReview } = useCreateReview(productId);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!rating || !reviewText) {
-      toast.error("Invalid inputs");
+      toast.error("Provide both Review and Rating");
       return;
     }
+
     if (rating < 1) {
       toast.error("Rating must be greater than 0");
       return;
@@ -30,12 +31,12 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 
     createReview({ review: reviewText, rating } as any);
     setReviewText("");
-    setRating(4); // Reset to default rating after submission
+    setRating(0); // Reset to default rating after submission
     refetchReviews();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4">
+    <form onSubmit={handleSubmit} className="flex flex-col mt-4">
       <div className="flex flex-col mb-4">
         <label htmlFor="review" className="font-bold text-center mb-2">
           Review
@@ -51,7 +52,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
       </div>
       <div className="flex flex-col mb-4">
         <label className="font-bold text-center mb-2">Rating</label>
-        <ReviewStars rating={rating} setRating={setRating} />
+        <ReviewStars rating={rating!} setRating={setRating} />
       </div>
       <button
         type="submit"
